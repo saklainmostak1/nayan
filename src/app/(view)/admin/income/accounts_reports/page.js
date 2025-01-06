@@ -850,7 +850,7 @@ const AccountReports = () => {
     const [type, setType] = useState('daily');
     const [formattedRows, setFormattedRows] = useState([]); // New state for formatted rows
     const [error, setError] = useState(null);
-
+    console.log(results)
 
     useEffect(() => {
         const startYear = 2023;
@@ -898,15 +898,260 @@ const AccountReports = () => {
     console.log(incomeSearch)
     console.log(searchResults)
 
+    // const formatTableRows = (expenses, incomes, type) => {
+    //     const combinedData = {};
+
+    //     const year = parseFloat(yearName); // Assuming yearName is defined somewhere in your code
+    //     const currentYear = new Date().getFullYear(); // Get the current year
+    //     const currentDate = new Date(); // Get the current date
+    //     const startDate = new Date(year, 0, 1); // January 1st of the specified year
+    //     const endDate = new Date(year, 11, 31); // December 31st of the specified year
+
+    //     if (type === 'daily') {
+    //         if (year === currentYear) {
+    //             for (let day = new Date(year, 0, 1); day <= currentDate; day.setDate(day.getDate() + 1)) {
+    //                 const dateKey = `${day.getDate().toString().padStart(2, '0')}-${(day.getMonth() + 1).toString().padStart(2, '0')}-${year}`;
+    //                 combinedData[dateKey] = {
+    //                     income: 0,
+    //                     totalExpense: 0,
+    //                     totalPurchase: 0,
+    //                     totalSale: 0,
+    //                     salaryExpense: 0,
+    //                     incomeCategories: {}, // Track income by category
+    //                     expenseCategories: {}, // Track expenses by category
+    //                 };
+    //             }
+    //         } else {
+    //             for (let day = startDate; day <= endDate; day.setDate(day.getDate() + 1)) {
+    //                 const dateKey = `${day.getDate().toString().padStart(2, '0')}-${(day.getMonth() + 1).toString().padStart(2, '0')}-${year}`;
+    //                 combinedData[dateKey] = {
+    //                     income: 0,
+    //                     totalExpense: 0,
+    //                     totalSale: 0,
+    //                     totalPurchase: 0,
+    //                     salaryExpense: 0,
+    //                     incomeCategories: {},
+    //                     expenseCategories: {},
+    //                 };
+    //             }
+    //         }
+    //     } else if (type === 'monthly') {
+    //         const allMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    //         allMonths.forEach((month, index) => {
+    //             const monthKey = `${month}-${year}`;
+    //             if (year === currentYear && index > currentDate.getMonth()) {
+    //                 return;
+    //             }
+    //             combinedData[monthKey] = {
+    //                 income: 0,
+    //                 totalSale: 0,
+    //                 totalExpense: 0,
+    //                 totalPurchase: 0,
+    //                 salaryExpense: 0,
+    //                 incomeCategories: {},
+    //                 expenseCategories: {},
+    //             };
+    //         });
+    //     }
+
+
+
+    //     // Process expenses
+    //     expenses.forEach(expense => {
+    //         const { created_date, sub_total_expense, expense_category, sub_total_salary, sub_total_purchase } = expense;
+    //         const expenseDate = new Date(created_date);
+    //         const dateKey = type === 'daily'
+    //             ? `${expenseDate.getDate().toString().padStart(2, '0')}-${(expenseDate.getMonth() + 1).toString().padStart(2, '0')}-${expenseDate.getFullYear()}`
+    //             : `${expenseDate.toLocaleString('default', { month: 'short' })}-${expenseDate.getFullYear()}`;
+
+    //         if (!combinedData[dateKey]) {
+    //             combinedData[dateKey] = {
+    //                 income: 0,
+    //                 totalExpense: 0,
+    //                 totalPurchase: 0,
+    //                 salaryExpense: 0,
+    //                 incomeCategories: {},
+    //                 expenseCategories: {},
+    //             };
+    //         }
+
+    //         combinedData[dateKey].totalExpense += sub_total_expense;
+    //         if (expense_category === "Salary") {
+    //             combinedData[dateKey].salaryExpense += sub_total_expense;
+    //         }
+    //         if (expense_category === "Purchase") {
+    //             combinedData[dateKey].totalPurchase += sub_total_expense;
+    //         }
+
+    //         if (!combinedData[dateKey].expenseCategories[expense_category]) {
+    //             combinedData[dateKey].expenseCategories[expense_category] = 0;
+    //         }
+    //         combinedData[dateKey].expenseCategories[expense_category] += sub_total_expense;
+    //     });
+
+    //     // Process incomes
+    //     incomes.forEach(income => {
+    //         const { created_date, sub_total_income, income_category } = income;
+    //         const incomeDate = new Date(created_date);
+    //         const dateKey = type === 'daily'
+    //             ? `${incomeDate.getDate().toString().padStart(2, '0')}-${(incomeDate.getMonth() + 1).toString().padStart(2, '0')}-${incomeDate.getFullYear()}`
+    //             : `${incomeDate.toLocaleString('default', { month: 'short' })}-${incomeDate.getFullYear()}`;
+
+    //         if (!combinedData[dateKey]) {
+    //             combinedData[dateKey] = {
+    //                 income: 0,
+    //                 totalExpense: 0,
+    //                 totalPurchase: 0,
+    //                 totalSale: 0,
+    //                 salaryExpense: 0,
+    //                 incomeCategories: {},
+    //                 expenseCategories: {},
+    //             };
+    //         }
+
+    //         combinedData[dateKey].income += sub_total_income;
+    //         if (income_category === "Sale") {
+    //             combinedData[dateKey].totalSale += sub_total_income;
+    //         }
+    //         if (!combinedData[dateKey].incomeCategories[income_category]) {
+    //             combinedData[dateKey].incomeCategories[income_category] = 0;
+    //         }
+    //         combinedData[dateKey].incomeCategories[income_category] += sub_total_income;
+    //     });
+
+    //     // Create formatted rows with opening balance calculation
+    //     let previousBalance = 0;
+    //     const tableRows = Object.keys(combinedData).sort((a, b) => {
+    //         if (type === 'daily') {
+    //             const [dayA, monthA, yearA] = a.split('-').map(Number);
+    //             const [dayB, monthB, yearB] = b.split('-').map(Number);
+    //             return yearA - yearB || monthA - monthB || dayA - dayB;
+    //         } else {
+    //             const [monthA, yearA] = a.split('-');
+    //             const [monthB, yearB] = b.split('-');
+    //             const monthIndexA = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].indexOf(monthA);
+    //             const monthIndexB = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].indexOf(monthB);
+    //             return yearA - yearB || monthIndexA - monthIndexB;
+    //         }
+    //     }).map((date, index) => {
+    //         const data = combinedData[date];
+
+    //         const total = data.income - (data.totalExpense + data.salaryExpense);
+    //         const openingBalance = previousBalance;
+    //         const closingBalance = openingBalance + total;
+    //         previousBalance = closingBalance;
+
+    //         console.log(data.expenseCategories)
+
+    //         return (
+    //             <table key={date} className="table table-bordered table-hover table-striped table-sm">
+    //             <thead>
+    //                 <tr>
+    //                     <th>SL No.</th>
+    //                     <th>Transaction Date</th>
+    //                     <th>Opening Balance</th>
+
+    //                     <th>
+
+    //                     {Object.entries(data.expenseCategories)
+    //                         .filter(([expense_category]) => expense_category !== 'Salary' && expense_category !== 'Purchase') // Exclude "Salary"
+    //                         .map(([expense_category, amount]) => (
+    //                             <div key={expense_category}>{expense_category}</div>
+    //                         ))}
+
+    //                     </th>
+    //                     <th>Total Sale</th>
+    //                     <th>Total Income</th>
+    //                     <th>
+    //                     {Object.entries(data.expenseCategories)
+    //                         .filter(([expense_category]) => expense_category !== 'Salary' && expense_category !== 'Purchase') // Exclude "Salary"
+    //                         .map(([expense_category, amount]) => (
+    //                             <div key={expense_category}>{expense_category}</div>
+    //                         ))}
+    //                     </th>
+    //                     <th>Total Purchase</th>
+    //                     <th>Total Expense</th>
+
+    //                     <th>Salary</th>
+    //                     <th>Total</th>
+    //                 </tr>
+    //             </thead>
+    //             <tbody>
+    //              <tr key={date}>
+    //                  <td>{index + 1}</td>
+    //                  <td>{date}</td> {/* Display formatted date or month */}
+    //                  <td>{openingBalance.toFixed(2)}</td> {/* Opening balance */}
+    //                  <td>
+    //                      {Object.entries(data.expenseCategories)
+    //                         .filter(([expense_category]) => expense_category !== 'Salary' && expense_category !== 'Purchase') // Exclude "Salary"
+    //                         .map(([expense_category, amount]) => (
+    //                             <div key={expense_category}>{amount.toFixed(2)}</div>
+    //                         ))}
+    //                 </td>
+
+    //                 <td>{data.totalSale.toFixed(2)}</td>
+    //                 <td>{data.income.toFixed(2)}</td>
+    //                 <td>
+    //                     {Object.entries(data.expenseCategories)
+    //                         .filter(([expense_category]) => expense_category !== 'Salary' && expense_category !== 'Purchase') // Exclude "Salary"
+    //                         .map(([expense_category, amount]) => (
+    //                             <div key={expense_category}>{amount.toFixed(2)}</div>
+    //                         ))}
+    //                 </td>
+    //                 <td>{data.totalPurchase.toFixed(2)}</td>
+    //                 <td>{data.totalExpense.toFixed(2)}</td>
+    //                 <td>{data.salaryExpense.toFixed(2)}</td>
+    //                 <td>{total.toFixed(2)}</td> {/* Total income - total expenses */}
+
+
+
+    //             </tr>
+    //             </tbody>
+    //         </table>
+    //             // <tr key={date}>
+    //             //     <td>{index + 1}</td>
+    //             //     <td>{date}</td> {/* Display formatted date or month */}
+    //             //     <td>{openingBalance.toFixed(2)}</td> {/* Opening balance */}
+    //             //     <th>
+    //             //         {Object.entries(data.expenseCategories)
+    //             //             .filter(([expense_category]) => expense_category !== 'Salary' && expense_category !== 'Purchase') // Exclude "Salary"
+    //             //             .map(([expense_category, amount]) => (
+    //             //                 <div key={expense_category}>{expense_category}</div>
+    //             //             ))}
+    //             //     </th>
+
+    //             //     <td>{data.totalSale.toFixed(2)}</td>
+    //             //     <td>{data.income.toFixed(2)}</td>
+    //             //     <td>
+    //             //         {Object.entries(data.expenseCategories)
+    //             //             .filter(([expense_category]) => expense_category !== 'Salary' && expense_category !== 'Purchase') // Exclude "Salary"
+    //             //             .map(([expense_category, amount]) => (
+    //             //                 <div key={expense_category}>{expense_category}</div>
+    //             //             ))}
+    //             //     </td>
+    //             //     <td>{data.totalPurchase.toFixed(2)}</td>
+    //             //     <td>{data.totalExpense.toFixed(2)}</td>
+    //             //     <td>{data.salaryExpense.toFixed(2)}</td>
+    //             //     <td>{total.toFixed(2)}</td> {/* Total income - total expenses */}
+
+
+
+    //             // </tr>
+    //         );
+    //     });
+
+    //     setFormattedRows(tableRows);
+    // };
 
     const formatTableRows = (expenses, incomes, type) => {
         const combinedData = {};
+    
         const year = parseFloat(yearName); // Assuming yearName is defined somewhere in your code
         const currentYear = new Date().getFullYear(); // Get the current year
         const currentDate = new Date(); // Get the current date
         const startDate = new Date(year, 0, 1); // January 1st of the specified year
         const endDate = new Date(year, 11, 31); // December 31st of the specified year
-
+    
         if (type === 'daily') {
             if (year === currentYear) {
                 for (let day = new Date(year, 0, 1); day <= currentDate; day.setDate(day.getDate() + 1)) {
@@ -953,7 +1198,7 @@ const AccountReports = () => {
                 };
             });
         }
-
+    
         // Process expenses
         expenses.forEach(expense => {
             const { created_date, sub_total_expense, expense_category, sub_total_salary, sub_total_purchase } = expense;
@@ -961,7 +1206,7 @@ const AccountReports = () => {
             const dateKey = type === 'daily'
                 ? `${expenseDate.getDate().toString().padStart(2, '0')}-${(expenseDate.getMonth() + 1).toString().padStart(2, '0')}-${expenseDate.getFullYear()}`
                 : `${expenseDate.toLocaleString('default', { month: 'short' })}-${expenseDate.getFullYear()}`;
-
+    
             if (!combinedData[dateKey]) {
                 combinedData[dateKey] = {
                     income: 0,
@@ -972,7 +1217,7 @@ const AccountReports = () => {
                     expenseCategories: {},
                 };
             }
-
+    
             combinedData[dateKey].totalExpense += sub_total_expense;
             if (expense_category === "Salary") {
                 combinedData[dateKey].salaryExpense += sub_total_expense;
@@ -980,13 +1225,13 @@ const AccountReports = () => {
             if (expense_category === "Purchase") {
                 combinedData[dateKey].totalPurchase += sub_total_expense;
             }
-
+    
             if (!combinedData[dateKey].expenseCategories[expense_category]) {
                 combinedData[dateKey].expenseCategories[expense_category] = 0;
             }
             combinedData[dateKey].expenseCategories[expense_category] += sub_total_expense;
         });
-
+    
         // Process incomes
         incomes.forEach(income => {
             const { created_date, sub_total_income, income_category } = income;
@@ -994,7 +1239,7 @@ const AccountReports = () => {
             const dateKey = type === 'daily'
                 ? `${incomeDate.getDate().toString().padStart(2, '0')}-${(incomeDate.getMonth() + 1).toString().padStart(2, '0')}-${incomeDate.getFullYear()}`
                 : `${incomeDate.toLocaleString('default', { month: 'short' })}-${incomeDate.getFullYear()}`;
-
+    
             if (!combinedData[dateKey]) {
                 combinedData[dateKey] = {
                     income: 0,
@@ -1006,7 +1251,7 @@ const AccountReports = () => {
                     expenseCategories: {},
                 };
             }
-
+    
             combinedData[dateKey].income += sub_total_income;
             if (income_category === "Sale") {
                 combinedData[dateKey].totalSale += sub_total_income;
@@ -1016,7 +1261,7 @@ const AccountReports = () => {
             }
             combinedData[dateKey].incomeCategories[income_category] += sub_total_income;
         });
-
+    
         // Create formatted rows with opening balance calculation
         let previousBalance = 0;
         const tableRows = Object.keys(combinedData).sort((a, b) => {
@@ -1033,47 +1278,71 @@ const AccountReports = () => {
             }
         }).map((date, index) => {
             const data = combinedData[date];
-            setResults(data)
+    
             const total = data.income - (data.totalExpense + data.salaryExpense);
             const openingBalance = previousBalance;
             const closingBalance = openingBalance + total;
             previousBalance = closingBalance;
+    
+            const expenseCategoriesHeaders = Object.entries(data.expenseCategories)
+                .filter(([expense_category]) => expense_category !== 'Salary' && expense_category !== 'Purchase')
+                .map(([expense_category]) => expense_category);
 
+            const incomeCategoriesHeader = Object.entries(data.incomeCategories)
+                .filter(([income_category]) => income_category !== 'Sales' )
+                .map(([income_category]) => income_category);
+    
             return (
-
-                <tr key={date}>
-                    <td>{index + 1}</td>
-                    <td>{date}</td> {/* Display formatted date or month */}
-                    <td>{openingBalance.toFixed(2)}</td> {/* Opening balance */}
-                    <td>
-                        {Object.entries(data.incomeCategories).map(([income_category, amount]) => (
-                            <div key={income_category}>{income_category}: {amount.toFixed(2)}</div>
-                        ))}
-                    </td>
-                    <td>{data.totalSale.toFixed(2)}</td>
-                    <td>{data.income.toFixed(2)}</td>
-                    <td>
-                        {Object.entries(data.expenseCategories)
-                            .filter(([expense_category]) => expense_category !== 'Salary' && expense_category !== 'Purchase') // Exclude "Salary"
-                            .map(([expense_category, amount]) => (
-                                <div key={expense_category}>{expense_category}: {amount.toFixed(2)}</div>
+                <table key={date} className="table table-bordered table-hover table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th>SL No.</th>
+                            <th>Transaction Date</th>
+                            <th>Opening Balance</th>
+                            {incomeCategoriesHeader.map(income_category => (
+                                <th key={income_category}>{income_category}</th>
                             ))}
-                    </td>
-                    <td>{data.totalPurchase.toFixed(2)}</td>
-                    <td>{data.totalExpense.toFixed(2)}</td>
-                    <td>{data.salaryExpense.toFixed(2)}</td>
-                    <td>{total.toFixed(2)}</td> {/* Total income - total expenses */}
-
-
-
-                </tr>
+                            <th>Total Sale</th>
+                            <th>Total Income</th>
+                            {expenseCategoriesHeaders.map(expense_category => (
+                                <th key={expense_category}>{expense_category}</th>
+                            ))}
+                            <th>Total Purchase</th>
+                            <th>Total Expense</th>
+                            <th>Salary</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{index + 1}</td>
+                            <td>{date}</td> {/* Display formatted date or month */}
+                            <td>{openingBalance.toFixed(2)}</td> {/* Opening balance */}
+                            {incomeCategoriesHeader.map(income_category => (
+                                <td key={income_category}>{data.incomeCategories[income_category].toFixed(2)}</td>
+                            ))}
+                            <td>{data.totalSale.toFixed(2)}</td>
+                            <td>{data.income.toFixed(2)}</td>
+                            {expenseCategoriesHeaders.map(expense_category => (
+                                <td key={expense_category}>{data.expenseCategories[expense_category].toFixed(2)}</td>
+                            ))}
+                            <td>{data.totalPurchase.toFixed(2)}</td>
+                            <td>{data.totalExpense.toFixed(2)}</td>
+                            <td>{data.salaryExpense.toFixed(2)}</td>
+                            <td>{total.toFixed(2)}</td> {/* Total income - total expenses */}
+                        </tr>
+                    </tbody>
+                </table>
             );
         });
-
+    
         setFormattedRows(tableRows);
     };
 
-    console.log(formattedRows)
+
+    
+    console.log(results)
+
 
     return (
         <div className="container-fluid">
@@ -1152,33 +1421,15 @@ const AccountReports = () => {
                                             </div>
                                             <div className="card-body">
                                                 <div className="table-responsive">
-                                                    <table className="table table-bordered table-hover table-striped table-sm">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>SL No.</th>
-                                                                <th>Transaction Date</th>
-
-                                                                <th>Opening Balance</th>
-                                                                <th></th>
-
-                                                                <th>Total Sale</th>
-                                                                <th>Total Income</th>
-                                                                <th></th>
-
-                                                                <th>Total Purchase</th>
-                                                                <th>Total Expense</th>
-                                                                <th>Salary</th>
-                                                                <th>Total</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
+                                                   
+                                                       
                                                             {formattedRows.length > 0 ? formattedRows : (
                                                                 <tr>
                                                                     <td colSpan="7">No data available</td>
                                                                 </tr>
                                                             )}
-                                                        </tbody>
-                                                    </table>
+                                                        
+                                                  
                                                 </div>
                                             </div>
                                         </div>
