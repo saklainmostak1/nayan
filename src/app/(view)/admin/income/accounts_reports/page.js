@@ -975,10 +975,10 @@ const AccountReports = () => {
 
             combinedData[dateKey].totalExpense += sub_total_expense;
             if (expense_category === "Salary") {
-                combinedData[dateKey].salaryExpense += sub_total_salary;
+                combinedData[dateKey].salaryExpense += sub_total_expense;
             }
             if (expense_category === "Purchase") {
-                combinedData[dateKey].totalPurchase += sub_total_purchase;
+                combinedData[dateKey].totalPurchase += sub_total_expense;
             }
 
             if (!combinedData[dateKey].expenseCategories[expense_category]) {

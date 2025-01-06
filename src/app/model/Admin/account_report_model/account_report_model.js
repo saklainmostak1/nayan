@@ -1751,21 +1751,20 @@ const AccountReportModel = {
     expense_amount_account_report: async (req, res) => {
         try {
             const { yearName, type } = req.body;
-
+    
             // Expense SQL Query
             let expenseSql = `
                 SELECT 
                     expense.id, 
                     expense.expense_date AS created_date, 
-                     NULL AS sub_total_salary, -- Placeholder for expense query
-                     NULL AS sub_total_purchase, -- Placeholder for expense query
+                    NULL AS sub_total_salary, -- Placeholder for expense query
+                    NULL AS sub_total_purchase, -- Placeholder for expense query
                     SUM(expense.sub_total) AS sub_total_expense, 
                     expense_item.item_name AS expense_name, 
                     expense_category.expense_category_name AS expense_category,
                     expense_category.id AS expense_category_id,
                     account_head.account_head_name AS account_head_name,
                     expense.paid_by AS paid_by
-
                 FROM 
                     expense 
                     LEFT JOIN expense_category ON expense.expense_category = expense_category.id 
@@ -1773,46 +1772,46 @@ const AccountReportModel = {
                     LEFT JOIN account_head ON expense.paid_by = account_head.id
                 WHERE YEAR(expense.expense_date) = '${yearName}'
             `;
-
+    
             // Salary SQL Query
             let salarySql = `
                 SELECT 
                     salary.id,
                     salary.salary_date AS created_date,
-                       NULL AS  sub_total_expense, -- Placeholder for expense query
-                     NULL AS sub_total_purchase, -- Placeholder for expense query
+                    NULL AS sub_total_salary, 
+                    NULL AS sub_total_purchase,
                     SUM(salary.paid_amount) AS sub_total_salary,
                     'Employee Salary' AS expense_name,
                     'Salary' AS expense_category,
                     'Salary' AS expense_category_id,
                     '' AS account_head_name,
                     salary.paid_by AS paid_by
-                 
                 FROM 
                     salary
                 LEFT JOIN users ON users.id = salary.user_id
                 WHERE YEAR(salary.salary_date) = '${yearName}'
             `;
-
+    
+            // Purchase SQL Query
             let purchaseSql = `
                 SELECT 
                     purchase.id,
                     purchase.purchase_date AS created_date,
-                       NULL AS sub_total_salary, -- Placeholder for expense query
-                     NULL AS  sub_total_expense, -- Placeholder for expense query
-                    SUM(purchase.paid_amount) AS sub_total_purchase, -- Total purchase
+                    NULL AS sub_total_salary, 
+                    NULL AS sub_total_purchase,
+                    SUM(purchase.paid_amount) AS sub_total_purchase, 
                     'Purchase' AS expense_name,
                     'Purchase' AS expense_category,
                     'Purchase' AS expense_category_id,
-                    NULL AS account_head_name, -- Placeholder for expense query
-                    NULL AS paid_by -- Placeholder for expense query
+                    NULL AS account_head_name,
+                    NULL AS paid_by
                 FROM 
                     purchase
                 WHERE YEAR(purchase.purchase_date) = '${yearName}'
             `;
-
-            // Add date range filter if provided
-
+    
+            // Add date range filter if provided (optional, not included in the code but could be added if needed)
+    
             // Modify the query based on the 'type' (daily or monthly)
             if (type === "daily") {
                 expenseSql += ` GROUP BY DATE(expense.expense_date)`; // Group by day for daily type
@@ -1823,7 +1822,7 @@ const AccountReportModel = {
                 salarySql += ` GROUP BY MONTH(salary.salary_date)`;   // Group by month for monthly type
                 purchaseSql += ` GROUP BY MONTH(purchase.purchase_date)`;   // Group by month for monthly type
             }
-
+    
             // Combine both SQL queries using UNION ALL
             let combinedSql = `
                 (${expenseSql})
@@ -1832,9 +1831,9 @@ const AccountReportModel = {
                 UNION ALL
                 (${purchaseSql})
             `;
-
+    
             console.log("Combined SQL Query:", combinedSql);
-
+    
             // Execute the combined query
             connection.query(combinedSql, (error, results) => {
                 if (error) {
@@ -1850,7 +1849,7 @@ const AccountReportModel = {
             res.status(500).json({ error: "An error occurred." });
         }
     },
-
+    
 
     // accounts_report_print: async (req, res) => {
     //     try {
