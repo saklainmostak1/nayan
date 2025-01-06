@@ -56,8 +56,36 @@ const SettingsBrand = () => {
     console.log('Column Names:', columnNames);
 
 
-    const page_group = localStorage.getItem('pageGroup')
 
+
+
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [userId, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
 
 
     const [selectedColumns, setSelectedColumns] = React.useState([]);
@@ -86,7 +114,6 @@ const SettingsBrand = () => {
     console.log(selectedColumns)
     const filteredColumns = columnNames.filter(column => column !== 'id');
 
-    const userId = localStorage.getItem('userId')
 
     // Function to handle checkbox change
     const brand_settings_create = (event) => {

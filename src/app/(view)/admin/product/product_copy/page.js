@@ -101,7 +101,35 @@ const CopyProduct = ({ id }) => {
     };
 
 
-    const modified_by = localStorage.getItem('userId')
+  
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [modified_by, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
 
 
     useEffect(() => {
@@ -286,7 +314,7 @@ const CopyProduct = ({ id }) => {
     };
     console.log(productData, 'productData')
 
-    const created = localStorage.getItem('userId')
+
     const router = useRouter()
 
     const product_create = (event) => {
@@ -380,7 +408,7 @@ const CopyProduct = ({ id }) => {
             return;
         }
         const addValue = {
-            created_by: created, product_name, status_id, product_description, brand_id, model_id,
+            created_by: modified_by, product_name, status_id, product_description, brand_id, model_id,
             category_id, sub_category_id, unit_id, material_id, color_id,
             type_id, product_price, file_path, file_s, file_ms, file_m, product_quantity
 
@@ -413,7 +441,7 @@ const CopyProduct = ({ id }) => {
 
 
 
-    const page_group = localStorage.getItem('pageGroup')
+
 
     console.log(productData.file_path)
 

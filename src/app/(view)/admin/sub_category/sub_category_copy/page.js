@@ -114,7 +114,35 @@ const CopySubCategory = ({ id }) => {
             .catch(er => console.log(er));
     };
 
-    const modified = localStorage.getItem('userId')
+
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [modified, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
 
     useEffect(() => {
 
@@ -169,7 +197,7 @@ const CopySubCategory = ({ id }) => {
 
     };
 
-    const created = localStorage.getItem('userId')
+
     const router = useRouter()
 
     const sub_category_copy = (event) => {
@@ -217,7 +245,7 @@ const CopySubCategory = ({ id }) => {
                         file_path: selectedFile[0]?.path ? selectedFile[0]?.path : subCategories[0]?.file_path,
 
 
-                        description, created_by: created
+                        description, created_by: modified
                     }
                     console.log(addValue.file_path)
                     console.log(addValue)
@@ -256,7 +284,6 @@ const CopySubCategory = ({ id }) => {
     //     handleUpdateBrand(e);
     // };
 
-    const page_group = localStorage.getItem('pageGroup')
 
 
     console.log(subCategoryData.file_path)

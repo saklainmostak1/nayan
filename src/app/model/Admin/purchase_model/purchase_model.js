@@ -1625,7 +1625,7 @@ const PurchaseModel = {
                 LEFT JOIN sale_product AS sp ON p.id = sp.product_id
                 INNER JOIN purchase_product AS pp ON p.id = pp.product_id
                 LEFT JOIN ware_house AS wh ON pp.ware_house_id = wh.id -- Joining with ware_house table
-                WHERE pp.created_date BETWEEN DATE_FORMAT(CURDATE(), '%Y-%m-01') AND LAST_DAY(CURDATE())`;
+                WHERE 1 = 1`;
 
             // Add filters dynamically
             if (fromDate && toDate) {

@@ -113,7 +113,35 @@ const EditColor = ({ id }) => {
             .catch(er => console.log(er));
     };
 
-    const modified = localStorage.getItem('userId')
+
+
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [modified, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
 
 
     useEffect(() => {
@@ -213,7 +241,6 @@ const EditColor = ({ id }) => {
     //     color_update(e);
     // };
 
-    const page_group = localStorage.getItem('pageGroup')
 
 
 

@@ -507,7 +507,7 @@ const StockWareHouses = () => {
             const url = window.URL.createObjectURL(new Blob([blob]));
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'purchase_pdf.pdf';
+            a.download = 'stock_ware_house.pdf';
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -900,7 +900,7 @@ const StockWareHouses = () => {
                                                             </React.Fragment>
                                                         ))}
                                                         <tr className="report-bg">
-                                                            <td>Total</td>
+                                                            <td>Sub Total</td>
                                                             <td>
                                                                 {ware_house.categories.reduce(
                                                                     (sum, category) => sum + category.subcategories.reduce(
@@ -920,7 +920,7 @@ const StockWareHouses = () => {
                                                 ))}
 
                                                 <tr className="report-bg">
-                                                    <th>Sub Total</th>
+                                                    <th>Total</th>
                                                     <th>
                                                         {warehouseData.reduce((sum, wareHouse) => sum + wareHouse.categories.reduce(
                                                             (catSum, category) => catSum + category.subcategories.reduce(
@@ -979,7 +979,7 @@ const StockWareHouses = () => {
                                                                 </React.Fragment>
                                                             ))}
                                                             <tr className="report-bg">
-                                                                <td>Total</td>
+                                                                <td>Sub Total</td>
                                                                 <td>
                                                                     {ware_house.categories.reduce(
                                                                         (sum, category) => sum + category.subcategories.reduce(
@@ -999,7 +999,7 @@ const StockWareHouses = () => {
                                                     ))}
 
                                                     <tr className="report-bg">
-                                                        <th>Sub Total</th>
+                                                        <th>Total</th>
                                                         <th>
                                                             {warehouseDatas.reduce((sum, wareHouse) => sum + wareHouse.categories.reduce(
                                                                 (catSum, category) => catSum + category.subcategories.reduce(

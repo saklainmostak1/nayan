@@ -336,7 +336,35 @@ const EditProduct = ({ id }) => {
     //     setFilePathArray(newFilePaths);
     // };
 
-    const modified_by = localStorage.getItem('userId')
+    
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [modified_by, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
 
     // useEffect(() => {
 
@@ -389,9 +417,9 @@ const EditProduct = ({ id }) => {
             type_id: products?.type_id || '',
             product_price: products?.product_price || '',
             product_weight: products?.product_weight || '',
-            modified_by: localStorage.getItem('userId'),
+            modified_by: modified_by,
         }));
-    }, [products]);
+    }, [products, modified_by]);
     console.log(products.file_path)
 
     console.log(productData)
@@ -648,7 +676,7 @@ const EditProduct = ({ id }) => {
 
 
 
-    const page_group = localStorage.getItem('pageGroup')
+
 
     const handleRemoveImageFile = () => {
         const confirmRemove = window.confirm('Are you sure you want to remove the image?');

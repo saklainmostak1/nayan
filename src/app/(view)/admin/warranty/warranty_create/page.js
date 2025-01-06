@@ -17,7 +17,35 @@ const ExcelJS = require('exceljs');
 
 const CreateWarranty = () => {
 
-    const created = localStorage.getItem('userId');
+   
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [created, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
 
     const { data: warrantys = [], isLoading, refetch
     } = useQuery({
@@ -362,8 +390,6 @@ const CreateWarranty = () => {
             .catch((error) => console.error(error));
     }
 
-
-    const page_group = localStorage.getItem('pageGroup')
 
 
     // const warranty_image_remove = (index) => {

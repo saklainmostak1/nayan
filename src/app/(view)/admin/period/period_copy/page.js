@@ -11,6 +11,8 @@ import '../../../admin_layout/modal/fa.css'
 
 const CopyBrand = ({ id }) => {
 
+
+
     const { data: period = [], isLoading, refetch
     } = useQuery({
         queryKey: ['periods'],
@@ -112,7 +114,34 @@ const CopyBrand = ({ id }) => {
             .catch(er => console.log(er));
     };
 
-    const modified = localStorage.getItem('userId')
+  const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [modified, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
 
     useEffect(() => {
 
@@ -158,7 +187,7 @@ const CopyBrand = ({ id }) => {
 
     };
 
-    const created = localStorage.getItem('userId')
+
     const router = useRouter()
 
     const period_copy = (event) => {
@@ -203,7 +232,7 @@ const CopyBrand = ({ id }) => {
                         file_path: selectedFile[0]?.path ? selectedFile[0]?.path : periods[0]?.file_path,
 
 
-                        description, created_by: created
+                        description, created_by: modified
                     }
                     console.log(addValue.file_path)
                     console.log(addValue)
@@ -242,7 +271,7 @@ const CopyBrand = ({ id }) => {
     //     handleUpdateBrand(e);
     // };
 
-    const page_group = localStorage.getItem('pageGroup')
+ 
 
 
     console.log(periodData.file_path)

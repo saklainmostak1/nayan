@@ -17,7 +17,35 @@ const ExcelJS = require('exceljs');
 
 const CategoryExcelCreate = () => {
 
-    const created = localStorage.getItem('userId')
+
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [created, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
 
     const { data: categorys = [], isLoading, refetch
     } = useQuery({
@@ -274,7 +302,7 @@ const CategoryExcelCreate = () => {
     };
 
 
-    const page_group = localStorage.getItem('pageGroup')
+
     // const category_image_remove = (index) => {
     //     const confirmDelete = window.confirm('Are you sure you want to delete this?');
     //     if (confirmDelete) {

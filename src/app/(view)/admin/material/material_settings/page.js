@@ -2,11 +2,38 @@
  //ismile
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-dropdown-select';
 
 const SettingsMaterial = () => {
 
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [userId, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
 
 
     const { data: materials = [], isLoading, refetch
@@ -68,7 +95,8 @@ const SettingsMaterial = () => {
     const columnListSelected = material[0]?.column_name
     const columnListSelectedArray = columnListSelected?.split(',').map(item => item.trim());
 
-    const page_group = localStorage.getItem('pageGroup')
+    
+  
 
 
     const [selectedColumns, setSelectedColumns] = React.useState([]);
@@ -87,7 +115,7 @@ const SettingsMaterial = () => {
     console.log(selectedColumns)
     const filteredColumns = columnNames.filter(column => column !== 'id');
 
-    const userId = localStorage.getItem('userId')
+
 
     // Function to handle checkbox change
     const material_settings_create = (event) => {

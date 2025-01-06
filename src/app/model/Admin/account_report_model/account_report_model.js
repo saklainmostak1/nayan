@@ -1356,6 +1356,159 @@ const AccountReportModel = {
     // },
 
 
+    // income_amount_account_report: async (req, res) => {
+    //     try {
+    //         console.log("Search button clicked.");
+
+    //         // Extract necessary data from request
+    //         const { yearName, type } = req.body;
+
+    //         // Construct the base SQL query
+    //         let sql = `
+    //             SELECT 
+    //                 income.id, 
+    //                 income.income_date AS created_date, 
+    //                 SUM(income.sub_total) AS sub_total_income, 
+    //                 income_item.item_name AS income_name, 
+    //                 income_category.income_category_name AS income_category,
+    //                 income_category.id AS income_category_id,
+    //                 account_head.account_head_name AS account_head_name,
+    //                 income.paid_by AS paid_by
+    //             FROM 
+    //                 income 
+    //                 LEFT JOIN income_category ON income.income_category = income_category.id 
+    //                 LEFT JOIN income_item ON income.id = income_item.income_id 
+    //                 LEFT JOIN account_head ON income.paid_by = account_head.id
+    //             WHERE YEAR(income.income_date) = '${yearName}'
+    //         `;
+
+    //         let purchaseSql = `
+    //         SELECT 
+    //             sale.id,
+    //             sale.sale_date AS created_date,
+    //             NULL AS sub_total_income, -- Placeholder for income query
+    //             'Sale' AS income_name, -- Placeholder for income item name
+    //             'Sale' AS income_category, -- Placeholder for income category
+    //             'Sale' AS income_category_id, -- Placeholder for income category id
+    //             NULL AS account_head_name, -- Placeholder for account head
+    //             NULL AS paid_by, -- Placeholder for paid by
+    //             NULL AS sub_total_salary, -- Placeholder for salary query
+    //             SUM(sale.paid_amount) AS sub_total_sale -- Total sale
+    //         FROM 
+    //             sale
+    //         WHERE YEAR(sale.sale_date) = '${yearName}'
+    //         `;
+
+
+
+    //         // Modify the query based on the 'type' (daily or monthly)
+    //         if (type === "daily") {
+    //             sql += ` GROUP BY DATE(income.income_date)`; // Group by day for daily type
+    //             purchaseSql += ` GROUP BY DATE(sale.sale_date)`; // Group by day for daily type
+    //         } else if (type === "monthly") {
+    //             sql += ` GROUP BY MONTH(income.income_date)`; // Group by month for monthly type
+    //             purchaseSql += ` GROUP BY MONTH(sale.sale_date)`; // Group by month for monthly type
+    //         }
+
+    //         let combinedSql = `
+    //         (${sql})
+    //         UNION ALL
+    //         (${purchaseSql})
+
+    //     `;
+    //         console.log("SQL Query:", sql);
+
+    //         // Execute the constructed SQL query
+    //         connection.query(combinedSql, (error, results, fields) => {
+    //             if (error) {
+    //                 console.error("Error occurred during search:", error);
+    //                 res.status(500).json({ error: "An error occurred during search." });
+    //             } else {
+    //                 console.log("Search results:", results);
+    //                 res.status(200).json({ results });
+    //             }
+    //         });
+    //     } catch (error) {
+    //         console.error("An error occurred:", error);
+    //         res.status(500).json({ error: "An error occurred." });
+    //     }
+    // },
+    // income_amount_account_report: async (req, res) => {
+    //     try {
+    //         console.log("Search button clicked.");
+
+    //         // Extract necessary data from request
+    //         const { yearName, type } = req.body;
+
+    //         // Construct the base SQL query for income
+    //         let sql = `
+    //             SELECT 
+    //                 income.id, 
+    //                 income.income_date AS created_date, 
+    //                 SUM(income.sub_total) AS sub_total_income, 
+    //                 income_item.item_name AS income_name, 
+    //                 income_category.income_category_name AS income_category,
+    //                 income_category.id AS income_category_id,
+    //                 account_head.account_head_name AS account_head_name,
+    //                 income.paid_by AS paid_by
+    //             FROM 
+    //                 income 
+    //                 LEFT JOIN income_category ON income.income_category = income_category.id 
+    //                 LEFT JOIN income_item ON income.id = income_item.income_id 
+    //                 LEFT JOIN account_head ON income.paid_by = account_head.id
+    //             WHERE YEAR(income.income_date) = '${yearName}'
+    //         `;
+
+    //         // Construct the base SQL query for sales
+    //         let saleSql = `
+    //             SELECT 
+    //                 sale.id,
+    //                 sale.sale_date AS created_date,
+    //                 NULL AS sub_total_income, -- Placeholder for income
+    //                 'Sale' AS income_name,    -- Placeholder for income
+    //                 'Sale' AS income_category, -- Placeholder for income
+    //                 'Sale' AS income_category_id, -- Placeholder for income
+    //                 NULL AS account_head_name,  -- Placeholder for income
+    //                 NULL AS paid_by,            -- Placeholder for income
+    //                 SUM(sale.paid_amount) AS sub_total_sale -- Total sale amount as expense
+    //             FROM 
+    //                 sale
+    //             WHERE YEAR(sale.sale_date) = '${yearName}'
+    //         `;
+
+    //         // Modify the query based on the 'type' (daily or monthly)
+    //         if (type === "daily") {
+    //             sql += ` GROUP BY DATE(income.income_date)`; // Group by day for daily type
+    //             saleSql += ` GROUP BY DATE(sale.sale_date)`; // Group by day for daily type
+
+    //         } else if (type === "monthly") {
+    //             sql += ` GROUP BY MONTH(income.income_date)`; // Group by month for monthly type
+    //             saleSql += ` GROUP BY MONTH(sale.sale_date)`; // Group by month for monthly type
+
+    //         }
+
+    //         // Combine both SQL queries using UNION ALL
+    //         let combinedSql = `
+    //             (${sql})
+    //             UNION ALL
+    //             (${saleSql})
+    //         `;
+
+    //         // Execute the combined SQL query
+    //         connection.query(combinedSql, (error, results, fields) => {
+    //             if (error) {
+    //                 console.error("Error occurred during search:", error);
+    //                 res.status(500).json({ error: "An error occurred during search." });
+    //             } else {
+    //                 console.log("Search results:", results);
+    //                 res.status(200).json({ results });
+    //             }
+    //         });
+    //     } catch (error) {
+    //         console.error("An error occurred:", error);
+    //         res.status(500).json({ error: "An error occurred." });
+    //     }
+    // },
     income_amount_account_report: async (req, res) => {
         try {
             console.log("Search button clicked.");
@@ -1363,7 +1516,7 @@ const AccountReportModel = {
             // Extract necessary data from request
             const { yearName, type } = req.body;
 
-            // Construct the base SQL query
+            // Construct the base SQL query for income
             let sql = `
                 SELECT 
                     income.id, 
@@ -1382,19 +1535,40 @@ const AccountReportModel = {
                 WHERE YEAR(income.income_date) = '${yearName}'
             `;
 
-
+            // Construct the base SQL query for sales
+            let saleSql = `
+                SELECT 
+                    sale.id,
+                    sale.sale_date AS created_date,
+                    SUM(sale.paid_amount) AS sub_total_income, -- Total sale amount as expense
+                    'Sale' AS income_name,    -- Placeholder for income
+                    'Sale' AS income_category, -- Placeholder for income
+                    'Sale' AS income_category_id, -- Placeholder for income
+                    NULL AS account_head_name,  -- Placeholder for income
+                    NULL AS paid_by            -- Placeholder for income
+                FROM 
+                    sale
+                WHERE YEAR(sale.sale_date) = '${yearName}'
+            `;
 
             // Modify the query based on the 'type' (daily or monthly)
             if (type === "daily") {
                 sql += ` GROUP BY DATE(income.income_date)`; // Group by day for daily type
+                saleSql += ` GROUP BY DATE(sale.sale_date)`; // Group by day for daily type
             } else if (type === "monthly") {
                 sql += ` GROUP BY MONTH(income.income_date)`; // Group by month for monthly type
+                saleSql += ` GROUP BY MONTH(sale.sale_date)`; // Group by month for monthly type
             }
 
-            console.log("SQL Query:", sql);
+            // Combine both SQL queries using UNION ALL
+            let combinedSql = `
+                (${sql})
+                UNION ALL
+                (${saleSql})
+            `;
 
-            // Execute the constructed SQL query
-            connection.query(sql, (error, results, fields) => {
+            // Execute the combined SQL query
+            connection.query(combinedSql, (error, results, fields) => {
                 if (error) {
                     console.error("Error occurred during search:", error);
                     res.status(500).json({ error: "An error occurred during search." });
@@ -1408,6 +1582,7 @@ const AccountReportModel = {
             res.status(500).json({ error: "An error occurred." });
         }
     },
+
 
     // expense_amount_account_report: async (req, res) => {
     //     try {
@@ -1483,6 +1658,96 @@ const AccountReportModel = {
     //     }
     // },
 
+    // expense_amount_account_report: async (req, res) => {
+    //     try {
+    //         const { yearName, type } = req.body;
+
+    //         // Expense SQL Query
+    //         let expenseSql = `
+    //             SELECT 
+    //                 expense.id, 
+    //                 expense.expense_date AS created_date, 
+    //                 SUM(expense.sub_total) AS sub_total_expense, 
+    //                 expense_item.item_name AS expense_name, 
+    //                 expense_category.expense_category_name AS expense_category,
+    //                 expense_category.id AS expense_category_id,
+    //                 account_head.account_head_name AS account_head_name,
+    //                 expense.paid_by AS paid_by
+    //             FROM 
+    //                 expense 
+    //                 LEFT JOIN expense_category ON expense.expense_category = expense_category.id 
+    //                 LEFT JOIN expense_item ON expense.id = expense_item.expense_id 
+    //                 LEFT JOIN account_head ON expense.paid_by = account_head.id
+    //             WHERE YEAR(expense.expense_date) = '${yearName}'
+    //         `;
+
+    //         // Salary SQL Query
+    //         let salarySql = `
+    //             SELECT 
+    //                 salary.id,
+    //                 salary.salary_date AS created_date,
+    //                 SUM(salary.paid_amount) AS sub_total_salary,
+    //                 'Employee Salary' AS expense_name,
+    //                 'Salary' AS expense_category,
+    //                 'Salary' AS expense_category_id,
+    //                 '' AS account_head_name,
+    //                 salary.paid_by AS paid_by
+    //             FROM 
+    //                 salary
+    //             LEFT JOIN users ON users.id = salary.user_id
+    //             WHERE YEAR(salary.salary_date) = '${yearName}'
+    //         `;
+    //         let purchaseSql = `
+    //           SELECT 
+    //                 purchase.id,
+    //                 purchase.purchase_date AS created_date,
+    //                 SUM(purchase.paid_amount) AS sub_total_purchase
+
+    //             FROM 
+    //                 purchase
+    //             WHERE YEAR(purchase.purchase_date) = '${yearName}'
+    //         `;
+
+    //         // Add date range filter if provided
+
+    //         // Modify the query based on the 'type' (daily or monthly)
+    //         if (type === "daily") {
+    //             expenseSql += ` GROUP BY DATE(expense.expense_date)`; // Group by day for daily type
+    //             salarySql += ` GROUP BY DATE(salary.salary_date)`;   // Group by day for daily type
+    //             purchaseSql += ` GROUP BY DATE(purchase.purchase_date)`;   // Group by day for daily type
+    //         } else if (type === "monthly") {
+    //             expenseSql += ` GROUP BY MONTH(expense.expense_date)`; // Group by month for monthly type
+    //             salarySql += ` GROUP BY MONTH(salary.salary_date)`;   // Group by month for monthly type
+    //             purchaseSql += ` GROUP BY MONTH(purchase.purchase_date)`;   // Group by month for monthly type
+    //         }
+
+    //         // Combine both SQL queries using UNION ALL
+    //         let combinedSql = `
+    //             (${expenseSql})
+    //             UNION ALL
+    //             (${salarySql})
+    //             UNION ALL
+    //             (${purchaseSql})
+    //         `;
+
+    //         console.log("Combined SQL Query:", combinedSql);
+
+    //         // Execute the combined query
+    //         connection.query(combinedSql, (error, results) => {
+    //             if (error) {
+    //                 console.error("Error occurred during search:", error);
+    //                 res.status(500).json({ error: "An error occurred during search." });
+    //             } else {
+    //                 console.log("Search results:", results);
+    //                 res.status(200).json({ results });
+    //             }
+    //         });
+    //     } catch (error) {
+    //         console.error("An error occurred:", error);
+    //         res.status(500).json({ error: "An error occurred." });
+    //     }
+    // },
+
     expense_amount_account_report: async (req, res) => {
         try {
             const { yearName, type } = req.body;
@@ -1492,12 +1757,15 @@ const AccountReportModel = {
                 SELECT 
                     expense.id, 
                     expense.expense_date AS created_date, 
+                     NULL AS sub_total_salary, -- Placeholder for expense query
+                     NULL AS sub_total_purchase, -- Placeholder for expense query
                     SUM(expense.sub_total) AS sub_total_expense, 
                     expense_item.item_name AS expense_name, 
                     expense_category.expense_category_name AS expense_category,
                     expense_category.id AS expense_category_id,
                     account_head.account_head_name AS account_head_name,
                     expense.paid_by AS paid_by
+
                 FROM 
                     expense 
                     LEFT JOIN expense_category ON expense.expense_category = expense_category.id 
@@ -1511,16 +1779,36 @@ const AccountReportModel = {
                 SELECT 
                     salary.id,
                     salary.salary_date AS created_date,
+                       NULL AS  sub_total_expense, -- Placeholder for expense query
+                     NULL AS sub_total_purchase, -- Placeholder for expense query
                     SUM(salary.paid_amount) AS sub_total_salary,
                     'Employee Salary' AS expense_name,
                     'Salary' AS expense_category,
                     'Salary' AS expense_category_id,
                     '' AS account_head_name,
                     salary.paid_by AS paid_by
+                 
                 FROM 
                     salary
                 LEFT JOIN users ON users.id = salary.user_id
                 WHERE YEAR(salary.salary_date) = '${yearName}'
+            `;
+
+            let purchaseSql = `
+                SELECT 
+                    purchase.id,
+                    purchase.purchase_date AS created_date,
+                       NULL AS sub_total_salary, -- Placeholder for expense query
+                     NULL AS  sub_total_expense, -- Placeholder for expense query
+                    SUM(purchase.paid_amount) AS sub_total_purchase, -- Total purchase
+                    'Purchase' AS expense_name,
+                    'Purchase' AS expense_category,
+                    'Purchase' AS expense_category_id,
+                    NULL AS account_head_name, -- Placeholder for expense query
+                    NULL AS paid_by -- Placeholder for expense query
+                FROM 
+                    purchase
+                WHERE YEAR(purchase.purchase_date) = '${yearName}'
             `;
 
             // Add date range filter if provided
@@ -1529,9 +1817,11 @@ const AccountReportModel = {
             if (type === "daily") {
                 expenseSql += ` GROUP BY DATE(expense.expense_date)`; // Group by day for daily type
                 salarySql += ` GROUP BY DATE(salary.salary_date)`;   // Group by day for daily type
+                purchaseSql += ` GROUP BY DATE(purchase.purchase_date)`;   // Group by day for daily type
             } else if (type === "monthly") {
                 expenseSql += ` GROUP BY MONTH(expense.expense_date)`; // Group by month for monthly type
                 salarySql += ` GROUP BY MONTH(salary.salary_date)`;   // Group by month for monthly type
+                purchaseSql += ` GROUP BY MONTH(purchase.purchase_date)`;   // Group by month for monthly type
             }
 
             // Combine both SQL queries using UNION ALL
@@ -1539,6 +1829,8 @@ const AccountReportModel = {
                 (${expenseSql})
                 UNION ALL
                 (${salarySql})
+                UNION ALL
+                (${purchaseSql})
             `;
 
             console.log("Combined SQL Query:", combinedSql);
@@ -1558,7 +1850,6 @@ const AccountReportModel = {
             res.status(500).json({ error: "An error occurred." });
         }
     },
-
 
 
     // accounts_report_print: async (req, res) => {

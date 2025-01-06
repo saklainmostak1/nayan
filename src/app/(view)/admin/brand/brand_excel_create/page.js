@@ -17,7 +17,35 @@ const BrandExcelCreate = () => {
 
     const router = useRouter()
 
-    const created = localStorage.getItem('userId');
+   
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [created, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
 
     const { data: brands = [], isLoading, refetch
     } = useQuery({
@@ -308,7 +336,7 @@ const BrandExcelCreate = () => {
     }
 
 
-    const page_group = localStorage.getItem('pageGroup')
+ 
     // const brand_remove_image = (index) => {
     //     const confirmDelete = window.confirm('Are you sure you want to delete this?');
     //     if (confirmDelete) {

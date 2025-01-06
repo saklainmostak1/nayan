@@ -2,7 +2,7 @@
  //ismile
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-dropdown-select';
 
 const SettingsProducts = () => {
@@ -67,7 +67,35 @@ const SettingsProducts = () => {
 
 
 
-    const page_group = localStorage.getItem('pageGroup')
+
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [userId, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
 
 
     const [selectedColumns, setSelectedColumns] = React.useState([]);
@@ -86,7 +114,7 @@ const SettingsProducts = () => {
     console.log(selectedColumns)
     const filteredColumns = columnNames.filter(column => column !== 'id');
 
-    const userId = localStorage.getItem('userId')
+ 
 
     // Function to handle checkbox change
     const product_settings_create = (event) => {

@@ -37,12 +37,40 @@ const QuickCategoryEdit = ({ searchParams }) => {
     const [subCategoryError, setSubCategoryError] = useState(null);
 
     const [selectedColumns, setSelectedColumns] = useState([]);
-    const userId = localStorage.getItem('userId');
+
     const [pageUsers, setPageUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     let [category_data, setCategory_data] = useState({});
-    const page_group = localStorage.getItem('pageGroup');
 
+
+
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [userId, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
 
 
     // ------------------------------------------------------------------

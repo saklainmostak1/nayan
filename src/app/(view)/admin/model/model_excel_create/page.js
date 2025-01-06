@@ -14,7 +14,35 @@ const ExcelJS = require('exceljs');
 const ModelExcelCreate = () => {
 
 
-    const created = localStorage.getItem('userId');
+    
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [created, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
 
     const { data: models = [], isLoading, refetch
     } = useQuery({
@@ -308,7 +336,7 @@ const ModelExcelCreate = () => {
     }
 
 
-    const page_group = localStorage.getItem('pageGroup')
+ 
     // const model_image_remove = (index) => {
     //     const confirmDelete = window.confirm('Are you sure you want to delete this?');
     //     if (confirmDelete) {

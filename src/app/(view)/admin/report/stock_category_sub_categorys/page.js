@@ -363,7 +363,7 @@ const CategorySubCategoryStock = () => {
             const url = window.URL.createObjectURL(new Blob([blob]));
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'purchase_pdf.pdf';
+            a.download = 'stock_category_sub_category.pdf';
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -718,8 +718,8 @@ const CategorySubCategoryStock = () => {
                                                                 <td>{subcategory.total_amount}</td>
                                                             </tr>
                                                         ))}
-                                                        <tr className="report-bg">
-                                                            <td>Total</td>
+                                                        <tr className="report-bg" >
+                                                            <td>Sub Total</td>
                                                             <td>{category.totalQuantity}</td>
                                                             <td>{category.totalAmount}</td>
                                                         </tr>
@@ -741,7 +741,7 @@ const CategorySubCategoryStock = () => {
                                                 </tr> */}
 
                                                 <tr className="report-bg">
-                                                    <th>Sub Total</th>
+                                                    <th> Total</th>
                                                     <th>{categories.reduce((sum, cat) => sum + cat.totalQuantity, 0)}</th>
                                                     <th>{categories.reduce((sum, cat) => sum + cat.totalAmount, 0)}</th>
                                                 </tr>
@@ -778,7 +778,7 @@ const CategorySubCategoryStock = () => {
                                                                 </tr>
                                                             ))}
                                                             <tr className="report-bg">
-                                                                <td>Total</td>
+                                                                <td>Sub Total</td>
                                                                 <td>{category.totalQuantity}</td>
                                                                 <td>{category.totalAmount}</td>
                                                             </tr>
@@ -805,7 +805,7 @@ const CategorySubCategoryStock = () => {
                                                     </tr> */}
 
                                                     <tr className="report-bg">
-                                                        <th>Sub Total</th>
+                                                        <th>Total</th>
                                                         <th>{category.reduce((sum, cat) => sum + cat.totalQuantity, 0)}</th>
                                                         <th>{category.reduce((sum, cat) => sum + cat.totalAmount, 0)}</th>
                                                     </tr>

@@ -96,6 +96,36 @@ const CopyBrand = ({ id }) => {
     console.log(fileNames);
     console.log(selectedFile[0]?.path);
 
+    
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [modified, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
+
     const upload = (file) => {
         const formData = new FormData();
         const extension = file.name.split('.').pop();
@@ -112,7 +142,7 @@ const CopyBrand = ({ id }) => {
             .catch(er => console.log(er));
     };
 
-    const modified = localStorage.getItem('userId')
+
 
     useEffect(() => {
 
@@ -157,7 +187,7 @@ const CopyBrand = ({ id }) => {
 
     };
 
-    const created = localStorage.getItem('userId')
+
     const router = useRouter()
     const color_copy = (event) => {
         event.preventDefault();
@@ -200,7 +230,7 @@ const CopyBrand = ({ id }) => {
                         file_path: selectedFile[0]?.path ? selectedFile[0]?.path : colors[0]?.file_path,
 
 
-                        description, created_by: created
+                        description, created_by: modified
                     }
                     console.log(addValue.file_path)
                     console.log(addValue)
@@ -238,7 +268,6 @@ const CopyBrand = ({ id }) => {
     //     handleUpdateBrand(e);
     // };
 
-    const page_group = localStorage.getItem('pageGroup')
 
 
     console.log(colorData.file_path)

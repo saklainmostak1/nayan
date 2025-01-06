@@ -37,7 +37,35 @@ const WarrantyList = ({ searchParams }) => {
         }
     })
 
-    const userId = localStorage.getItem("userId")
+   
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [userId, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
 
     const { data: moduleInfo = []
     } = useQuery({
@@ -101,7 +129,7 @@ const WarrantyList = ({ searchParams }) => {
         }
     }
 
-    const page_group = localStorage.getItem('pageGroup')
+
 
 
 

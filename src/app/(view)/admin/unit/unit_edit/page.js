@@ -116,7 +116,35 @@ const EditUnit = ({ id }) => {
             .catch(er => console.log(er));
     };
 
-    const modified = localStorage.getItem('userId')
+
+    const [page_group, setPage_group] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('pageGroup') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('pageGroup');
+            setPage_group(storedUserId);
+        }
+    }, []);
+
+    const [modified, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
 
 
     useEffect(() => {
@@ -219,7 +247,6 @@ const EditUnit = ({ id }) => {
     //     unit_update(e);
     // };
 
-    const page_group = localStorage.getItem('pageGroup')
 
     const unit_image_removeFile = () => {
         const confirmRemove = window.confirm('Are you sure you want to remove the image?');
