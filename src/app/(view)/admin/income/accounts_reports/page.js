@@ -1053,19 +1053,19 @@ const AccountReports = () => {
                         {Object.entries(data.incomeCategories)
                             .filter(([income_category]) => income_category !== 'Sales') // Exclude "Salary"
                             .map(([income_category, amount]) => (
-                                <div key={income_category}>{income_category}</div>
+                                <div key={income_category}>{income_category}:{amount.toFixed(2)}</div>
                             ))}
                     </th>
 
                     <td>{data.totalSale.toFixed(2)}</td>
                     <td>{data.income.toFixed(2)}</td>
-                    <td>
+                    <th>
                         {Object.entries(data.expenseCategories)
                             .filter(([expense_category]) => expense_category !== 'Salary' && expense_category !== 'Purchase') // Exclude "Salary"
                             .map(([expense_category, amount]) => (
-                                <div key={expense_category}>{expense_category}</div>
+                                <div key={expense_category}>{expense_category}: {amount.toFixed(2)}</div>
                             ))}
-                    </td>
+                    </th>
                     <td>{data.totalPurchase.toFixed(2)}</td>
                     <td>{data.totalExpense.toFixed(2)}</td>
                     <td>{data.salaryExpense.toFixed(2)}</td>
