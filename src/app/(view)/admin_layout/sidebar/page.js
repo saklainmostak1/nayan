@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import ContentLoader from 'react-content-loader';
 import { useEffect } from 'react';
 import AdminHome from '../../admin/admin_home/page';
+import img from '../img/users.png'
 
 
 
@@ -49,6 +50,7 @@ const AdminSidebar = ({ isSidebarActive, child, toggleSidebar, props }) => {
       return data;
     },
   });
+
   // ${process.env.NEXT_PUBLIC_API_URL}:5002/admin/module_info/module_info_all/${usersId}/role
 
   // const [intervalId, setIntervalId] = useState(null);
@@ -105,10 +107,11 @@ const AdminSidebar = ({ isSidebarActive, child, toggleSidebar, props }) => {
     },
   });
 
-  const filteredUsers = users.filter(user => user.id === 1);
+  const filteredUsers = users.filter(user => user.id == usersId);
 
-  // console.log(filteredUsers);
+  console.log(filteredUsers);
 
+  const imgs = filteredUsers[0]?.photo
 
   const [clickedButtons, setClickedButtons] = useState(new Array(allSideNavData.length).fill(false));
 
@@ -420,6 +423,7 @@ const AdminSidebar = ({ isSidebarActive, child, toggleSidebar, props }) => {
     // };
   }, []);
 
+  console.log(img)
 
   return (
     <div class="wrapper w-100" style={wrapperStyle}>
@@ -671,7 +675,9 @@ foregroundColor="#ebebeb"
                           <div className="media d-flex " style={{ marginLeft: '6px' }}>
                             <img
                               className="rounded-circle mt-2"
-                              src="https://atik.urbanitsolution.com/web_content/img/user.png"
+                              // src={img.src}
+                              
+                              src={imgs ? `${process.env.NEXT_PUBLIC_API_URL}:5003/${imgs}` : img.src}
                               alt=""
                               width="50"
                               height="50"

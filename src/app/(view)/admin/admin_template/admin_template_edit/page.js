@@ -189,7 +189,11 @@ const AdminTemplateEdit = ({ id }) => {
 	};
 
 
-
+	const [headerTextFont, setHeaderTextFont] = useState(null);
+	const handleHeaderFontChange = (event) => {
+		const newFont = event.target.value;
+		setHeaderTextFont(newFont);
+	};
 
 
 	const [levelOneBorderChange, setLevelOneBorderChange] = useState(null);
@@ -470,7 +474,7 @@ const AdminTemplateEdit = ({ id }) => {
 	const handleBodyTextColorChange = (event) => {
 		const newColor = event.target.value;
 		setBodyTextColour(newColor);
-		if(typeof window !== 'undefined'){
+		if (typeof window !== 'undefined') {
 
 			localStorage.setItem('bodyTextColour', bodyTextColour)
 		}
@@ -481,7 +485,7 @@ const AdminTemplateEdit = ({ id }) => {
 	const handleBodyBgChange = (event) => {
 		const newColor = event.target.value;
 		setBodyBgChange(newColor);
-		if(typeof window !== 'undefined'){
+		if (typeof window !== 'undefined') {
 
 			localStorage.setItem('bodyBgChange', bodyBgChange)
 		}
@@ -588,21 +592,29 @@ const AdminTemplateEdit = ({ id }) => {
 		},
 	});
 
+	const { data: font_family_list = [] } = useQuery({
+		queryKey: ['font_family_list'],
+		queryFn: async () => {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/side_menu/font_family_list`);
+			const data = await res.json();
+			return data;
+		},
+	});
 
 
 	const [page_group, setPage_group] = useState(() => {
-        if (typeof window !== 'undefined') {
-          return localStorage.getItem('pageGroup') || '';
-        }
-        return '';
-      });
-    
-      useEffect(() => {
-        if (typeof window !== 'undefined') {
-          const storedUserId = localStorage.getItem('pageGroup');
-          setPage_group(storedUserId);
-        }
-      }, []);
+		if (typeof window !== 'undefined') {
+			return localStorage.getItem('pageGroup') || '';
+		}
+		return '';
+	});
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const storedUserId = localStorage.getItem('pageGroup');
+			setPage_group(storedUserId);
+		}
+	}, []);
 
 	const filterUser = userss.filter(u => u.page_group === page_group)
 
@@ -663,18 +675,18 @@ const AdminTemplateEdit = ({ id }) => {
 	const rgbaColor = hexToRgba(HeaderBgChange);
 
 	const [userId, setUserId] = useState(() => {
-        if (typeof window !== 'undefined') {
-          return localStorage.getItem('userId') || '';
-        }
-        return '';
-      });
-    
-      useEffect(() => {
-        if (typeof window !== 'undefined') {
-          const storedUserId = localStorage.getItem('userId');
-          setUserId(storedUserId);
-        }
-      }, []);
+		if (typeof window !== 'undefined') {
+			return localStorage.getItem('userId') || '';
+		}
+		return '';
+	});
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const storedUserId = localStorage.getItem('userId');
+			setUserId(storedUserId);
+		}
+	}, []);
 	function getCurrentDateTime() {
 		const now = new Date();
 		const year = now.getFullYear();
@@ -745,6 +757,8 @@ const AdminTemplateEdit = ({ id }) => {
 	})
 
 	console.log(adminPanelSettings)
+
+	
 	const [adminTemplateName, setadminTemplateName] = useState('')
 	const admin_template_edit = async (event) => {
 
@@ -752,6 +766,7 @@ const AdminTemplateEdit = ({ id }) => {
 		const form = event.target
 		// const fileInput1 = form.fileInput1.files[0];
 		const left_menu = form.left_menu.value
+		const header_text_font = form.header_text_font.value
 		const admin_settings_name = form.admin_settings_name.value
 		const login_template = form.login_template.value
 		const header_background_color_one = form.header_background_color_one.value
@@ -826,6 +841,7 @@ const AdminTemplateEdit = ({ id }) => {
 		const adminPageListSettings = {
 			// file: fileInput1,
 			created_by: userId,
+			header_text_font: header_text_font,
 			left_menu: left_menu,
 			admin_panel_name: admin_settings_name,
 			login_template_name: login_template,
@@ -886,6 +902,8 @@ const AdminTemplateEdit = ({ id }) => {
 			
  
 			.header_background_color{background:linear-gradient(${headerGradientDirectionChange ? headerGradientDirectionChange : `${bg_headers?.slice(2, 3)}`}, ${hexToRgba(HeaderBgChange ? HeaderBgChange : `${bg_headers?.slice(0, 1)}`, selectedOpacityHeader ? selectedOpacityHeader : `${bg_headers?.slice(3, 4)}`)}, ${hexToRgba(headerGradientColorChange ? headerGradientColorChange : `${bg_headers?.slice(1, 2)}`, selectedOpacityHeader ? selectedOpacityHeader : `${bg_headers?.slice(3, 4)}`)})!important}
+
+            .header_text_font{font-family: ${headerTextFont}}
 
 			.sub_header_background_color{background:linear-gradient(${subHeaderGradientDirectionChange ? subHeaderGradientDirectionChange : `${bg_sub_header?.slice(2, 3)}`}, ${hexToRgba(subHeaderBgChange ? subHeaderBgChange : `${bg_sub_header?.slice(0, 1)}`, selectedOpacitySubHeader ? selectedOpacitySubHeader : `${bg_sub_header?.slice(3, 4)}`)}, ${hexToRgba(subHeaderGradientColorChange ? subHeaderGradientColorChange : `${bg_sub_header?.slice(1, 2)}`, selectedOpacitySubHeader ? selectedOpacitySubHeader : `${bg_sub_header?.slice(3, 4)}`)})!important}
 
@@ -1041,6 +1059,10 @@ const AdminTemplateEdit = ({ id }) => {
 		setadminTemplateName('');
 		setSameName('')
 	};
+
+
+	console.log(adminPanelSettingsEdit[0]?.header_text_font)
+
 	return (
 		<div class="container-fluid">
 			<div class=" row ">
@@ -1340,6 +1362,31 @@ const AdminTemplateEdit = ({ id }) => {
 															</div>
 														</div>
 													</div>
+													<div className="form-group row">
+														<label className="control-label font-weight-bold col-md-5">Header Text:</label>
+														<div className="col-md-3">
+														
+																	<div className="input-group-prepend">
+																		<select 
+																		value={headerTextFont ? headerTextFont : adminPanelSettingsEdit[0]?.header_text_font}
+																		onChange={handleHeaderFontChange} name="header_text_font" className="form-control form-control-sm">
+																			<option value="">Select One</option>
+																			{
+																				font_family_list.map(font =>
+
+																					<>
+																						<option style={{fontFamily: `${font.code}`}} value={font.code}>{font.name}</option>
+																					</>
+
+																				)
+																			}
+																		</select>
+
+
+																	
+															</div>
+														</div>
+													</div>
 												</div>
 
 
@@ -1362,7 +1409,7 @@ const AdminTemplateEdit = ({ id }) => {
 																	/>
 																</div>
 																<div style={{ marginTop: '-8px', marginLeft: '10px' }}>
-																	<h4 className='header-tag' style={{ color: headerTextColor ? headerTextColor : adminPanelSettingsEdit[0]?.color_header }}>Pathshala School & College
+																	<h4 className='header-tag' style={{ color: headerTextColor ? headerTextColor : adminPanelSettingsEdit[0]?.color_header, fontFamily: headerTextFont  ? headerTextFont : adminPanelSettingsEdit[0]?.header_text_font }}>Pathshala School & College
 																	</h4>
 																	<p style={{ marginTop: '-5px' }}><strong>College Management System</strong></p>
 																</div>

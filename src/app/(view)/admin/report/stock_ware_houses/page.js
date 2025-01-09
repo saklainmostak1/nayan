@@ -900,15 +900,15 @@ const StockWareHouses = () => {
                                                             </React.Fragment>
                                                         ))}
                                                         <tr className="report-bg">
-                                                            <td>Sub Total</td>
-                                                            <td>
+                                                            <td style={{ borderBottom: "2px solid #000" }}>Sub Total</td>
+                                                            <td style={{ borderBottom: "2px solid #000" }}>
                                                                 {ware_house.categories.reduce(
                                                                     (sum, category) => sum + category.subcategories.reduce(
                                                                         (subSum, sub) => subSum + sub.available_quantity, 0
                                                                     ), 0
                                                                 )}
                                                             </td>
-                                                            <td>
+                                                            <td style={{ borderBottom: "2px solid #000" }}>
                                                                 {ware_house.categories.reduce(
                                                                     (sum, category) => sum + category.subcategories.reduce(
                                                                         (subSum, sub) => subSum + sub.total_amount, 0
@@ -979,15 +979,15 @@ const StockWareHouses = () => {
                                                                 </React.Fragment>
                                                             ))}
                                                             <tr className="report-bg">
-                                                                <td>Sub Total</td>
-                                                                <td>
+                                                                <td style={{ borderBottom: "2px solid #000" }}>Sub Total</td>
+                                                                <td style={{ borderBottom: "2px solid #000" }}>
                                                                     {ware_house.categories.reduce(
                                                                         (sum, category) => sum + category.subcategories.reduce(
                                                                             (subSum, sub) => subSum + sub.available_quantity, 0
                                                                         ), 0
                                                                     )}
                                                                 </td>
-                                                                <td>
+                                                                <td style={{ borderBottom: "2px solid #000" }}>
                                                                     {ware_house.categories.reduce(
                                                                         (sum, category) => sum + category.subcategories.reduce(
                                                                             (subSum, sub) => subSum + sub.total_amount, 0

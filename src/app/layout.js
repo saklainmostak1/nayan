@@ -57,7 +57,8 @@ const [css, setCss] = useState([])
         
         <link rel="stylesheet" href={`${process.env.NEXT_PUBLIC_API_URL}:5003/get-css/${filteredCategories[0]?.admin_template}?v=${filteredCategories[0]?.version_code}`} />  
       </head>
-      <body >
+      {/* style={{fontFamily: `${filteredCategories[0]?.header_text_font}`}} */}
+      <body  >
         <QueryClientProvider client={queryClient}>
           
           <Toaster></Toaster>

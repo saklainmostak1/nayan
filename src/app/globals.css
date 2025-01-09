@@ -187,3 +187,52 @@
       .login6 {
         background: repeating-linear-gradient(190deg, rgba(255, 0, 0, 0.9) 40px, rgba(255, 153, 0, 0.8) 80px, rgba(255, 255, 0, 0.6) 120px, rgba(0, 255, 0, 0.0) 160px, rgba(0, 0, 255, 0.5) 200px, rgba(75, 0, 130, 0.2) 240px, rgba(238, 130, 238, 0.7) 280px, rgba(255, 0, 0, 0.5) 300px), repeating-linear-gradient(-190deg, rgba(255, 0, 0, 0.0) 30px, rgba(255, 153, 0, 0.0) 60px, rgba(255, 255, 0, 0.0) 90px, rgba(0, 255, 0, 0.9) 120px, rgba(0, 0, 255, 0.6) 150px, rgba(75, 0, 130, 0.3) 180px, rgba(238, 130, 238, 0.6) 210px, rgba(255, 0, 0, 0.4) 230px), repeating-linear-gradient(23deg, red 50px, orange 100px, yellow 150px, green 200px, blue 250px, indigo 300px, violet 350px, red 370px);
       }
+
+
+      @font-face {
+        font-family: 'Example';
+        src: url('./bangla_fonts/Nikosh.eot'); 
+        src: 
+             url('./bangla_fonts/Nikosh.ttf') format('truetype'),
+            
+      }
+
+      @font-face {
+        font-family: 'Example';
+       
+        src: 
+             url('./bangla_fonts/akaashnormal.ttf') format('truetype'),
+            
+      }
+     
+      @font-face {
+        font-family: 'Example';
+       
+        src: 
+             url('./bangla_fonts/kalpurush.ttf') format('truetype'),
+            
+      }
+     
+      @font-face {
+        font-family: 'Example';
+       
+        src: 
+             url('./bangla_fonts/Siyamrupali.ttf') format('truetype'),
+            
+      }
+     
+      @font-face {
+        font-family: 'Example';
+       
+        src: 
+             url('./bangla_fonts/sagarnormal.ttf') format('truetype'),
+            
+      }
+      @font-face {
+        font-family: 'Example';
+       
+        src: 
+             url('./bangla_fonts/SolaimanLipi_20-04-07.ttf') format('truetype'),
+            
+      }
+     

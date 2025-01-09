@@ -119,6 +119,7 @@ app.get('/allUsers', usersModel.users_list_email_wise)
 app.post('/login', usersModel.users_login);
 app.post('/create-users', usersModel.users_create);
 app.post('/admin/create_side_menu', usersModel.side_menu_create);
+app.get('/Admin/side_menu/font_family_list', usersModel.font_family_list);
 app.put('/admin/update_side_menu/:id', usersModel.side_menu_update);
 app.put('/admin/reset_password/:id', usersModel.password_reset);
 app.put('/updateLogin/:email', usersModel.updateLogin);
@@ -133,11 +134,12 @@ app.put('/admin_template_table/update/:id', usersModel.admin_template_menu_updat
 app.delete('/admin_template_table/delete_all', usersModel.menu_item_delete_all)
 app.post('/admin_template_table/post_all_data', usersModel.menu_item_create_bulk)
 app.get('/page-group/display-name', usersModel.page_group_display_name_list);
-
+app.post('/admin/users_role/users_role_access_update/:id', usersModel.users_role_access_update)
 
 // role
 
 app.post('/user/user-role-create', usersModel.users_role_create);
+app.post('/Admin/user/users_role_access_create', usersModel.users_role_access_create);
 app.get('/user/user-role-single/:id', usersModel.users_role_single);
 app.put('/user/user-role/edit/:id', usersModel.users_role_update);
 app.delete('/user/user-role/delete/:id', usersModel.users_role_delete);
@@ -165,6 +167,7 @@ app.post('/admin/delete/:id', adminPageList.module_info_delete)
 
 const ModuleInfo = require('../app/model/Admin/module_info/moduleInfo')
 app.post('/admin/allAdmin/', ModuleInfo.module_info_create)
+
 app.post('/admin/copy/', ModuleInfo.module_info_copy)
 app.post('/updateAdminList/:id', ModuleInfo.module_info_update)
 app.delete('/admin/allAdmin/:id', ModuleInfo.module_info_delete)
@@ -176,8 +179,9 @@ app.post('/admin/module_info/module_info_tutorial_update', ModuleInfo.module_inf
 app.get('/admin/module_info/module_info_tutorial_all_paigination/:pageNo/:perPage', ModuleInfo.module_info_tutorial_all_paigination)
 
 
-// no need
-app.get('/page-group/display-name/with-id', adminPageList.getPageGroupAndDisplayNameWithId)
+
+app.get('/Admin/user_role_access/module_info_all_access', adminPageList.getPageGroupAndDisplayNameWithId )
+app.get('/page-group/display-name/with-id', adminPageList.getPageGroupAndDisplayNameWithIdAccess)
 app.get('/admin/allAdmin/', ModuleInfo.getAllAdminPageList)
 app.get('/admin/module_info/module_info_all/:id', ModuleInfo.getAllAdminPageLists)
 app.get('/admin/group-names-id', ModuleInfo.getPageGroupAndControllerNamesId)

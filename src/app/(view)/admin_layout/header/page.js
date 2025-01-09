@@ -9,6 +9,7 @@ import { FaBars, FaTasks } from 'react-icons/fa';
 import Link from 'next/link';
 import './header.css'
 import '../modal/fa.css'
+import img2 from '../img/pathshala.jpg'
 
 const AdminHeader = ({ toggleSidebar }) => {
 
@@ -92,7 +93,7 @@ const AdminHeader = ({ toggleSidebar }) => {
 
     console.log(templateSettings)
     const filteredCategories = templateSettings.filter(category => category.status === 1);
-    console.log(filteredCategories[0]?.id)
+    console.log(filteredCategories[0]?.header_text_font)
 
     return (
 
@@ -116,9 +117,9 @@ const AdminHeader = ({ toggleSidebar }) => {
                     </div>
                 </div> */}
                 <div class="media">
-                    <img onClick={toggleSidebar} class="align-self-center mr-3" src="https://atik.urbanitsolution.com/files/logo/thumbnail/7632b474c6d5b78e3f6233a87461bf623f453c67.jpeg" alt="Generic placeholder image" width={40} />
+                    <img onClick={toggleSidebar} class="align-self-center mr-3" src={img2.src} alt="Generic placeholder image" width={40} />
                     <div class="media-body">
-                        <h4 className='mt-0 header-tag header_color'>Pathshala School & College
+                        <h4 className='mt-0 header-tag header_color header_text_font' style={{fontFamily: `${filteredCategories[0]?.header_text_font}`}}>Pathshala School & College
                         </h4>
                         <p className='mb-0'><strong>College Management System</strong></p>
 

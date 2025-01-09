@@ -9,14 +9,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 
-const UserRoleEdit = ({ id }) => {
+const UpdateUserRoleAccess = ({ id }) => {
 
 
     const { data: usersRoleCreate = [], isLoading, refetch
     } = useQuery({
         queryKey: ['usersRoleCreate'],
         queryFn: async () => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/page-group/display-name/with-id`)
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/user_role_access/module_info_all_access`)
 
             const data = await res.json()
             return data
@@ -293,12 +293,11 @@ const UserRoleEdit = ({ id }) => {
     };
     console.log(userRole?.user_role?.id)
     console.log(selectedMethodsArray.toString())
+    console.log(selectedMethodsArrays)
+    console.log(selectedMethods)
     // selectedMethodsArrays + ',' +
     const handleEditUserRole = (event) => {
         event.preventDefault();
-        // const user_page_list_id = selectedMethodsArray && selectedMethodsArray.length > 0
-        //     ? selectedMethodsArray.toString()
-        //     : selectedMethodsArrays.toString();
 
         const selectedMethodsArraysParsed = selectedMethodsArrays.split(',');
 
@@ -320,6 +319,7 @@ const UserRoleEdit = ({ id }) => {
             ? selectedMethodsArray.toString()
             : combinedMethods.toString();
 
+        console.log(user_page_list_id)
 
         const userRoleId = userRole.user_role?.id; // Get the user role ID
         const formData = {
@@ -339,10 +339,10 @@ const UserRoleEdit = ({ id }) => {
         };
         console.log(formData)
 
-
+        // ${process.env.NEXT_PUBLIC_API_URL}:5002/admin/users_role/users_role_access_update/${userRoleId}
         // Make a PUT request to update the user role
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/user/user-role/edit/${userRoleId}`, {
-            method: 'PUT',
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/admin/users_role/users_role_access_update/${userRoleId}`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -354,7 +354,8 @@ const UserRoleEdit = ({ id }) => {
                 if (Response.ok === true) {
                     localStorage.setItem('otp_expire', otp_expire)
                     sessionStorage.setItem("message", "Data Update successfully!");
-                    window.location.href = '/Admin/user_role/user_role_all';
+                    // window.location.href = '/Admin/user_role_access/user_role_access_all';
+                    router.push('/Admin/user_role_access/user_role_access_all')
 
                 }
             }
@@ -371,9 +372,10 @@ const UserRoleEdit = ({ id }) => {
     };
 
 
-    console.log(selectedMethods)
-    //  original start
 
+    console.log(selectedMethods)
+
+// original start
     // const handleSelectAll = (e) => {
     //     const isChecked = e.target.checked;
     //     const checkboxes = document.querySelectorAll('.form-check-input');
@@ -406,21 +408,22 @@ const UserRoleEdit = ({ id }) => {
     //     console.log("Checked method_id values:", methodIdArray);
     //     // You now have an array containing the method_id values for checkboxes with method_sort values 0 or 2.
     // };
-    //  original end
+
+    // original end
 
     const handleSelectAll = (e) => {
         const isChecked = e.target.checked;
         const checkboxes = document.querySelectorAll('.form-check-input');
         const methodIdArray = []; // Initialize an array to collect method_id values
-
+    
         checkboxes.forEach((checkbox) => {
             const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
             const methodId = parseInt(checkbox.getAttribute('data-method-id'));
-
+    
             // Check if methodSort is 0-5 or greater than 5
             if (methodSort === 0 || methodSort === 1 || methodSort === 2 || methodSort === 3 || methodSort === 4 || methodSort === 5 || methodSort > 5) {
                 checkbox.checked = isChecked;
-
+    
                 if (isChecked) {
                     // Capture the associated method_id when checking
                     if (!selectedMethods.includes(methodId)) {
@@ -440,7 +443,7 @@ const UserRoleEdit = ({ id }) => {
                 }
             }
         });
-
+    
         // Update selectedMethodsArrays string
         if (!isChecked) {
             // If SelectAll is unchecked, remove the methodIds from selectedMethodsArrays
@@ -449,16 +452,191 @@ const UserRoleEdit = ({ id }) => {
             // If SelectAll is checked, add methodIdArray to selectedMethodsArrays
             selectedMethodsArrays = [...new Set([...selectedMethodsArrays.split(',').map(Number), ...methodIdArray])].join(',');
         }
-
+    
         // Clear selectedMethodsArrays if selectedMethods is empty
         if (selectedMethods.length === 0) {
             selectedMethodsArrays = '';
         }
-
+    
         console.log("Updated selectedMethods:", selectedMethods);
         console.log("Updated selectedMethodsArrays:", selectedMethodsArrays);
         console.log("Checked method_id values:", methodIdArray);
     };
+    
+
+
+
+
+    // const handleSelectAll = (e) => {
+    //     const isChecked = e.target.checked;
+    //     const checkboxes = document.querySelectorAll('.form-check-input');
+    //     const methodIdArray = []; // Initialize an array to collect method_id values
+
+    //     checkboxes.forEach((checkbox) => {
+    //       const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
+    //       if (methodSort === 0 || methodSort === 1 || methodSort === 2 || methodSort === 3 || methodSort === 4 || methodSort === 5 || methodSort > 5) {
+    //         checkbox.checked = isChecked;
+    //         if (isChecked) {
+    //           // Capture the associated method_id when checking
+    //           const methodId = parseInt(checkbox.getAttribute('data-method-id'));
+    //           methodIdArray.push(methodId); // Add the method_id to the array
+    //         }
+    //         else{
+    //             const methodId = parseInt(checkbox.getAttribute('data-method-id'));
+    //             methodIdArray.pop(methodId);
+    //         }
+    //       }
+    //     });
+
+    //     if (!isChecked) {
+    //       // Clear selectedMethods if SelectAll is unchecked
+    //       selectedMethods.length = 0;
+    //     } else {
+    //       selectedMethods.push(...methodIdArray);
+    //     }
+
+    //     console.log(selectedMethods, 'selectedMethods');
+    //     console.log("Checked method_id values:", methodIdArray);
+    //   };
+
+    // const handleCreateAllChange = (e) => {
+    //     const isChecked = e.target.checked;
+    //     const checkboxes = document.querySelectorAll('.form-check-input');
+    //     const methodIdArray = []; // Initialize an array to collect method_id values
+
+    //     checkboxes.forEach((checkbox) => {
+    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
+    //         if (methodSort === 0 || methodSort === 1 || methodSort === 2 || methodSort === 4) {
+    //             checkbox.checked = isChecked;
+    //             if (isChecked) {
+    //                 // Capture the associated method_id when checking
+    //                 const methodId = parseInt(checkbox.getAttribute('data-method-id'));
+    //                 methodIdArray.push(methodId); // Add the method_id to the array
+    //             }
+    //             // You may also want to update the state or do something with the checked checkboxes here
+    //         }
+    //     });
+    //     selectedMethods.push(...methodIdArray)
+    //     console.log(selectedMethods, 'selectedMethods')
+    //     console.log("Checked method_id values:", methodIdArray);
+    //     // You now have an array containing the method_id values for checkboxes with method_sort values 0 or 2.
+    // };
+
+
+
+
+
+    // const handleCreateAllChange = (e) => {
+    //     const isChecked = e.target.checked;
+    //     const checkboxes = document.querySelectorAll('.form-check-input');
+    //     const methodIdArray = []; // Initialize an array to collect method_id values
+
+    //     checkboxes.forEach((checkbox) => {
+    //       const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
+    //       if (methodSort === 0 || methodSort === 1 || methodSort === 2 || methodSort === 4) {
+    //         checkbox.checked = isChecked;
+    //         if (isChecked) {
+    //           // Capture the associated method_id when checking
+    //           const methodId = parseInt(checkbox.getAttribute('data-method-id'));
+    //           methodIdArray.push(methodId); // Add the method_id to the array
+    //         }
+    //       }
+    //     });
+
+    //     if (isChecked) {
+    //       // If CreateAll is checked, ensure ViewAll is also checked
+    //       const viewAllCheckbox = document.getElementById('viewAllCheckbox'); // Replace with the actual ID
+    //       viewAllCheckbox.checked = true;
+    //     } else {
+    //       // If CreateAll is unchecked, do not uncheck checkboxes with methodSort 0 and 2
+    //       const viewAllCheckbox = document.getElementById('viewAllCheckbox'); // Replace with the actual ID
+    //       const viewAllChecked = viewAllCheckbox.checked;
+    //       if (!viewAllChecked) {
+    //         checkboxes.forEach((checkbox) => {
+    //           const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
+    //           if (methodSort === 0 || methodSort === 2) {
+    //             checkbox.checked = false;
+    //           }
+    //         });
+    //       }
+    //     }
+
+    //     selectedMethods.push(...methodIdArray);
+    //     console.log(selectedMethods, 'selectedMethods');
+    //     console.log("Checked method_id values:", methodIdArray);
+    //     // You now have an array containing the method_id values for checkboxes with method_sort values 0 or 2.
+    //   };
+
+    //   // Add event listeners to the corresponding checkboxes
+    //   const createAllCheckbox = document.getElementById('createAllCheckbox'); // Replace with the actual ID
+    //   createAllCheckbox.addEventListener('change', handleCreateAllChange);
+
+    //   const viewAllCheckbox = document.getElementById('viewAllCheckbox'); // Replace with the actual ID
+    //   viewAllCheckbox.addEventListener('change', handleViewAllChange);
+
+    // const handleCreateAllChange = (e) => {
+    //     const isChecked = e.target.checked;
+    //     const checkboxes = document.querySelectorAll('.form-check-input');
+    //     const methodIdArray = []; // Initialize an array to collect method_id values
+
+    //     checkboxes.forEach((checkbox) => {
+    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
+    //         if (methodSort === 0 || methodSort === 1 || methodSort === 2 || methodSort === 4) {
+    //             checkbox.checked = isChecked;
+    //             if (isChecked) {
+    //                 // Capture the associated method_id when checking
+    //                 const methodId = parseInt(checkbox.getAttribute('data-method-id'));
+    //                 methodIdArray.push(methodId); // Add the method_id to the array
+    //             }
+    //             else {
+    //                 const methodId = parseInt(checkbox.getAttribute('data-method-id'));
+    //                 methodIdArray.pop(methodId);
+    //             }
+    //         }
+    //     });
+    //     if (isChecked) {
+    //         // If CreateAll is checked, ensure ViewAll is also checked
+    //         const createAllCheckbox = document.getElementById('createAllCheckbox'); // Replace with the actual ID
+    //         createAllCheckbox.checked = true;
+    //     }
+    //     else {
+    //         //   If CreateAll is unchecked, do not uncheck checkboxes with methodSort 0 and 2
+    //         const viewAllCheckbox = document.getElementById('viewAllCheckbox'); // Replace with the actual ID
+    //         const editAllCheckbox = document.getElementById('editAllCheckbox'); // Replace with the actual ID
+    //         const copyAllCheckbox = document.getElementById('copyAllCheckbox'); // Replace with the actual ID
+    //         const deleteAllCheckbox = document.getElementById('deleteAllCheckbox'); // Replace with the actual ID
+    //         const createAllCheckbox = document.getElementById('createAllCheckbox'); // Replace with the actual ID
+    //         //   const viewAllCheckbox = document.getElementById('viewAllCheckbox'); // Replace with the actual ID
+    //         const viewAllChecked = viewAllCheckbox.checked;
+    //         const editAllChecked = editAllCheckbox.checked;
+    //         const copyAllChecked = copyAllCheckbox.checked;
+    //         const deleteAllChecked = deleteAllCheckbox.checked;
+    //         const createAllChecked = createAllCheckbox.checked;
+    //         if (viewAllChecked || editAllChecked || copyAllChecked || deleteAllChecked) {
+    //             checkboxes.forEach((checkbox) => {
+    //                 const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
+    //                 if (methodSort === 0 || methodSort === 2) {
+    //                     checkbox.checked = true;
+    //                 }
+    //             });
+    //         }
+    //     }
+    //     if (!isChecked) {
+    //         // Clear selectedMethods if SelectAll is unchecked
+    //         selectedMethods.length = 0;
+    //     } else {
+    //         selectedMethods.push(...methodIdArray);
+    //     }
+
+    //     selectedMethods.push(...methodIdArray);
+    //     console.log(selectedMethods, 'selectedMethods');
+    //     console.log("Checked method_id values:", methodIdArray);
+
+    // };
+
+
+
+
 
     const handleCreateAllChange = (e) => {
 
@@ -791,16 +969,182 @@ const UserRoleEdit = ({ id }) => {
     };
 
 
-    // const handleCreateAllChange = (e) => {
 
+    const [loading, setLoading] = useState(false)
+    useEffect(() => {
+        setLoading(true)
+        setTimeout(() => {
+            setLoading(false)
+        }, 2500)
+    }, [])
+
+    const [userId, setUserId] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userId') || '';
+        }
+        return '';
+    });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const storedUserId = localStorage.getItem('userId');
+            setUserId(storedUserId);
+        }
+    }, []);
+
+    const { data: moduleInfo = []
+    } = useQuery({
+        queryKey: ['moduleInfo'],
+        queryFn: async () => {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/admin/module_info/module_info_all/${userId}`)
+
+            const data = await res.json()
+            return data
+        }
+    })
+
+
+    console.log(moduleInfo)
+
+    // console.log(moduleInfo.filter(moduleI => moduleI.controller_name === 'brand'))
+    const btnIconUsers = moduleInfo.filter(moduleI => moduleI.controller_name === 'user_role_access')
+
+    const filteredControllerName = btnIconUsers.filter(btn =>
+        btn.method_sort === 2
+    );
+    // console.log(filteredControllerName[0], 'btndhghg')
+
+
+
+
+
+
+
+    // const handleCreateAllPageGroup = (e, pageGroupId) => {
     //     const isChecked = e.target.checked;
-    //     const checkboxes = document.querySelectorAll('.form-check-input');
+    //     const checkboxes = document.querySelectorAll(
+    //       `.form-check-input[data-page-group="${pageGroupId}"]`
+    //     );
+    //     // const checkboxes = document.querySelectorAll('.form-check-input');
+
+    //     // const checkboxes = document.querySelectorAll(
+    //     //   `.form-check-input[data-page-group="${pageGroupId}"]`
+    //     // );
+
+    //     const methodIdArray = []; // Initialize an array to collect method_id values
+
+    //     checkboxes.forEach((checkbox) => {
+    //       const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
+    //       if (methodSort === 0 || methodSort === 1 || methodSort === 2 || methodSort === 4) {
+    //         checkbox.checked = isChecked;
+    //         if (isChecked) {
+    //           // Capture the associated method_id when checking
+    //           const methodId = parseInt(checkbox.getAttribute('data-method-id'));
+    //           methodIdArray.push(methodId); // Add the method_id to the array
+    //         } else {
+    //           const methodId = parseInt(checkbox.getAttribute('data-method-id'));
+    //           // Remove the method_id from the array
+    //           const index = methodIdArray.indexOf(methodId);
+    //           if (index !== -1) {
+    //             methodIdArray.splice(index, 1);
+    //           }
+    //         }
+    //         // You may also want to update the state or do something with the checked checkboxes here
+    //       }
+    //     });
+
+    //     // Optional: Ensure that when "Create All" is checked, other checkboxes like "View All," "Edit All," etc., are also checked if they are not already.
+    //     if (isChecked) {
+    //       checkboxes.forEach((checkbox) => {
+    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
+    //         if (methodSort === 0 || methodSort === 2) {
+    //           checkbox.checked = true;
+    //         }
+    //       });
+    //     }
+
+    //     // Optional: Update the selected methods state or perform other actions.
+    //     // ...
+
+    //     // Logging the checked checkboxes
+    //     console.log(`Checked checkboxes for page group ${pageGroupId}`);
+    //     console.log("Checked method_id values:", methodIdArray);
+    //   };
+
+
+
+
+
+    // const handleCreateAllPageGroup = (e, pageGroupId) => {
+    //     const isChecked = e.target.checked;
+    //     const checkboxes = document.querySelectorAll(
+    //         `.form-check-input[data-page-group="${pageGroupId}"]`
+    //     );
+    //     const methodIdArray = []; // Initialize an array to collect method_id values
+
+    //     checkboxes.forEach((checkbox) => {
+    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
+    //         if (methodSort === 0 || methodSort === 1 || methodSort === 2 || methodSort === 4) {
+    //             checkbox.checked = isChecked;
+    //             if (isChecked) {
+    //                 // Capture the associated method_id when checking
+    //                 const methodId = parseInt(checkbox.getAttribute('data-method-id'));
+    //                 methodIdArray.push(methodId); // Add the method_id to the array
+    //             }
+    //             else {
+    //                 const methodId = parseInt(checkbox.getAttribute('data-method-id'));
+    //                 methodIdArray.pop(methodId); // Add the method_id to the array
+
+    //             }
+    //             // You may also want to update the state or do something with the checked checkboxes here
+    //         }
+    //     });
+    //     if (isChecked) {
+
+    //     }
+    //     else {
+    //         const editAllCheckbox = document.getElementById('editAllCheckboxPageGroup'); // Replace with the actual ID
+    //         const copyAllCheckbox = document.getElementById('copyAllCheckboxPageGroup'); // Replace with the actual ID
+    //         const viewAllCheckbox = document.getElementById('viewAllCheckboxPageGroup'); // Replace with the actual ID
+    //         const deleteAllCheckbox = document.getElementById('deleteAllCheckboxPageGroup'); // Replace with the actual ID
+    //         const createAllCheckbox = document.getElementById('createAllCheckboxPageGroup'); // Replace with the actual ID
+    //         //   const viewAllCheckbox = document.getElementById('viewAllCheckbox'); // Replace with the actual ID
+    //         const viewAllChecked = viewAllCheckbox.checked;
+    //         const editAllChecked = editAllCheckbox.checked;
+    //         const copyAllChecked = copyAllCheckbox.checked;
+    //         const deleteAllChecked = deleteAllCheckbox.checked;
+    //         const createAllChecked = createAllCheckbox.checked;
+    //         if (viewAllChecked && editAllChecked && copyAllChecked && deleteAllChecked) {
+    //             checkboxes.forEach((checkbox) => {
+    //                 const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
+    //                 if (methodSort === 0 || methodSort === 2) {
+    //                     checkbox.checked = true;
+    //                 }
+    //             });
+    //         }
+    //     }
+    //     if (!isChecked) {
+    //         // Clear selectedMethods if SelectAll is unchecked
+    //         selectedMethods.length = 0;
+    //     } else {
+    //         selectedMethods.push(...methodIdArray);
+    //     }
+    //     selectedMethods.push(...methodIdArray)
+    //     console.log(selectedMethods, 'selectedMethods')
+    //     console.log("Checked method_id values:", methodIdArray);
+    //     // You now have an array containing the method_id values for checkboxes with method_sort values 0 or 2.
+    // };
+
+    // const handleCreateAllPageGroup = (e, pageGroupId) => {
+    //     const isChecked = e.target.checked;
+    //     const checkboxes = document.querySelectorAll(
+    //         `.form-check-input[data-page-group="${pageGroupId}"]`
+    //     );
 
     //     const methodIdSet = new Set(selectedMethods);
 
     //     checkboxes.forEach((checkbox) => {
     //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //         console.log(methodSort)
     //         if (methodSort === 0 || methodSort === 1 || methodSort === 2 || methodSort === 4) {
     //             checkbox.checked = isChecked;
     //             const methodId = parseInt(checkbox.getAttribute('data-method-id'));
@@ -808,46 +1152,20 @@ const UserRoleEdit = ({ id }) => {
     //             if (isChecked) {
     //                 methodIdSet.add(methodId);
     //             } else {
-    //                 const selectAll = document.getElementById('selectAll');
-    //                 // Check if any of the other checkboxes are still checked
-    //                 const viewAllCheckbox = document.getElementById('viewAllCheckbox'); // Replace with the actual ID
-    //                 const editAllCheckbox = document.getElementById('editAllCheckbox'); // Replace with the actual ID
-    //                 const copyAllCheckbox = document.getElementById('copyAllCheckbox'); // Replace with the actual ID
-    //                 const deleteAllCheckbox = document.getElementById('deleteAllCheckbox'); // Replace with the actual ID
-    //                 const createAllCheckbox = document.getElementById('createAllCheckbox'); // Replace with the actual ID
-
-    //                 if (selectAll.checked || viewAllCheckbox.checked || editAllCheckbox.checked || createAllCheckbox.checked || deleteAllCheckbox.checked) {
-    //                     // Don't remove method_sort 0 and 2 when other checkboxes are still checked
-    //                     checkboxes.forEach((checkbox) => {
-    //                         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //                         if (methodSort === 0 || methodSort === 2) {
-    //                             checkbox.checked = true;
-    //                         }
-    //                     });
-    //                     if (methodSort !== 0 && methodSort !== 2) {
-    //                         methodIdSet.delete(methodId);
-
-    //                     }
-    //                 } else {
-    //                     // Remove the method_id if no other checkboxes are checked
-    //                     methodIdSet.delete(methodId);
-    //                 }
+    //                 methodIdSet.delete(methodId);
     //             }
     //         }
     //     });
 
     //     selectedMethods = Array.from(methodIdSet);
-    //     // selectedMethodsArray = Array.from(methodIdSet);
     //     console.log(selectedMethods, 'selectedMethods');
-    //     // console.log(selectedMethodsArray, 'selectedMethodsArray');
-
     // };
 
-
-
-    // const handleViewAllChange = (e) => {
+    // const handleViewAllPageGroup = (e, pageGroupId) => {
     //     const isChecked = e.target.checked;
-    //     const checkboxes = document.querySelectorAll('.form-check-input');
+    //     const checkboxes = document.querySelectorAll(
+    //         `.form-check-input[data-page-group="${pageGroupId}"]`
+    //     );
 
     //     const methodIdSet = new Set(selectedMethods);
 
@@ -860,211 +1178,60 @@ const UserRoleEdit = ({ id }) => {
     //             if (isChecked) {
     //                 methodIdSet.add(methodId);
     //             } else {
-
-    //                 // Check if any of the other checkboxes are still checked
-    //                 const viewAllCheckbox = document.getElementById('viewAllCheckbox'); // Replace with the actual ID
-    //                 const selectAll = document.getElementById('selectAll'); // Replace with the actual ID
-    //                 const editAllCheckbox = document.getElementById('editAllCheckbox'); // Replace with the actual ID
-    //                 const copyAllCheckbox = document.getElementById('copyAllCheckbox'); // Replace with the actual ID
-    //                 const deleteAllCheckbox = document.getElementById('deleteAllCheckbox'); // Replace with the actual ID
-    //                 const createAllCheckbox = document.getElementById('createAllCheckbox'); // Replace with the actual ID
-
-    //                 if (selectAll.checked || createAllCheckbox.checked || editAllCheckbox.checked || copyAllCheckbox.checked || deleteAllCheckbox.checked) {
-    //                     // Don't remove method_sort 0 and 2 when other checkboxes are still checked
-    //                     checkboxes.forEach((checkbox) => {
-    //                         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //                         if (methodSort === 0) {
-    //                             checkbox.checked = true;
-    //                         }
-    //                     });
-    //                     if (methodSort !== 0) {
-    //                         methodIdSet.delete(methodId);
-
-    //                     }
-    //                 } else {
-    //                     // Remove the method_id if no other checkboxes are checked
-    //                     methodIdSet.delete(methodId);
-    //                 }
+    //                 methodIdSet.delete(methodId);
     //             }
     //         }
     //     });
 
     //     selectedMethods = Array.from(methodIdSet);
     //     console.log(selectedMethods, 'selectedMethods');
+    //     const editAllCheckbox = document.getElementById('editAllCheckboxPageGroup'); // Replace with the actual ID
+    //     const copyAllCheckbox = document.getElementById('copyAllCheckboxPageGroup'); // Replace with the actual ID
+    //     const viewAllCheckbox = document.getElementById('viewAllCheckboxPageGroup'); // Replace with the actual ID
+    //     const deleteAllCheckbox = document.getElementById('deleteAllCheckboxPageGroup'); // Replace with the actual ID
+    //     const createAllCheckbox = document.getElementById('createAllCheckboxPageGroup'); // Replace with the actual ID
 
+    //     const viewAllChecked = viewAllCheckbox.checked;
+    //     const editAllChecked = editAllCheckbox.checked;
+    //     const copyAllChecked = copyAllCheckbox.checked;
+    //     const deleteAllChecked = deleteAllCheckbox.checked;
+    //     const createAllChecked = createAllCheckbox.checked;
+
+    //     if (createAllChecked || editAllChecked || copyAllChecked || deleteAllChecked) {
+    //         checkboxes.forEach((checkbox) => {
+    //             const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
+    //             if (methodSort === 0 ) {
+    //                 checkbox.checked = true;
+    //             }
+    //         });
+    //     }
     // };
 
-    // const handleEditAllChange = (e) => {
+
+    // const handleSelectAllPageGroup = (e, pageGroupId) => {
     //     const isChecked = e.target.checked;
-    //     const checkboxes = document.querySelectorAll('.form-check-input');
+    //     const checkboxes = document.querySelectorAll(
+    //         `.form-check-input[data-page-group="${pageGroupId}"]`
+    //     );
 
     //     const methodIdSet = new Set(selectedMethods);
 
     //     checkboxes.forEach((checkbox) => {
     //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //         if (methodSort === 0 || methodSort === 2 || methodSort === 3) {
-    //             checkbox.checked = isChecked;
-    //             const methodId = parseInt(checkbox.getAttribute('data-method-id'));
+    //         const methodId = parseInt(checkbox.getAttribute('data-method-id'));
 
-    //             if (isChecked) {
-    //                 methodIdSet.add(methodId);
-    //             } else {
-    //                 const selectAll = document.getElementById('selectAll');
-    //                 // Check if any of the other checkboxes are still checked
-    //                 const viewAllCheckbox = document.getElementById('viewAllCheckbox'); // Replace with the actual ID
-    //                 const editAllCheckbox = document.getElementById('editAllCheckbox'); // Replace with the actual ID
-    //                 const copyAllCheckbox = document.getElementById('copyAllCheckbox'); // Replace with the actual ID
-    //                 const deleteAllCheckbox = document.getElementById('deleteAllCheckbox'); // Replace with the actual ID
-    //                 const createAllCheckbox = document.getElementById('createAllCheckbox'); // Replace with the actual ID
-
-    //                 if (selectAll.checked || viewAllCheckbox.checked || createAllCheckbox.checked || copyAllCheckbox.checked || deleteAllCheckbox.checked) {
-    //                     // Don't remove method_sort 0 and 2 when other checkboxes are still checked
-    //                     checkboxes.forEach((checkbox) => {
-    //                         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //                         if (methodSort === 0 || methodSort === 2) {
-    //                             checkbox.checked = true;
-    //                         }
-    //                     });
-    //                     if (methodSort !== 0 && methodSort !== 2) {
-    //                         methodIdSet.delete(methodId);
-
-    //                     }
-    //                 } else {
-    //                     // Remove the method_id if no other checkboxes are checked
-    //                     methodIdSet.delete(methodId);
-    //                 }
-    //             }
+    //         if (isChecked) {
+    //             checkbox.checked = true;
+    //             methodIdSet.add(methodId);
+    //         } else {
+    //             checkbox.checked = false;
+    //             methodIdSet.delete(methodId);
     //         }
     //     });
 
     //     selectedMethods = Array.from(methodIdSet);
     //     console.log(selectedMethods, 'selectedMethods');
-
     // };
-
-    // const handleCopyAllChange = (e) => {
-
-    //     const isChecked = e.target.checked;
-    //     const checkboxes = document.querySelectorAll('.form-check-input');
-
-    //     const methodIdSet = new Set(selectedMethods);
-
-    //     checkboxes.forEach((checkbox) => {
-    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //         if (methodSort === 0 || methodSort === 1 || methodSort === 2 || methodSort === 4) {
-    //             checkbox.checked = isChecked;
-    //             const methodId = parseInt(checkbox.getAttribute('data-method-id'));
-
-    //             if (isChecked) {
-    //                 methodIdSet.add(methodId);
-    //             } else {
-    //                 const selectAll = document.getElementById('selectAll');
-    //                 // Check if any of the other checkboxes are still checked
-    //                 const viewAllCheckbox = document.getElementById('viewAllCheckbox'); // Replace with the actual ID
-    //                 const editAllCheckbox = document.getElementById('editAllCheckbox'); // Replace with the actual ID
-    //                 const copyAllCheckbox = document.getElementById('copyAllCheckbox'); // Replace with the actual ID
-    //                 const deleteAllCheckbox = document.getElementById('deleteAllCheckbox'); // Replace with the actual ID
-    //                 const createAllCheckbox = document.getElementById('createAllCheckbox'); // Replace with the actual ID
-
-    //                 if (selectAll.checked || viewAllCheckbox.checked || editAllCheckbox.checked || createAllCheckbox.checked || deleteAllCheckbox.checked) {
-    //                     // Don't remove method_sort 0 and 2 when other checkboxes are still checked
-    //                     checkboxes.forEach((checkbox) => {
-    //                         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //                         if (methodSort === 0 || methodSort === 2) {
-    //                             checkbox.checked = true;
-    //                         }
-    //                     });
-    //                     if (methodSort !== 0 && methodSort !== 2) {
-    //                         methodIdSet.delete(methodId);
-
-    //                     }
-    //                 } else {
-    //                     // Remove the method_id if no other checkboxes are checked
-    //                     methodIdSet.delete(methodId);
-    //                 }
-    //             }
-    //         }
-    //     });
-
-    //     selectedMethods = Array.from(methodIdSet);
-    //     console.log(selectedMethods, 'selectedMethods');
-
-    // };
-
-    // const handleDeleteAllChange = (e) => {
-    //     const isChecked = e.target.checked;
-    //     const checkboxes = document.querySelectorAll('.form-check-input');
-
-    //     const methodIdSet = new Set(selectedMethods);
-
-    //     checkboxes.forEach((checkbox) => {
-    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //         if (methodSort === 0 || methodSort === 2 || methodSort === 5) {
-    //             checkbox.checked = isChecked;
-    //             const methodId = parseInt(checkbox.getAttribute('data-method-id'));
-
-    //             if (isChecked) {
-    //                 methodIdSet.add(methodId);
-    //             } else {
-    //                 const selectAll = document.getElementById('selectAll');
-    //                 // Check if any of the other checkboxes are still checked
-    //                 const viewAllCheckbox = document.getElementById('viewAllCheckbox'); // Replace with the actual ID
-    //                 const editAllCheckbox = document.getElementById('editAllCheckbox'); // Replace with the actual ID
-    //                 const copyAllCheckbox = document.getElementById('copyAllCheckbox'); // Replace with the actual ID
-    //                 const deleteAllCheckbox = document.getElementById('deleteAllCheckbox'); // Replace with the actual ID
-    //                 const createAllCheckbox = document.getElementById('createAllCheckbox'); // Replace with the actual ID
-
-    //                 if (selectAll.checked || viewAllCheckbox.checked || editAllCheckbox.checked || copyAllCheckbox.checked || createAllCheckbox.checked) {
-    //                     // Don't remove method_sort 0 and 2 when other checkboxes are still checked
-    //                     checkboxes.forEach((checkbox) => {
-    //                         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //                         if (methodSort === 0 || methodSort === 2) {
-    //                             checkbox.checked = true;
-    //                         }
-    //                     });
-    //                     if (methodSort !== 0 && methodSort !== 2) {
-    //                         methodIdSet.delete(methodId);
-
-    //                     }
-    //                 } else {
-    //                     // Remove the method_id if no other checkboxes are checked
-    //                     methodIdSet.delete(methodId);
-    //                 }
-    //             }
-    //         }
-    //     });
-
-    //     selectedMethods = Array.from(methodIdSet);
-    //     console.log(selectedMethods, 'selectedMethods');
-
-    // };
-
-
-
-
-    // console.log('Filtered Display Names delete all:', filteredDisplayNamesViewAll);
-
-
-
-    const [loading, setLoading] = useState(false)
-    useEffect(() => {
-        setLoading(true)
-        setTimeout(() => {
-            setLoading(false)
-        }, 2500)
-    }, [])
-    const [btnIconUsers, setBtnIconUsers] = useState([])
-    useEffect(() => {
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/user-role/btn`)
-            .then(Response => Response.json())
-            .then(data => setBtnIconUsers(data))
-
-
-    }, [])
-
-    const filteredControllerName = btnIconUsers.filter(btn =>
-        btn.method_sort === 2
-    );
 
     const handleSelectAllPageGroup = (e, pageGroupId) => {
         const isChecked = e.target.checked;
@@ -1383,288 +1550,6 @@ const UserRoleEdit = ({ id }) => {
         console.log(selectedMethodsArrays, 'selectedMethodsArrays');
     };
 
-
-    // const handleSelectAllPageGroup = (e, pageGroupId) => {
-    //     const isChecked = e.target.checked;
-    //     const checkboxes = document.querySelectorAll(
-    //         `.form-check-input[data-page-group="${pageGroupId}"]`
-    //     );
-
-    //     const methodIdSet = new Set(selectedMethods);
-
-    //     checkboxes.forEach((checkbox) => {
-    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //         const methodId = parseInt(checkbox.getAttribute('data-method-id'));
-
-    //         if (isChecked) {
-    //             checkbox.checked = true;
-    //             methodIdSet.add(methodId);
-    //         } else {
-    //             checkbox.checked = false;
-    //             methodIdSet.delete(methodId);
-    //         }
-    //     });
-
-    //     selectedMethods = Array.from(methodIdSet);
-    //     console.log(selectedMethods, 'selectedMethods');
-    // };
-
-
-
-
-    // const handleCreateAllPageGroup = (e, pageGroupId) => {
-    //     const isChecked = e.target.checked;
-    //     const checkboxes = document.querySelectorAll(
-    //         `.form-check-input[data-page-group="${pageGroupId}"]`
-    //     );
-
-
-
-    //     const methodIdSet = new Set(selectedMethods);
-
-    //     checkboxes.forEach((checkbox) => {
-    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //         if (methodSort === 0 || methodSort === 1 || methodSort === 2 || methodSort === 4) {
-    //             checkbox.checked = isChecked;
-    //             const methodId = parseInt(checkbox.getAttribute('data-method-id'));
-
-    //             if (isChecked) {
-    //                 methodIdSet.add(methodId);
-    //             } else {
-    //                 // Check if any of the other checkboxes are still checked
-    //                 const viewAllCheckbox = document.getElementById('viewAllCheckboxPageGroup');
-    //                 const editAllCheckbox = document.getElementById('editAllCheckboxPageGroup');
-    //                 const copyAllCheckbox = document.getElementById('copyAllCheckboxPageGroup');
-    //                 const deleteAllCheckbox = document.getElementById('deleteAllCheckboxPageGroup');
-
-
-
-
-    //                 if (viewAllCheckbox.checked || editAllCheckbox.checked || copyAllCheckbox.checked || deleteAllCheckbox.checked) {
-    //                     // Don't remove method_sort 0 and 2 when other checkboxes are still checked
-    //                     checkboxes.forEach((checkbox) => {
-    //                         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //                         if (methodSort === 0 || methodSort === 2) {
-    //                             checkbox.checked = true;
-    //                         }
-    //                     });
-    //                     if (methodSort !== 0 && methodSort !== 2) {
-    //                         methodIdSet.delete(methodId);
-
-    //                     }
-    //                 } else {
-    //                     // Remove the method_id if no other checkboxes are checked
-    //                     methodIdSet.delete(methodId);
-    //                 }
-    //             }
-    //         }
-    //     });
-
-    //     selectedMethods = Array.from(methodIdSet);
-    //     console.log(selectedMethods, 'selectedMethods');
-    // };
-
-
-
-
-    // const handleViewAllPageGroup = (e, pageGroupId) => {
-    //     const isChecked = e.target.checked;
-    //     const checkboxes = document.querySelectorAll(
-    //         `.form-check-input[data-page-group="${pageGroupId}"]`
-    //     );
-
-    //     const methodIdSet = new Set(selectedMethods);
-
-    //     checkboxes.forEach((checkbox) => {
-    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //         if (methodSort === 0 || methodSort === 2) {
-    //             checkbox.checked = isChecked;
-    //             const methodId = parseInt(checkbox.getAttribute('data-method-id'));
-
-    //             if (isChecked) {
-    //                 methodIdSet.add(methodId);
-    //             } else {
-    //                 // Check if any of the other checkboxes are still checked
-    //                 const createAllCheckbox = document.getElementById('createAllCheckboxPageGroup');
-    //                 const editAllCheckbox = document.getElementById('editAllCheckboxPageGroup');
-    //                 const copyAllCheckbox = document.getElementById('copyAllCheckboxPageGroup');
-    //                 const deleteAllCheckbox = document.getElementById('deleteAllCheckboxPageGroup');
-
-    //                 if (createAllCheckbox.checked || editAllCheckbox.checked || copyAllCheckbox.checked || deleteAllCheckbox.checked) {
-    //                     // Don't remove method_sort 0 and 2 when other checkboxes are still checked
-    //                     checkboxes.forEach((checkbox) => {
-    //                         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //                         if (methodSort === 0) {
-    //                             checkbox.checked = true;
-    //                         }
-    //                     });
-    //                     if (methodSort !== 0) {
-    //                         methodIdSet.delete(methodId);
-
-    //                     }
-    //                 } else {
-    //                     // Remove the method_id if no other checkboxes are checked
-    //                     methodIdSet.delete(methodId);
-    //                 }
-    //             }
-    //         }
-    //     });
-
-    //     selectedMethods = Array.from(methodIdSet);
-    //     console.log(selectedMethods, 'selectedMethods');
-    // };
-
-
-
-
-    // const handleEditAllPageGroup = (e, pageGroupId) => {
-    //     const isChecked = e.target.checked;
-    //     const checkboxes = document.querySelectorAll(
-    //         `.form-check-input[data-page-group="${pageGroupId}"]`
-    //     );
-
-
-    //     const methodIdSet = new Set(selectedMethods);
-
-    //     checkboxes.forEach((checkbox) => {
-    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //         if (methodSort === 0 || methodSort === 2 || methodSort === 3) {
-    //             checkbox.checked = isChecked;
-    //             const methodId = parseInt(checkbox.getAttribute('data-method-id'));
-
-    //             if (isChecked) {
-    //                 methodIdSet.add(methodId);
-    //             } else {
-    //                 // Check if any of the other checkboxes are still checked
-    //                 const viewAllCheckbox = document.getElementById('viewAllCheckboxPageGroup');
-    //                 const editAllCheckbox = document.getElementById('editAllCheckboxPageGroup');
-    //                 const copyAllCheckbox = document.getElementById('copyAllCheckboxPageGroup');
-    //                 const deleteAllCheckbox = document.getElementById('deleteAllCheckboxPageGroup');
-    //                 const createAllCheckbox = document.getElementById('createAllCheckboxPageGroup');
-
-    //                 if (viewAllCheckbox.checked || createAllCheckbox.checked || copyAllCheckbox.checked || deleteAllCheckbox.checked) {
-    //                     // Don't remove method_sort 0 and 2 when other checkboxes are still checked
-    //                     checkboxes.forEach((checkbox) => {
-    //                         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //                         if (methodSort === 0 || methodSort === 2) {
-    //                             checkbox.checked = true;
-    //                         }
-    //                     });
-    //                     if (methodSort !== 0 && methodSort !== 2) {
-    //                         methodIdSet.delete(methodId);
-
-    //                     }
-    //                 } else {
-    //                     // Remove the method_id if no other checkboxes are checked
-    //                     methodIdSet.delete(methodId);
-    //                 }
-    //             }
-    //         }
-    //     });
-
-    //     selectedMethods = Array.from(methodIdSet);
-    //     console.log(selectedMethods, 'selectedMethods');
-    // };
-
-
-
-    // const handleCopyAllPageGroup = (e, pageGroupId) => {
-    //     const isChecked = e.target.checked;
-    //     const checkboxes = document.querySelectorAll(
-    //         `.form-check-input[data-page-group="${pageGroupId}"]`
-    //     );
-
-    //     const methodIdSet = new Set(selectedMethods);
-
-    //     checkboxes.forEach((checkbox) => {
-    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //         if (methodSort === 0 || methodSort === 1 || methodSort === 2 || methodSort === 4) {
-    //             checkbox.checked = isChecked;
-    //             const methodId = parseInt(checkbox.getAttribute('data-method-id'));
-
-    //             if (isChecked) {
-    //                 methodIdSet.add(methodId);
-    //             } else {
-    //                 // Check if any of the other checkboxes are still checked
-    //                 const viewAllCheckbox = document.getElementById('viewAllCheckboxPageGroup');
-    //                 const editAllCheckbox = document.getElementById('editAllCheckboxPageGroup');
-    //                 const copyAllCheckbox = document.getElementById('copyAllCheckboxPageGroup');
-    //                 const deleteAllCheckbox = document.getElementById('deleteAllCheckboxPageGroup');
-    //                 const createAllCheckbox = document.getElementById('createAllCheckboxPageGroup');
-
-    //                 if (viewAllCheckbox.checked || editAllCheckbox.checked || createAllCheckbox.checked || deleteAllCheckbox.checked) {
-    //                     // Don't remove method_sort 0 and 2 when other checkboxes are still checked
-    //                     checkboxes.forEach((checkbox) => {
-    //                         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //                         if (methodSort === 0 || methodSort === 2) {
-    //                             checkbox.checked = true;
-    //                         }
-    //                     });
-    //                     if (methodSort !== 0 && methodSort !== 2) {
-    //                         methodIdSet.delete(methodId);
-
-    //                     }
-    //                 } else {
-    //                     // Remove the method_id if no other checkboxes are checked
-    //                     methodIdSet.delete(methodId);
-    //                 }
-    //             }
-    //         }
-    //     });
-
-    //     selectedMethods = Array.from(methodIdSet);
-    //     console.log(selectedMethods, 'selectedMethods');
-    // };
-
-
-    // const handleDeleteAllPageGroup = (e, pageGroupId) => {
-    //     const isChecked = e.target.checked;
-    //     const checkboxes = document.querySelectorAll(
-    //         `.form-check-input[data-page-group="${pageGroupId}"]`
-    //     );
-
-    //     const methodIdSet = new Set(selectedMethods);
-
-    //     checkboxes.forEach((checkbox) => {
-    //         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //         if (methodSort === 0 || methodSort === 2 || methodSort === 5) {
-    //             checkbox.checked = isChecked;
-    //             const methodId = parseInt(checkbox.getAttribute('data-method-id'));
-
-    //             if (isChecked) {
-    //                 methodIdSet.add(methodId);
-    //             } else {
-    //                 // Check if any of the other checkboxes are still checked
-    //                 const viewAllCheckbox = document.getElementById('viewAllCheckboxPageGroup');
-    //                 const editAllCheckbox = document.getElementById('editAllCheckboxPageGroup');
-    //                 const copyAllCheckbox = document.getElementById('copyAllCheckboxPageGroup');
-    //                 const deleteAllCheckbox = document.getElementById('deleteAllCheckboxPageGroup');
-    //                 const createAllCheckbox = document.getElementById('createAllCheckboxPageGroup');
-
-    //                 if (viewAllCheckbox.checked || editAllCheckbox.checked || copyAllCheckbox.checked || createAllCheckbox.checked) {
-    //                     // Don't remove method_sort 0 and 2 when other checkboxes are still checked
-    //                     checkboxes.forEach((checkbox) => {
-    //                         const methodSort = parseInt(checkbox.getAttribute('data-method-sort'));
-    //                         if (methodSort === 0 || methodSort === 2) {
-    //                             checkbox.checked = true;
-    //                         }
-    //                     });
-    //                     if (methodSort !== 0 && methodSort !== 2) {
-    //                         methodIdSet.delete(methodId);
-
-    //                     }
-    //                 } else {
-    //                     // Remove the method_id if no other checkboxes are checked
-    //                     methodIdSet.delete(methodId);
-    //                 }
-    //             }
-    //         }
-    //     });
-
-    //     selectedMethods = Array.from(methodIdSet);
-    //     console.log(selectedMethods, 'selectedMethods');
-    // };
-
     const [fastCheckboxChecked, setFastCheckboxChecked] = useState(false);
     const [selectedOption, setSelectedOption] = useState('');
     const handleFastCheckboxChange = () => {
@@ -1711,8 +1596,8 @@ const UserRoleEdit = ({ id }) => {
                                 <div
                                     style={{ backgroundColor: '#4267b2' }}
                                     class="card-header custom-card-header  py-1  clearfix bg-gradient-primary text-white">
-                                    <h5 class="card-title card-header-color font-weight-bold mb-0  float-left mt-1">Create User Role</h5>
-                                    <div class="card-title card-header-color font-weight-bold mb-0  float-right"> <Link href={`/Admin/${filteredControllerName[0]?.controller_name}/${filteredControllerName[0]?.method_name}?page-group=${filteredControllerName[0]?.page_group}`} class="btn btn-sm btn-info">Back to User role List</Link></div>
+                                    <h5 class="card-title card-header-color font-weight-bold mb-0  float-left mt-1">Edit User Role Access</h5>
+                                    <div class="card-title card-header-color font-weight-bold mb-0  float-right"> <Link href={`/Admin/${filteredControllerName[0]?.controller_name}/${filteredControllerName[0]?.method_name}?page-group=${filteredControllerName[0]?.page_group}`} class="btn btn-sm btn-info">Back to User role Access List</Link></div>
                                 </div>
                                 <div class="alert alert-warning mb-0 mx-4 mt-4 text-danger font-weight-bold" role="alert">
                                     (<small><sup><i class="text-danger fas fa-star"></i></sup></small>) field required
@@ -2115,5 +2000,5 @@ const UserRoleEdit = ({ id }) => {
 };
 
 
-export default UserRoleEdit;
+export default UpdateUserRoleAccess;
 

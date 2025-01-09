@@ -163,12 +163,12 @@ const CategorySubCategoryStock = () => {
                 totalAmount: 0,
             };
         }
-    
+
         // Check if sub_category_name already exists in the subcategories array
         const existingSubcategory = acc[item.category_id].subcategories.find(
             (sub) => sub.sub_category_name === item.sub_category_name
         );
-    
+
         if (existingSubcategory) {
             // Update the existing subcategory's quantity and total amount
             existingSubcategory.available_quantity += item.available_quantity;
@@ -181,16 +181,16 @@ const CategorySubCategoryStock = () => {
                 total_amount: item.sale_price * item.available_quantity,
             });
         }
-    
+
         // Update the total quantity and amount for the category
         acc[item.category_id].totalQuantity += item.available_quantity;
         acc[item.category_id].totalAmount += item.sale_price * item.available_quantity;
-    
+
         return acc;
     }, {});
-    
+
     const categories = Object.values(groupedData);
-    
+
 
     // const groupedDatas = purchase_product_stock_list.reduce((acc, item) => {
     //     if (!acc[item.category_id]) {
@@ -224,12 +224,12 @@ const CategorySubCategoryStock = () => {
                 totalAmount: 0,
             };
         }
-    
+
         // Check if sub_category_name already exists in the subcategories array
         const existingSubcategory = acc[item.category_id].subcategories.find(
             (sub) => sub.sub_category_name === item.sub_category_name
         );
-    
+
         if (existingSubcategory) {
             // Update the existing subcategory's quantity and total amount
             existingSubcategory.available_quantity += item.available_quantity;
@@ -242,16 +242,16 @@ const CategorySubCategoryStock = () => {
                 total_amount: item.sale_price * item.available_quantity,
             });
         }
-    
+
         // Update the total quantity and amount for the category
         acc[item.category_id].totalQuantity += item.available_quantity;
         acc[item.category_id].totalAmount += item.sale_price * item.available_quantity;
-    
+
         return acc;
     }, {});
-    
+
     const category = Object.values(groupedDatas);
-    
+
     console.log(category)
     console.log(categories)
 
@@ -719,9 +719,9 @@ const CategorySubCategoryStock = () => {
                                                             </tr>
                                                         ))}
                                                         <tr className="report-bg" >
-                                                            <td>Sub Total</td>
-                                                            <td>{category.totalQuantity}</td>
-                                                            <td>{category.totalAmount}</td>
+                                                            <td style={{ borderBottom: "2px solid #000" }}>Sub Total</td>
+                                                            <td style={{ borderBottom: "2px solid #000" }}>{category.totalQuantity}</td>
+                                                            <td style={{ borderBottom: "2px solid #000" }}>{category.totalAmount}</td>
                                                         </tr>
                                                     </>
                                                 ))}
@@ -777,14 +777,22 @@ const CategorySubCategoryStock = () => {
                                                                     <td>{subcategory.total_amount}</td>
                                                                 </tr>
                                                             ))}
+
+                                                            {/* <tr className="report-bg">
+                                                                <td className=''>Sub Total</td>
+                                                                <td className=''>{category.totalQuantity}</td>
+                                                                <td className=''>{category.totalAmount}</td>
+                                                            </tr> */}
                                                             <tr className="report-bg">
-                                                                <td>Sub Total</td>
-                                                                <td>{category.totalQuantity}</td>
-                                                                <td>{category.totalAmount}</td>
+                                                                <td style={{ borderBottom: "2px solid #000" }}>Sub Total</td>
+                                                                <td style={{ borderBottom: "2px solid #000" }}>{category.totalQuantity}</td>
+                                                                <td style={{ borderBottom: "2px solid #000" }}>{category.totalAmount}</td>
                                                             </tr>
+
+
                                                         </>
                                                     ))}
-
+                                                    {/* <div className='border border-primary'></div> */}
                                                     {/*
                                                     <tr className="report-bg">
                                                         <td>Subtotal</td>

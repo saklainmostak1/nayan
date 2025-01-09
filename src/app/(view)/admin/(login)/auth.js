@@ -831,7 +831,7 @@ const sendEmailOTP = async (email, userId, otp, roleNameId) => {
     }
 };
 
-const quickApi = '622bfee8efc9aff53';
+const quickApi = '7ae89887eac6055a2b9adc494ca3b902';
 
 const sendPhoneOTP = async (mobile, userId, otp, roleNameId) => {
     const emailCodeTimeOut = parseFloat(roleNameId?.user_role?.otp_expire);
