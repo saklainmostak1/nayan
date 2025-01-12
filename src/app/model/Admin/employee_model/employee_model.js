@@ -4163,9 +4163,137 @@ const EmployeeModel = {
             console.error('Error in employee_list_print:', error);
             res.status(500).send('Error generating print view');
         }
-    }
+    },
 
 
+    employee_id_card_setting_list: async (req, res) => {
+        try {
+            const data = "SELECT * FROM employee_id_card_setting";
+
+            connection.query(data, function (error, result) {
+                console.log(result)
+                if (!error) {
+                    res.send(result)
+                }
+
+                else {
+                    console.log(error)
+                }
+
+            })
+        }
+        catch (error) {
+            console.log(error)
+        }
+    },
+
+    employee_id_card_setting_back_list: async (req, res) => {
+        try {
+            const data = "SELECT * FROM employee_id_card_setting_back";
+
+            connection.query(data, function (error, result) {
+                console.log(result)
+                if (!error) {
+                    res.send(result)
+                }
+
+                else {
+                    console.log(error)
+                }
+
+            })
+        }
+        catch (error) {
+            console.log(error)
+        }
+    },
+
+    
+    employee_id_card_all_create: async (req, res) => {
+        try {
+            const { formData, rows } = req.body;
+    
+            // Update `employee_id_card_setting_back` table with formData
+            const updateFormDataQuery = `
+                UPDATE employee_id_card_setting_back
+                SET upper_text_1 = ?, upper_text_2 = ?, move_to_left = ?
+                WHERE id = 1;  -- Assuming the update is based on a fixed ID, you can modify this as needed
+            `;
+            
+            const formDataValues = [
+                formData["1"].upper_text_1,
+                formData["1"].upper_text_2,
+                formData["1"].move_to_left
+            ];
+    
+            // Update formData in the `employee_id_card_setting_back` table
+            connection.query(updateFormDataQuery, formDataValues, (error, result) => {
+                if (error) {
+                    console.log(error);
+                    return res.status(500).json({ message: 'Failed to update form data.' });
+                }
+    
+                // Process `rows` data for insertion or update in `employee_id_card_setting` table
+                rows.forEach((row) => {
+                    const { id, display_name, column_name, sorting, role_name, status } = row;
+                    
+                    // First, check if this row already exists in the `employee_id_card_setting` table
+                    const checkIfExistsQuery = `
+                        SELECT COUNT(*) AS count FROM employee_id_card_setting WHERE id = ?;
+                    `;
+                    
+                    connection.query(checkIfExistsQuery, [id], (checkError, checkResult) => {
+                        if (checkError) {
+                            console.log(checkError);
+                            return res.status(500).json({ message: 'Failed to check existing row.' });
+                        }
+    
+                        if (checkResult[0].count > 0) {
+                            // If the row exists, update it
+                            const updateRowQuery = `
+                                UPDATE employee_id_card_setting
+                                SET display_name = ?, column_name = ?, sorting = ?, role_name = ?, status = ?
+                                WHERE id = ?;
+                            `;
+                            const updateValues = [display_name, column_name, sorting, 4, status, id];
+    
+                            connection.query(updateRowQuery, updateValues, (updateError, updateResult) => {
+                                if (updateError) {
+                                    console.log(updateError);
+                                    return res.status(500).json({ message: 'Failed to update row.' });
+                                }
+    
+                                console.log('Row updated:', updateResult);
+                            });
+                        } else {
+                            // If the row does not exist, insert it
+                            const insertRowQuery = `
+                                INSERT INTO employee_id_card_setting (id, display_name, column_name, sorting, role_name, status)
+                                VALUES (?, ?, ?, ?, ?, ?);
+                            `;
+                            const insertValues = [id, display_name, column_name, sorting, 4, status];
+    
+                            connection.query(insertRowQuery, insertValues, (insertError, insertResult) => {
+                                if (insertError) {
+                                    console.log(insertError);
+                                    return res.status(500).json({ message: 'Failed to insert row.' });
+                                }
+    
+                                console.log('Row inserted:', insertResult);
+                            });
+                        }
+                    });
+                });
+    
+                return res.send({ message: 'Data processed successfully.' });
+            });
+    
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({ message: 'Internal Server Error.' });
+        }
+    },
+    
 
 
 
