@@ -120,10 +120,31 @@ const EmployeIdCardList = () => {
     };
 
     // Handle deleting a row
-    const deleteRow = (index) => {
-        const newRows = [...rows];
-        newRows.splice(index, 1);
-        setRows(newRows);
+    const deleteRow = (index, id) => {
+       
+
+            const newRows = [...rows];
+            newRows.splice(index, 1);
+            setRows(newRows);
+        
+            const proceed = window.confirm(`Are You Sure delete`)
+            if (proceed) {
+                fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/employee/employee_id_card_setting_delete/${id}`, {
+                    method: "POST",
+
+                })
+                    .then(Response => {
+                        Response.json()
+                        console.log(Response)
+                    })
+                    .then(data => {
+                        console.log(data)
+
+                    })
+            
+        }
+
+
     };
     console.log(rows)
 
@@ -535,7 +556,7 @@ const EmployeIdCardList = () => {
                                                                                 <button
                                                                                     className="btn btn-danger btn-sm"
                                                                                     type="button"
-                                                                                    onClick={() => deleteRow(index)}
+                                                                                    onClick={() => deleteRow(index, employee.id)}
                                                                                 >
                                                                                     Delete
                                                                                 </button>

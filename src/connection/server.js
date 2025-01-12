@@ -401,6 +401,7 @@ app.post('/Admin/employee/employee_list_print', EmployeeModel.employee_list_prin
 app.get('/Admin/employee/employee_id_card_setting_list', EmployeeModel.employee_id_card_setting_list)
 app.get('/Admin/employee/employee_id_card_setting_back_list', EmployeeModel.employee_id_card_setting_back_list)
 app.post('/Admin/employee/employee_id_card_all_create', EmployeeModel.employee_id_card_all_create)
+app.post('/Admin/employee/employee_id_card_setting_delete/:id', EmployeeModel.employee_id_card_setting_delete)
 
 
 
