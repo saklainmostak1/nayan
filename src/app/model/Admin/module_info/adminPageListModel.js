@@ -2004,7 +2004,7 @@ FROM module_info mi
 WHERE mi.user_role_access = 1
 GROUP BY mi.page_group, mi.controller_name, mi.display_name, mi.id
 HAVING mi.page_group IS NOT NULL AND mi.page_group != ''
-ORDER BY mi.method_sort ASC;
+ORDER BY mi.method_sort ASC
 ;
 
 `;

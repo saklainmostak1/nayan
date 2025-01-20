@@ -378,6 +378,10 @@ app.post('/Admin/employee/employee_delete/:id', EmployeeModel.employee_delete)
 app.post('/Admin/employee/employee_edit/:id', EmployeeModel.employee_update)
 app.get('/Admin/employee/employee_list', EmployeeModel.employee_all)
 app.get('/Admin/employee/employee_list/:id', EmployeeModel.employee_all_single)
+
+app.get('/Admin/employee/employee_all_single_for_id/:id', EmployeeModel.employee_all_single_for_id)
+app.post('/Admin/employee/employee_search_id_card', EmployeeModel.employee_search_id_card)
+
 app.get('/Admin/employee/employee_list_for_attendance', EmployeeModel.employee_all_for_attendance)
 app.post('/Admin/employee_user/employee_user_update/:id', EmployeeModel.user_update)
 app.get('/Admin/designation/designation_list', EmployeeModel.designation_list)
@@ -402,6 +406,8 @@ app.get('/Admin/employee/employee_id_card_setting_list', EmployeeModel.employee_
 app.get('/Admin/employee/employee_id_card_setting_back_list', EmployeeModel.employee_id_card_setting_back_list)
 app.post('/Admin/employee/employee_id_card_all_create', EmployeeModel.employee_id_card_all_create)
 app.post('/Admin/employee/employee_id_card_setting_delete/:id', EmployeeModel.employee_id_card_setting_delete)
+app.post('/Admin/employee/employee_id_card_list_print', EmployeeModel.employee__id_card_list_print)
+app.post('/Admin/employee/employee_id_card_list_pdf', EmployeeModel.employee_id_card_list_pdf)
 
 
 
