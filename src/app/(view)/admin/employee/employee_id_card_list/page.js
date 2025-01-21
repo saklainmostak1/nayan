@@ -362,7 +362,7 @@ const EmployeIdCardList = () => {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'period_pdf.pdf';
+            a.download = 'id_card.pdf';
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -5464,7 +5464,7 @@ const EmployeIdCardList = () => {
                                                                                 width: '35px',
                                                                                 borderRadius: '50%', // Makes the image round
                                                                                 objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                            }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpgg" alt="School Logo" />
+                                                                            }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 

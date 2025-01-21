@@ -4548,7 +4548,7 @@ const EmployeeModel = {
                                 <div class="id-card-containerss" >
                                     <div class="header">
                                         <div>
-                                            <img style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                            <img style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                         </div>
                                         <div>
                                             <p style="font-weight: bold;">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4624,7 +4624,7 @@ const EmployeeModel = {
                            <div class="id-card-containerss" >
                                     <div class="header">
                                         <div>
-                                            <img style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                            <img style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                         </div>
                                         <div>
                                             <p style="font-weight: bold;">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4716,7 +4716,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; 
                                                                                     object-fit: cover;   
-                                                                               " class="logos" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                               " class="logos" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style="font-Weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4805,7 +4805,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; 
                                                                                     object-fit: cover;   
-                                                                               " class="logos" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                               " class="logos" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style="font-Weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4901,8 +4901,8 @@ const EmployeeModel = {
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
-                                                                                    borderRadius: 50%;
-                                                                                    object-fit: cover; " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                    border-radius: 50%;
+                                                                                    object-fit: cover; " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style="font-weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5016,7 +5016,7 @@ const EmployeeModel = {
                                                                                     height: 25px;
                                                                                     width: 25px;
                                                                                     borderRadius: 50%;
-                                                                                    object-fit: cover; " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                    object-fit: cover; " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style="font-weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5134,7 +5134,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style="fontWeight:bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5249,7 +5249,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style="fontWeight:bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5368,7 +5368,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style=" font-weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5481,7 +5481,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style=" font-weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5601,7 +5601,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5716,7 +5716,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5838,7 +5838,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style="font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5952,7 +5952,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style="font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -6071,7 +6071,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -6184,7 +6184,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -6313,7 +6313,7 @@ const EmployeeModel = {
                                                                                 width: 35px;
                                                                                 border-radius: 50%; // Makes the image round
                                                                                 object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                            " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                            " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             <div>
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
@@ -6411,7 +6411,7 @@ const EmployeeModel = {
                                                                                 width: 35px;
                                                                                 border-radius: 50%; // Makes the image round
                                                                                 object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                            " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                            " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             <div>
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
@@ -6507,7 +6507,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -6592,7 +6592,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -6694,7 +6694,7 @@ const EmployeeModel = {
                                                                                 width: 35px;
                                                                                 border-radius: 50%; // Makes the image round
                                                                                 object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                            " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                            " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             <div>
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
@@ -6771,63 +6771,49 @@ const EmployeeModel = {
                     if (templateSide == 1) {
                         // ID Card Front Side (templateSide 1)
                         tableRows += `
-                           <div class="d-flex">
-                             <div class="id-card-container88">
-                                                                        <div class="header8">
-                                                                            <div>
-                                                                                <img style="
-                                                                                    height: 25px;
-                                                                                    width: 25px;
-                                                                                    border-radius: 50%; // Makes the image round
-                                                                                    object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
-                                                                            </div>
+                            <div class="id-card-row" >
+                                 <div class="id-card-container111">
+
+                                                                    <div class="header11">
+                                                                        <div>
+                                                                            <h6 style="text-align: left;
+    margin-left: 0px;
+    font-size: 12px;
+    margin-top: 5px;">IDENTITY CARD</h6>
+
+                                                                        </div>
+                                                                        <div className='header_text11' style="    display: flex
+;
+    margin-top: 6px;
+    margin-right: 6px;">
+                                                                            <img style="
+                                                                                height: 35px;
+                                                                                width: 35px;
+                                                                                border-radius: 50%; // Makes the image round
+                                                                                object-fit: cover;   // Ensures the image fits perfectly inside the circle
+                                                                            " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             <div>
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style=" text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
                                                                             </div>
-                                                                        </div>
-                                                                       
- <div style="transform: rotate(45deg);" class="rotate-img imgs">
-                                                                                    <img style="height: 57px;
-    width: 57px;
-    margin-top: 22px;
-    margin-left: -8px;" src=${searchResult?.photo ? `http://192.168.0.114:5003/${searchResult?.photo}` : "https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg"} />
-                                                                                </div>
-                                                                                <div style="    width: 205px;
-    height: 326px;
-    position: absolute;">
-                                                                                    <p style="
-    color: #fff;
-    padding: 3px 10px;
-    background: #323990;
-    border-radius: 6px;
-    position: absolute;
-    top: -22px;
-    left: -16px;
-    font-size: 12px;
-    font-weight: bold;
-     width: 34px; 
-    text-align: center;"><small>${searchResult?.designation_name || 'N/A'}</small></p>
-                                                                                    <p style=" 
-    color: #fff;
-    padding: 3px 10px;
-    background: #323990;
-    border-radius: 6px;
-    position: absolute;
-    top: -22px;
-    right: 26px;
-    font-size: 12px;
-    font-weight: bold;
-     width: 34px; 
-    text-align: center;"><small>${searchResult?.unique_id || 'N/A'}</small></p>
-                                                                                </div>
 
-                                                                        <div class="details8">
-                                                                            <table class="details8">
-                                                                            <tbody>
-                                                                            ${filteredSettings.map(setting => {
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-section11">
+                                                                        <div class="profile-image11">
+                                                                            <img  src=${photoSrc} alt="Profile Picture" />
+                                                                        </div>
+                                                                        <div class="details111">
+                                                                            <div className='teacher_information11'>
+                                                                                <h3>${searchResult?.full_name || 'N/A'}</h3>
+                                                                                <p>${searchResult?.designation_name || 'N/A'}</p>
+                                                                            </div>
+                                                                            <div class="info11">
+                                                                                <table>
+                                                                                   
+                                                                                     <tbody>
+                                                                                                ${filteredSettingss.map(setting => {
                             let value = searchResult?.[setting.column_name] ?? "N/A";
                             if (setting.column_name === "join_date" && value !== "N/A") {
                                 value = value.slice(0, 10);
@@ -6840,48 +6826,48 @@ const EmployeeModel = {
                                                                                                                                                             `;
                         }).join('')}
                                                                                         </tbody>
-                                                                            </table>
-                                                                        </div>
 
-                                                                        <div class="footer8">
-                                                                            <div class="signature8">
-                                                                                <p style={{ marginBottom: '80px' }}></p>
-                                                                              
+                                                                                </table>
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                </div>
+
+
+
+                                                                </div>
+                                                                </div>
                         `;
                     }
 
                     // Template 3 logic (Third template)
                     if (templateSide == 2) {
                         tableRows += ` 
-                            <div class="d-flex">
-                         <div class="id-card-container8">
-                                                                        <div class="id-card-content8">
-                                                                            <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
-                                                                            <p class="id-card-instructions8">
-                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
+                           <div class="id-card-row" >
+                            <div class="id-card-container11">
+                                                                    <div class="id-card-content11">
+                                                                        <p class="id-card-issue-date11">Issue Date: 2024-01-01</p>
+                                                                        <p class="id-card-expire-date11">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-instructions11">
+                                                                       ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
                                                     <strong>${formData[employeeSettings.id]?.upper_text_1 || ''}</strong><br />
                                                     <small>${formData[employeeSettings.id]?.upper_text_2 || ''}</small>
                                                 `;
                         }).join('')}
-                                                                            </p>
-                                                                            <div class="id-card-qr-code8">
-                                                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR1AQl1VwPGJDPYgzr5f9WquF5A1bMId_CAYxnC-658B1ZpjZNQoeO6DVCKtPeSA-I0p8&usqp=CAU" alt="QR Code" />
-                                                                            </div>
-                                                                            <p class="id-card-school-info8">
-                                                                                <strong>Abdul Malek Master Kindergarten and High School</strong><br />
-                                                                                <small> Address: Beraider Chala, Sreepur, Gazipur<br />
-                                                                                    Phone: 01735879633</small>
-                                                                            </p>
-                                                                           
+                                                                        </p>
+                                                                        <div class="id-card-qr-code11">
+                                                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR1AQl1VwPGJDPYgzr5f9WquF5A1bMId_CAYxnC-658B1ZpjZNQoeO6DVCKtPeSA-I0p8&usqp=CAU" alt="QR Code" />
                                                                         </div>
+                                                                        <p class="id-card-school-info11">
+                                                                            <strong>Abdul Malek Master Kindergarten and High School</strong><br />
+                                                                            <small> Address: Beraider Chala, Sreepur, Gazipur<br />
+                                                                                Phone: 01735879633</small>
+                                                                        </p>
+                                                                        
                                                                     </div>
-                            </div>
+                                                                </div>
+                                                                </div>
                          `
                     }
                 }
@@ -9218,7 +9204,7 @@ const EmployeeModel = {
                     if (templateSide == 1) {
                         // ID Card Front Side (templateSide 1)
                         tableRows += `
-                            <div  class="id-card-rows" style="float: left; height: 178mm; width: 56.88mm; overflow: hidden;">
+                           <div  class="id-card-rows" style="float: left; height: 178mm; width: 56.88mm; overflow: hidden;">
                                 <div class="id-card-containerss" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/15/12/id-3-f.png'); background-size: cover; background-position: center;">
                                     <div class="header">
                                         <div style="float: left;">
@@ -9226,18 +9212,30 @@ const EmployeeModel = {
                                         </div>
                                         <div style="float: right;">
                                             <p style="font-weight: bold;">Abdul Malek Master Kindergarten<br />and High School</p>
-                                            <h6 style="text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
+                                            <h6 style="text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
                                         </div>
                                     </div>
-                                    <div class="rotate-img imgs">
-                                        <img style="
-                                            height: 80px;
-                                            width: 85px;
-                                            margin-left: -15px;
-                                            margin-top: -16px;
-                                            clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-                                            object-fit: cover;" src="${photoSrc}" alt="User Photo" />
-                                    </div>
+                                    <div class="imgs" style="position: relative; display: inline-block; width: 90px; height: 90px;">
+    <!-- First Image -->
+    <img
+        style="height: 65px;
+               width: 65px;
+               border-radius: 50%;
+               position: absolute;
+               top: 4px;
+               left: -26px;"
+        src="${photoSrc}" />
+
+    <!-- Second Image -->
+    <img
+        style="position: absolute;
+               top: -25px;
+               left: -50px;
+               width: 115px;
+               height: 115px;"
+        src="http://192.168.0.114:5003/asset_info/2025/01/21/16/06/Shape-5.png" />
+</div>
+
                                     <div class="text">
                                         <p class="rotate-text-left"><small>${searchResult?.designation_name || 'N/A'}</small></p>
                                         <p class="rotate-text-right"><small>${searchResult?.unique_id || 'N/A'}</small></p>
@@ -9393,9 +9391,9 @@ const EmployeeModel = {
                           <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
 
-                                                                    <div class="id-card-containers2">
+                                                                    <div class="id-card-containers2" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/17/49/Id-4-f.png'); background-size: cover; background-position: center;">
                                                                         <div class="headers">
-                                                                            <div>
+                                                                            <div style="float: left">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
@@ -9403,23 +9401,23 @@ const EmployeeModel = {
                                                                                     object-fit: cover;   
                                                                                " class="logos" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div  style="float: right">
                                                                                 <p style="font-Weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style="text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
+                                                                                <h6 style="text-align: left; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
 
 
                                                                         <div class="photos" >
-                                                                            <img src=${photoSrc} />
+                                                                            <img src=${photoSrc} style="margin-top:1px" />
                                                                         </div>
 
 
 
 
-                                                                        <div class="detailss">
-                                                                            <table class="detailss">
+                                                                        <div class="detailss" >
+                                                                            <table class="detailss" style="margin-top:40px;">
                                                                             <tbody>
  ${filteredSetting.map(setting => {
                             let value = searchResult?.[setting.column_name] ?? "N/A";
@@ -9454,7 +9452,7 @@ const EmployeeModel = {
                     if (templateSide == 2) {
                         tableRows += ` 
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
-                             <div class="id-card-containers">
+                             <div class="id-card-containers" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/09/39/id-4-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-contents">
                                                                             <p class="id-card-issue-dates">Issue Date: 2024-01-01</p>
                                                                             <p class="id-card-expire-dates">Expire Date: 2024-12-31</p>
@@ -11316,37 +11314,34 @@ const EmployeeModel = {
                                  <div class="id-card-container111">
 
                                                                     <div class="header11">
-                                                                        <div>
-                                                                            <h6 style="text-align: left;
-    margin-left: 0px;
-    font-size: 12px;
-    margin-top: 5px;">IDENTITY CARD</h6>
+                                                                    
+                                                                            <h6 style="text-align: left; ">IDENTITY CARD</h6>
 
-                                                                        </div>
-                                                                        <div className='header_text11' style="    display: flex
-;
-    margin-top: 6px;
+                                                                 
+                                                                        <div className='header_text11' style=" margin-top:-30px;
     margin-right: 6px;">
-                                                                            <img style="
+                                                                           
+                                                                            <div style="float: right;">
+                                                                                <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
+                                                                                
+                                                                            </div>
+                                                                             <img  style="
+                                                                             float: right;
                                                                                 height: 35px;
                                                                                 width: 35px;
                                                                                 border-radius: 50%; // Makes the image round
                                                                                 object-fit: cover;   // Ensures the image fits perfectly inside the circle
                                                                             " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
-                                                                            <div>
-                                                                                <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
-                                                                                
-                                                                            </div>
 
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-section11">
-                                                                        <div class="profile-image11">
+                                                                        <div class="profile-image11" style="float: left; margin-top:16px;">
                                                                             <img  src=${photoSrc} alt="Profile Picture" />
                                                                         </div>
-                                                                        <div class="details111">
-                                                                            <div className='teacher_information11'>
+                                                                        <div class="details111" style="float: left; margin-top:20px;">
+                                                                            <div className='teacher_information11' >
                                                                                 <h3>${searchResult?.full_name || 'N/A'}</h3>
                                                                                 <p>${searchResult?.designation_name || 'N/A'}</p>
                                                                             </div>
@@ -11409,63 +11404,46 @@ const EmployeeModel = {
                     if (templateSide == 1) {
                         // ID Card Front Side (templateSide 1)
                         tableRows += `
-                           <div class="d-flex">
-                             <div class="id-card-container88">
-                                                                        <div class="header8">
-                                                                            <div>
-                                                                                <img style="
-                                                                                    height: 25px;
-                                                                                    width: 25px;
-                                                                                    border-radius: 50%; // Makes the image round
-                                                                                    object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
-                                                                            </div>
-                                                                            <div>
+                         <div class="id-card-row" >
+                                 <div class="id-card-container111">
+
+                                                                    <div class="header11">
+                                                                    
+                                                                            <h6 style="text-align: left; ">IDENTITY CARD</h6>
+
+                                                                 
+                                                                        <div className='header_text11' style=" margin-top:-30px;
+    margin-right: 6px;">
+                                                                           
+                                                                            <div style="float: right;">
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style=" text-align: left; margin-left: 14px; font-size: 10px; margin-top: 7px">IDENTITY CARD</h6>
                                                                             </div>
-                                                                        </div>
-                                                                       
- <div style="transform: rotate(45deg);" class="rotate-img imgs">
-                                                                                    <img style="height: 57px;
-    width: 57px;
-    margin-top: 22px;
-    margin-left: -8px;" src=${searchResult?.photo ? `http://192.168.0.114:5003/${searchResult?.photo}` : "https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg"} />
-                                                                                </div>
-                                                                                <div style="    width: 205px;
-    height: 326px;
-    position: absolute;">
-                                                                                    <p style="
-    color: #fff;
-    padding: 3px 10px;
-    background: #323990;
-    border-radius: 6px;
-    position: absolute;
-    top: -22px;
-    left: -16px;
-    font-size: 12px;
-    font-weight: bold;
-     width: 34px; 
-    text-align: center;"><small>${searchResult?.designation_name || 'N/A'}</small></p>
-                                                                                    <p style=" 
-    color: #fff;
-    padding: 3px 10px;
-    background: #323990;
-    border-radius: 6px;
-    position: absolute;
-    top: -22px;
-    right: 26px;
-    font-size: 12px;
-    font-weight: bold;
-     width: 34px; 
-    text-align: center;"><small>${searchResult?.unique_id || 'N/A'}</small></p>
-                                                                                </div>
+                                                                             <img  style="
+                                                                             float: right;
+                                                                                height: 35px;
+                                                                                width: 35px;
+                                                                                border-radius: 50%; // Makes the image round
+                                                                                object-fit: cover;   // Ensures the image fits perfectly inside the circle
+                                                                            " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
 
-                                                                        <div class="details8">
-                                                                            <table class="details8">
-                                                                            <tbody>
-                                                                            ${filteredSettings.map(setting => {
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-section11">
+                                                                        <div class="profile-image11" style="float: left; margin-top:16px;">
+                                                                            <img  src=${photoSrc} alt="Profile Picture" />
+                                                                        </div>
+                                                                        <div class="details111" style="float: left; margin-top:20px;">
+                                                                            <div className='teacher_information11' >
+                                                                                <h3>${searchResult?.full_name || 'N/A'}</h3>
+                                                                                <p>${searchResult?.designation_name || 'N/A'}</p>
+                                                                            </div>
+                                                                            <div class="info11">
+                                                                                <table>
+                                                                                   
+                                                                                     <tbody>
+                                                                                                ${filteredSettingss.map(setting => {
                             let value = searchResult?.[setting.column_name] ?? "N/A";
                             if (setting.column_name === "join_date" && value !== "N/A") {
                                 value = value.slice(0, 10);
@@ -11478,48 +11456,48 @@ const EmployeeModel = {
                                                                                                                                                             `;
                         }).join('')}
                                                                                         </tbody>
-                                                                            </table>
-                                                                        </div>
 
-                                                                        <div class="footer8">
-                                                                            <div class="signature8">
-                                                                                <p style={{ marginBottom: '80px' }}></p>
-                                                                              
+                                                                                </table>
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                </div>
+
+
+
+                                                                </div>
+                                                                </div>
                         `;
                     }
 
                     // Template 3 logic (Third template)
                     if (templateSide == 2) {
                         tableRows += ` 
-                            <div class="d-flex">
-                         <div class="id-card-container8">
-                                                                        <div class="id-card-content8">
-                                                                            <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
-                                                                            <p class="id-card-instructions8">
-                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
+                            <div class="id-card-rows"  >
+                               <div class="id-card-container11">
+                                                                    <div class="id-card-content11">
+                                                                        <p class="id-card-issue-date11">Issue Date: 2024-01-01</p>
+                                                                        <p class="id-card-expire-date11">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-instructions11">
+                                                                       ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
                                                     <strong>${formData[employeeSettings.id]?.upper_text_1 || ''}</strong><br />
                                                     <small>${formData[employeeSettings.id]?.upper_text_2 || ''}</small>
                                                 `;
                         }).join('')}
-                                                                            </p>
-                                                                            <div class="id-card-qr-code8">
-                                                                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR1AQl1VwPGJDPYgzr5f9WquF5A1bMId_CAYxnC-658B1ZpjZNQoeO6DVCKtPeSA-I0p8&usqp=CAU" alt="QR Code" />
-                                                                            </div>
-                                                                            <p class="id-card-school-info8">
-                                                                                <strong>Abdul Malek Master Kindergarten and High School</strong><br />
-                                                                                <small> Address: Beraider Chala, Sreepur, Gazipur<br />
-                                                                                    Phone: 01735879633</small>
-                                                                            </p>
-                                                                           
+                                                                        </p>
+                                                                        <div class="id-card-qr-code11">
+                                                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR1AQl1VwPGJDPYgzr5f9WquF5A1bMId_CAYxnC-658B1ZpjZNQoeO6DVCKtPeSA-I0p8&usqp=CAU" alt="QR Code" />
                                                                         </div>
+                                                                        <p class="id-card-school-info11">
+                                                                            <strong>Abdul Malek Master Kindergarten and High School</strong><br />
+                                                                            <small> Address: Beraider Chala, Sreepur, Gazipur<br />
+                                                                                Phone: 01735879633</small>
+                                                                        </p>
+                                                                        
                                                                     </div>
-                            </div>
+                                                                </div>
+                                                                    </div>
                          `
                     }
                 }
