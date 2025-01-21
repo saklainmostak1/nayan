@@ -4535,9 +4535,9 @@ const EmployeeModel = {
             searchResults.forEach((searchResult, i) => {
                 // Template 1 logic (First template)
                 const photoSrc = searchResult?.photo && searchResult?.photo.trim() !== ""
-                ? `http://192.168.0.114:5003/${searchResult?.photo}`
-                : 'https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg';
-              
+                    ? `http://192.168.0.114:5003/${searchResult?.photo}`
+                    : 'https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg';
+
                 if (template == 1) {
                     if (templateSide == 0) {
                         // ID Card Front Side (templateSide 0)
@@ -9126,36 +9126,45 @@ const EmployeeModel = {
             searchResults.forEach((searchResult, i) => {
                 // Template 1 logic (First template)
                 const photoSrc = searchResult?.photo && searchResult?.photo.trim() !== ""
-                ? `https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg`
-                : 'https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg';
-              
+                    ? `https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg`
+                    : 'https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg';
+
                 if (template == 1) {
                     if (templateSide == 0) {
                         // ID Card Front Side (templateSide 0)
                         tableRows += `
-                           
-                           
-                            <div style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
-                                <div class="id-card-containerss" >
+                            <div  class="id-card-rows" style="float: left; height: 178mm; width: 56.88mm; overflow: hidden;">
+                                <div class="id-card-containerss" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/15/12/id-3-f.png'); background-size: cover; background-position: center;">
                                     <div class="header">
-                                        <div>
+                                        <div style="float: left;">
                                             <img style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
                                         </div>
-                                        <div>
+                                        <div style="float: right;">
                                             <p style="font-weight: bold;">Abdul Malek Master Kindergarten<br />and High School</p>
-                                            
-                                            <h6 style="text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
+                                            <h6 style="text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
                                         </div>
                                     </div>
-                                    <div class="rotate-img imgs">
-                                        <img style=" 
-                                        height: 80px;
-                                        width: 85px;
-                                        margin-left: -15px;
-                                        margin-top: -16px;
-                                        clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-                                        " src=${photoSrc} />
-                                    </div>
+                                    <div class="imgs" style="position: relative; display: inline-block; width: 90px; height: 90px;">
+    <!-- First Image -->
+    <img
+        style="height: 65px;
+               width: 65px;
+               border-radius: 50%;
+               position: absolute;
+               top: 4px;
+               left: -26px;"
+        src="${photoSrc}" />
+
+    <!-- Second Image -->
+    <img
+        style="position: absolute;
+               top: -25px;
+               left: -50px;
+               width: 115px;
+               height: 115px;"
+        src="http://192.168.0.114:5003/asset_info/2025/01/21/16/06/Shape-5.png" />
+</div>
+
                                     <div class="text">
                                         <p class="rotate-text-left"><small>${searchResult?.designation_name || 'N/A'}</small></p>
                                         <p class="rotate-text-right"><small>${searchResult?.unique_id || 'N/A'}</small></p>
@@ -9169,26 +9178,26 @@ const EmployeeModel = {
                                 value = value.slice(0, 10);
                             }
                             return `
-                                                        <tr key="${setting.id}">
-                                                            <td style="width: 50%; margin: 3px;">${setting.display_name || ""}</td>
-                                                            <td style="width: 50%; margin: 3px;">: ${value}</td>
-                                                        </tr>
-                                                    `;
+                                                    <tr key="${setting.id}">
+                                                        <td style="width: 50%; margin: 3px;">${setting.display_name || ""}</td>
+                                                        <td style="width: 50%; margin: 3px;">: ${value}</td>
+                                                    </tr>
+                                                `;
                         }).join('')}
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="id-card-container">
+                                <div class="id-card-container" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/15/17/Id-3-back.png'); background-size: cover; background-position: center;">
                                     <div class="id-card-content">
                                         <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
                                         <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
                                         <p class="id-card-instructions">
                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
-                                                    <strong>${formData[employeeSettings.id]?.upper_text_1 || ''}</strong><br />
-                                                    <small>${formData[employeeSettings.id]?.upper_text_2 || ''}</small>
-                                                `;
+                                                <strong>${formData[employeeSettings.id]?.upper_text_1 || ''}</strong><br />
+                                                <small>${formData[employeeSettings.id]?.upper_text_2 || ''}</small>
+                                            `;
                         }).join('')}
                                         </p>
                                         <div class="id-card-qr-code">
@@ -9196,14 +9205,12 @@ const EmployeeModel = {
                                         </div>
                                         <p class="id-card-school-info">
                                             <strong>Abdul Malek Master Kindergarten and High School</strong><br />
-                                            <small> Address: Beraider Chala, Sreepur, Gazipur<br />
-                                                Phone: 01735879633</small>
+                                            <small>Address: Beraider Chala, Sreepur, Gazipur<br />
+                                            Phone: 01735879633</small>
                                         </p>
                                     </div>
-                             
                                 </div>
                             </div>
-                        
                         `;
                     }
 
@@ -9211,26 +9218,25 @@ const EmployeeModel = {
                     if (templateSide == 1) {
                         // ID Card Front Side (templateSide 1)
                         tableRows += `
-                           <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;' >
-                           <div class="id-card-containerss" >
+                            <div  class="id-card-rows" style="float: left; height: 178mm; width: 56.88mm; overflow: hidden;">
+                                <div class="id-card-containerss" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/15/12/id-3-f.png'); background-size: cover; background-position: center;">
                                     <div class="header">
-                                        <div>
+                                        <div style="float: left;">
                                             <img style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
                                         </div>
-                                        <div>
+                                        <div style="float: right;">
                                             <p style="font-weight: bold;">Abdul Malek Master Kindergarten<br />and High School</p>
-                                            
                                             <h6 style="text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
                                         </div>
                                     </div>
                                     <div class="rotate-img imgs">
-                                        <img style=" 
-                                        height: 80px;
-                                        width: 85px;
-                                        margin-left: -15px;
-                                        margin-top: -16px;
-                                        clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-                                        " src=${photoSrc} />
+                                        <img style="
+                                            height: 80px;
+                                            width: 85px;
+                                            margin-left: -15px;
+                                            margin-top: -16px;
+                                            clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+                                            object-fit: cover;" src="${photoSrc}" alt="User Photo" />
                                     </div>
                                     <div class="text">
                                         <p class="rotate-text-left"><small>${searchResult?.designation_name || 'N/A'}</small></p>
@@ -9245,11 +9251,11 @@ const EmployeeModel = {
                                 value = value.slice(0, 10);
                             }
                             return `
-                                                        <tr key="${setting.id}">
-                                                            <td style="width: 50%; margin: 3px;">${setting.display_name || ""}</td>
-                                                            <td style="width: 50%; margin: 3px;">: ${value}</td>
-                                                        </tr>
-                                                    `;
+                                                    <tr key="${setting.id}">
+                                                        <td style="width: 50%; margin: 3px;">${setting.display_name || ""}</td>
+                                                        <td style="width: 50%; margin: 3px;">: ${value}</td>
+                                                    </tr>
+                                                `;
                         }).join('')}
                                             </tbody>
                                         </table>
@@ -9263,16 +9269,16 @@ const EmployeeModel = {
                     if (templateSide == 2) {
                         tableRows += ` 
                         <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;' >
-                            <div class="id-card-container">
+                            <div class="id-card-container" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/15/17/Id-3-back.png'); background-size: cover; background-position: center;">
                                     <div class="id-card-content">
                                         <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
                                         <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
                                         <p class="id-card-instructions">
                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
-                                                    <strong>${formData[employeeSettings.id]?.upper_text_1 || ''}</strong><br />
-                                                    <small>${formData[employeeSettings.id]?.upper_text_2 || ''}</small>
-                                                `;
+                                                <strong>${formData[employeeSettings.id]?.upper_text_1 || ''}</strong><br />
+                                                <small>${formData[employeeSettings.id]?.upper_text_2 || ''}</small>
+                                            `;
                         }).join('')}
                                         </p>
                                         <div class="id-card-qr-code">
@@ -9280,11 +9286,10 @@ const EmployeeModel = {
                                         </div>
                                         <p class="id-card-school-info">
                                             <strong>Abdul Malek Master Kindergarten and High School</strong><br />
-                                            <small> Address: Beraider Chala, Sreepur, Gazipur<br />
-                                                Phone: 01735879633</small>
+                                            <small>Address: Beraider Chala, Sreepur, Gazipur<br />
+                                            Phone: 01735879633</small>
                                         </p>
                                     </div>
-                             
                                 </div>
                                 </div>
                          `
@@ -9296,12 +9301,12 @@ const EmployeeModel = {
                         // ID Card Front Side (templateSide 0)
                         tableRows += `
                            
-                            <div  style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
+                            <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
 
-                                                                    <div class="id-card-containers2">
+                                                                    <div class="id-card-containers2" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/17/49/Id-4-f.png'); background-size: cover; background-position: center;">
                                                                         <div class="headers">
-                                                                            <div>
+                                                                            <div style="float: left">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
@@ -9309,23 +9314,23 @@ const EmployeeModel = {
                                                                                     object-fit: cover;   
                                                                                " class="logos" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div  style="float: right">
                                                                                 <p style="font-Weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style="text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
+                                                                                <h6 style="text-align: left; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
 
 
                                                                         <div class="photos" >
-                                                                            <img src=${photoSrc} />
+                                                                            <img src=${photoSrc} style="margin-top:1px" />
                                                                         </div>
 
 
 
 
-                                                                        <div class="detailss">
-                                                                            <table class="detailss">
+                                                                        <div class="detailss" >
+                                                                            <table class="detailss" style="margin-top:40px;">
                                                                             <tbody>
  ${filteredSetting.map(setting => {
                             let value = searchResult?.[setting.column_name] ?? "N/A";
@@ -9352,7 +9357,7 @@ const EmployeeModel = {
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="id-card-containers">
+                                                                    <div class="id-card-containers" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/09/39/id-4-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-contents">
                                                                             <p class="id-card-issue-dates">Issue Date: 2024-01-01</p>
                                                                             <p class="id-card-expire-dates">Expire Date: 2024-12-31</p>
@@ -9481,24 +9486,24 @@ const EmployeeModel = {
                         // ID Card Front Side (templateSide 0)
                         tableRows += `
                            
-                            <div style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
+                            <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
 
                                                                  
 
-                                                                    <div class="id-card-containersa1">
+                                                                    <div class="id-card-containersa1" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/18/18/id-1-f.png'); background-size: cover; background-position: center;">
                                                                         <div class="header1">
-                                                                            <div>
+                                                                            <div style="float:left;">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
-                                                                                    borderRadius: 50%;
+                                                                                    border-radius: 50%;
                                                                                     object-fit: cover; " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right;">
                                                                                 <p style="font-weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style="text-align: left: margin-left: 14px; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
+                                                                                <h6 style="text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                                                         
@@ -9506,11 +9511,11 @@ const EmployeeModel = {
                                                                                     <img style="height: 90px;
     width: 90px;
     border-radius: 50px;
-    margin-top: -18px;
+    margin-top: 40px;
     margin-left: -20px;" src=${photoSrc} />
                                                                                 </div>
                                                                                 <div className='text'>
-                                                                                    <p style="     transform: rotate(270deg);
+                                                                                    <p style="
     color: #fff;
     padding: 3px 10px;
     background: #323990;
@@ -9521,8 +9526,14 @@ const EmployeeModel = {
     font-size: 12px;
     font-weight: bold;
     width: 55px;
-    text-align: center;" className='rotate-text-lefts1'><small>${searchResult?.designation_name || 'N/A'}</small></p>
-                                                                                    <p style="transform: rotate(270deg);
+    text-align: center;
+     -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
+    " className='rotate-text-lefts1'><small>${searchResult?.designation_name || 'N/A'}</small></p>
+                                                                                    <p style="
     color: #fff;
     padding: 3px 10px;
     background: #323990;
@@ -9533,7 +9544,13 @@ const EmployeeModel = {
     font-size: 12px;
     font-weight: bold;
     width: 55px;
-    text-align: center;" className='rotate-text-rights1'><small>${searchResult?.unique_id || 'ID: No. N/A'}</small></p>
+    text-align: center;
+     -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
+    " className='rotate-text-rights1'><small>${searchResult?.unique_id || 'ID: No. N/A'}</small></p>
                                                                                 </div>
                                                                        
                                                                         <div class="details1">
@@ -9562,7 +9579,7 @@ const EmployeeModel = {
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="id-card-container1">
+                                                                    <div class="id-card-container1" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/18/19/id-b-1.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content1">
                                                                             <p class="id-card-issue-date1">Issue Date: 2024-01-01</p>
                                                                             <p class="id-card-expire-date1">Expire Date: 2024-12-31</p>
@@ -9715,11 +9732,11 @@ const EmployeeModel = {
                         // ID Card Front Side (templateSide 0)
                         tableRows += `
                            
-                            <div style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
+                            <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
-                                                                    <div class="id-card-container122">
+                                                                    <div class="id-card-container122" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/09/45/id-2-f.png'); background-size: cover; background-position: center;">
                                                                         <div class="header12">
-                                                                            <div>
+                                                                            <div style="float:left">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
@@ -9727,10 +9744,10 @@ const EmployeeModel = {
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
                                                                                 " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
-                                                                                <p style="fontWeight:bold">Abdul Malek Master Kindergarten<br />and High School</p>
+                                                                            <div style="float:right">
+                                                                                <p style="font-weight:bold">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style="textAlign: left; margin-left: 14px; font-size:10px; margin-top:5px">IDENTITY CARD</h6>
+                                                                                <h6 style="text-align: left; font-size:8px; margin-top:5px">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                                                         
@@ -9739,7 +9756,7 @@ const EmployeeModel = {
                                                                                     <img style="    height: 89px;
     width: 89px;
     border-radius: 50px;
-    margin-top: -24px;
+    margin-top: 35px;
     margin-left: -19px;" src=${photoSrc} />
                                                                                 </div>
                                                                                 <div style="    width: 205px;
@@ -9750,7 +9767,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 35px;
+    top: 90px;
     left: -16px;
     width:40px;
     font-size: 12px;
@@ -9761,7 +9778,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 35px;
+    top: 90px;
     right: 24px;
     width:40px;
     font-size: 12px;
@@ -9770,7 +9787,7 @@ const EmployeeModel = {
                                                                                 </div>
 
                                                                         <div class="details12">
-                                                                            <table class="details12">
+                                                                            <table class="details12" style="margin-top:30px;" >
                                                                             <tbody>
                                                                                             ${filteredSettings.map(setting => {
                             let value = searchResult?.[setting.column_name] ?? "N/A";
@@ -9795,7 +9812,7 @@ const EmployeeModel = {
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="id-card-container12">
+                                                                    <div class="id-card-container12" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/09/45/Id-2-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content12">
                                                                             <p class="id-card-issue-date12">Issue Date: 2024-01-01</p>
                                                                             <p class="id-card-expire-date12">Expire Date: 2024-12-31</p>
@@ -9949,11 +9966,11 @@ const EmployeeModel = {
                         // ID Card Front Side (templateSide 0)
                         tableRows += `
                            
-                            <div style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
+                            <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
-                                                                 <div class="id-card-container55">
+                                                                 <div class="id-card-container55" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/10/17/id-5-f.png'); background-size: cover; background-position: center;">
                                                                         <div class="header5">
-                                                                            <div>
+                                                                            <div style="float:left;">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
@@ -9961,10 +9978,10 @@ const EmployeeModel = {
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
                                                                                 " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right">
                                                                                 <p style=" font-weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style=" text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px ">IDENTITY CARD</h6>
+                                                                                <h6 style=" text-align: left; margin-left: 2px; font-size: 10px; margin-top: 15px ">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                                                        
@@ -9972,8 +9989,8 @@ const EmployeeModel = {
                                                                                     <img style="    height: 95px;
     width: 95px;
     border-radius: 50%;
-    margin-top: -16px;
-    margin-left: 35px;" src=${photoSrc} />
+    margin-top: 36px;
+    margin-left: 36px;" src=${photoSrc} />
                                                                                 </div>
                                                                                 <div style="width: 205px;
     height: 326px;
@@ -9983,7 +10000,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 57px;
+    top: 112px;
     left: -16px;
     width:40px;
     font-size: 12px;
@@ -9994,7 +10011,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 57px;
+    top: 112px;
     right: 24px;
     width:40px;
     font-size: 12px;
@@ -10028,7 +10045,7 @@ const EmployeeModel = {
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="id-card-container5">
+                                                                    <div class="id-card-container5" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/10/16/id-5-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content5">
                                                                             <p class="id-card-issue-date5">Issue Date: 2024-01-01</p>
                                                                             <p class="id-card-expire-date5">Expire Date: 2024-5-31</p>
@@ -10182,11 +10199,11 @@ const EmployeeModel = {
                         // ID Card Front Side (templateSide 0)
                         tableRows += `
                            
-                            <div style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
+                            <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
- <div class="id-card-container66">
+ <div class="id-card-container66" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/10/55/id-f-6.png'); background-size: cover; background-position: center;">
                                                                         <div class="header6">
-                                                                            <div>
+                                                                            <div style="float: left;">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
@@ -10194,10 +10211,10 @@ const EmployeeModel = {
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
                                                                                 " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right">
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style="text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
+                                                                                <h6 style="text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                                                         
@@ -10205,32 +10222,41 @@ const EmployeeModel = {
                                                                                     <img style="    height: 91px;
     width: 91px;
     border-radius: 50px;
-    margin-top: -18px;
-    margin-left: -18.5px;
+    margin-top: 41px;
+    margin-left: -19.5px;
 " src=${photoSrc} />
                                                                                 </div>
                                                                                 <div style="width: 205px;
     height: 326px;
     position: absolute;">
-                                                                                    <p style="transform: rotate(270deg);
+                                                                                    <p style="
+                                                                                     -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
     color: #fff;
     padding: 3px 10px;
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 40px;
+    top: 80px;
     left: -36px;
     font-size: 12px;
     font-weight: bold;
     width: 50px;
     text-align: center;"><small>${searchResult?.designation_name || 'N/A'}</small></p>
-                                                                                    <p style="    transform: rotate(270deg);
+                                                                                    <p style="     -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
     color: #fff;
     padding: 3px 10px;
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 40px;
+    top: 80px;
     right: 4px;
     font-size: 12px;
     font-weight: bold;
@@ -10264,7 +10290,7 @@ const EmployeeModel = {
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="id-card-container6">
+                                                                    <div class="id-card-container6" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/10/55/id-b-6.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content6">
                                                                             <p class="id-card-issue-date6">Issue Date: 2024-01-01</p>
                                                                             <p class="id-card-expire-date6">Expire Date: 2024-5-31</p>
@@ -10419,11 +10445,11 @@ const EmployeeModel = {
                         // ID Card Front Side (templateSide 0)
                         tableRows += `
                            
-                            <div style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
+                            <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
-   <div class="id-card-container77">
+   <div class="id-card-container77" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/11/46/id-7-f.png'); background-size: cover; background-position: center;">
                                                                         <div class="header7">
-                                                                            <div>
+                                                                            <div style="float:left">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
@@ -10431,10 +10457,10 @@ const EmployeeModel = {
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
                                                                                 " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right;">
                                                                                 <p style="font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style=" text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px ">IDENTITY CARD</h6>
+                                                                                <h6 style=" text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px ">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                        
@@ -10442,31 +10468,39 @@ const EmployeeModel = {
                                                                                     <img style="height: 90px;
     width: 90px;
     border-radius: 50px;
-    margin-top: -8px;
+    margin-top: 51px;
     margin-left: -16px;" src=${photoSrc} />
                                                                                 </div>
                                                                                 <div style="    width: 205px;
     height: 326px;
     position: absolute;">
-                                                                                    <p style="transform: rotate(270deg);
+                                                                                    <p style=" -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
     color: #fff;
     padding: 3px 10px;
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 40px;
+    top: 80px;
     left: -36px;
     font-size: 12px;
     font-weight: bold;
     width: 45px;
     text-align: center;"><small>${searchResult?.designation_name || 'N/A'}</small></p>
-                                                                                    <p style="transform: rotate(270deg);
+                                                                                    <p style=" -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
     color: #fff;
     padding: 3px 10px;
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 40px;
+    top: 80px;
     right: 4px;
     font-size: 12px;
     font-weight: bold;
@@ -10500,7 +10534,7 @@ const EmployeeModel = {
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="id-card-container7">
+                                                                    <div class="id-card-container7" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/11/47/id-7-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content7">
                                                                             <p class="id-card-issue-date7">Issue Date: 2024-01-01</p>
                                                                             <p class="id-card-expire-date7">Expire Date: 2024-5-31</p>
@@ -10653,10 +10687,10 @@ const EmployeeModel = {
                         // ID Card Front Side (templateSide 0)
                         tableRows += `
                            
-                            <div style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
-                                   <div class="id-card-container88">
+                            <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
+                                   <div class="id-card-container88"  style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/12/05/id-8.png'); background-size: cover; background-position: center;">
                                                                         <div class="header8">
-                                                                            <div>
+                                                                            <div style="float:left">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
@@ -10664,20 +10698,32 @@ const EmployeeModel = {
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
                                                                                 " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right">
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style=" text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
+                                                                                <h6 style=" text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
-                                                                       
- <div  class="imgs">
-                                                                                    <img style="height: 80px;
-    width: 80px;
-    margin-top: -3px;
-    margin-left: -14px;
-    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);" src=${photoSrc} />
-                                                                                </div>
+
+                                                                                 <div  class="imgs">
+                                                                                    <img
+        style="height: 66px;
+               width: 66px;
+               border-radius: 50%;
+               position: absolute;
+               top: 63px;
+               left: -8px;"
+        src="${photoSrc}" />
+
+    <!-- Second Image -->
+    <img
+        style="position: absolute;
+               top: 32px;
+               left: -33px;
+               width: 112px;
+               height: 112px;"
+        src="http://192.168.0.114:5003/asset_info/2025/01/21/15/00/Shape-2%20(1).png" />
+</div>
                                                                                 <div style="    width: 205px;
     height: 326px;
     position: absolute;">
@@ -10687,7 +10733,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: -22px;
+    top: 45px;
     left: -16px;
     font-size: 12px;
     font-weight: bold;
@@ -10699,7 +10745,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: -22px;
+    top: 45px;
     right: 26px;
     font-size: 12px;
     font-weight: bold;
@@ -10734,7 +10780,7 @@ const EmployeeModel = {
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="id-card-container8">
+                                                                    <div class="id-card-container8"  style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/12/05/id-8-b.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content8">
                                                                             <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
                                                                             <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
@@ -10894,30 +10940,31 @@ const EmployeeModel = {
                                                                             <h6 style="text-align: left;
     margin-left: 5px;
     font-size: 12px;
-    margin-top: 6px;
+    margin-top: 10px;
 ">IDENTITY CARD</h6>
 
                                                                         </div>
-                                                                        <div className='header_text' style="display: flex;margin-right: 17px;margin-top: 8px;">
-                                                                            <img style="
+                                                                        <div className='header_text' style="display: flex;margin-right: 17px;margin-top: -35px;">
+                                                                            
+                                                                            <div style="float:right">
+                                                                                <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
+                                                                                
+                                                                            </div>
+                                                                            <img style=" float:right;
                                                                                 height: 35px;
                                                                                 width: 35px;
                                                                                 border-radius: 50%; // Makes the image round
                                                                                 object-fit: cover;   // Ensures the image fits perfectly inside the circle
                                                                             " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
-                                                                            <div>
-                                                                                <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
-                                                                                
-                                                                            </div>
 
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-section9">
-                                                                        <div class="profile-image9">
+                                                                        <div class="profile-image9" style="float:left;">
                                                                             <img  src=${photoSrc} />
                                                                         </div>
-                                                                        <div class="details9">
+                                                                        <div class="details9" style="float:left;">
                                                                             <div className='teacher_information'>
                                                                                 <h3>${searchResult?.full_name || 'N/A'}</h3>
                                                                                 <p>${searchResult?.designation_name || 'N/A'}</p>
@@ -10996,7 +11043,7 @@ const EmployeeModel = {
 ">IDENTITY CARD</h6>
 
                                                                         </div>
-                                                                        <div className='header_text' style="display: flex;margin-right: 17px;margin-top: 8px;">
+                                                                        <div className='header_text' style="display: flex;margin-right: 17px;">
                                                                             <img style="
                                                                                 height: 35px;
                                                                                 width: 35px;
@@ -11012,10 +11059,10 @@ const EmployeeModel = {
                                                                     </div>
 
                                                                     <div class="profile-section9">
-                                                                        <div class="profile-image9">
+                                                                        <div class="profile-image9" style="float:left;">
                                                                             <img  src=${searchResult?.photo ? `http://192.168.0.114:5003/${searchResult?.photo}` : "https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg"} />
                                                                         </div>
-                                                                        <div class="details9">
+                                                                        <div class="details9" style="float:right;">
                                                                             <div className='teacher_information'>
                                                                                 <h3>${searchResult?.full_name || 'N/A'}</h3>
                                                                                 <p>${searchResult?.designation_name || 'N/A'}</p>
@@ -11088,11 +11135,11 @@ const EmployeeModel = {
                         // ID Card Front Side (templateSide 0)
                         tableRows += `
                            
-                            <div style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
+                            <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
-   <div class="id-card-container100">
+   <div class="id-card-container100" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/12/26/id-10.png'); background-size: cover; background-position: center;">
                                                                         <div class="header10">
-                                                                            <div>
+                                                                            <div style="float:left;">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
@@ -11100,10 +11147,10 @@ const EmployeeModel = {
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
                                                                                 " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right;">
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style="text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
+                                                                                <h6 style="text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                                                   
@@ -11112,7 +11159,7 @@ const EmployeeModel = {
                                                                                     <img style="    height: 73px;
     width: 73px;
     border-radius: 50%;
-    margin-top: -9px;
+    margin-top: 50px;
     margin-left: -8px;" src=${photoSrc} />
                                                                                 </div>
                                                                         <div class="details10">
@@ -11141,7 +11188,7 @@ const EmployeeModel = {
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="id-card-container10">
+                                                                    <div class="id-card-container10" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/12/27/id-10-b.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content10">
                                                                             <p class="id-card-issue-date10">Issue Date: 2024-01-01</p>
                                                                             <p class="id-card-expire-date10">Expire Date: 2024-5-31</p>
@@ -11376,7 +11423,7 @@ const EmployeeModel = {
                                                                             <div>
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style=" text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
+                                                                                <h6 style=" text-align: left; margin-left: 14px; font-size: 10px; margin-top: 7px">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                                                        
@@ -11524,7 +11571,10 @@ const EmployeeModel = {
                                     grid-template-columns: 1fr; /* 1 column on very small screens */
                                 }
                             }
-
+ .id-card-rows{
+                                  page-break-inside: avoid;
+                                 page-break-before: auto;
+                                 }
                             .id-card-row{
                                 display: grid;
                                 grid-template-columns: repeat(2, 1fr); /* Creates 5 equal columns */
@@ -11596,13 +11646,17 @@ const EmployeeModel = {
                             }
 
                             .rotate-text-left {
-                             transform: rotate(270deg);
+                               -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
     color: #fff;
     padding: 3px 10px;
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 40px;
+    top: -50px;
     left: -36px;
     font-size: 12px;
     font-weight: bold;
@@ -11618,13 +11672,17 @@ const EmployeeModel = {
                             }
 
                             .rotate-text-right {
-                               transform: rotate(270deg);
+                              -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
     color: #fff;
     padding: 3px 10px;
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 40px;
+    top: -50px;
     right: 4px;
     font-size: 12px;
     font-weight: bold;
@@ -11698,7 +11756,7 @@ const EmployeeModel = {
                             font-size: 9px;
                             line-height: 1.6;
                             margin-bottom: 15px;
-                            margin-top: 130px;
+                            margin-top: 20px;
                                 margin-left: 0px;
     width: 165px;
                             }
@@ -11860,7 +11918,8 @@ const EmployeeModel = {
                             justify-content: center;
                             align-items: center;
                             border-radius: 8px;
-                            margin-top: 17px; 
+                            margin-top: 37px;
+                            margin-left: -23px; 
                             }
 
                          
@@ -11984,7 +12043,7 @@ const EmployeeModel = {
                                 margin-bottom: 15px;
                                 display: flex;
                                 color: white;
-                                margin-left: 10px;
+                                margin-left: 4px;
                                 }
 
                                 .header1 .logo1 {
@@ -12049,7 +12108,7 @@ const EmployeeModel = {
                                 font-size: 9px;
                                 line-height: 1.6;
                                 margin-bottom: 15px;
-                                margin-top: 125px;
+                                margin-top: 170px;
                                    margin-left: 0px;
     width: 165px;
                                 }
@@ -12161,13 +12220,13 @@ const EmployeeModel = {
                                 margin-bottom: 15px;
                                 display: flex;
                                 color: black;
-                                margin-left: 10px;
+                               
                                 }
 
                                 .header12 .logo12 {
                                 width: 70px;
                                 height: 70px;
-                                margin-bottom: 10px;
+                      
                                 }
 
                                 .header12 h1 {
@@ -12178,7 +12237,8 @@ const EmployeeModel = {
 
                                 .header12 p {
                                 font-size: 8px;
-                                margin: 0;
+                                margin-left: -10px;
+                                margin-top: 0 px;
                                 }
 
                                 .photo-section12 {
@@ -12226,7 +12286,7 @@ const EmployeeModel = {
                                 font-size: 9px;
                                 line-height: 1.6;
                                 margin-bottom: 15px;
-                                margin-top: 110px;
+                                margin-top: 165px;
                                     margin-left: 0px;
     width: 165px;
                                 }
@@ -12367,8 +12427,8 @@ const EmployeeModel = {
                                     margin-bottom: 15px;
                                     display: flex;
                                     color: black;
-                                    margin-left: 10px;
-                                    margin-top: -15px;
+                                    margin-left: 8px;
+                                    margin-top: -10px;
                                     }
 
                                     .header5 .logo5 {
@@ -12379,7 +12439,6 @@ const EmployeeModel = {
 
                                     .header5 h1 {
                                     font-size: 16px;
-                                    margin: 0;
                                     font-weight: bold;
                                     }
 
@@ -12461,7 +12520,7 @@ const EmployeeModel = {
                                     font-size: 9px;
                                     line-height: 1.6;
                                     margin-bottom: 15px;
-                                    margin-top: 125px;
+                                    margin-top: 170px;
                                     margin-left: 0px;
                                     width: 165px;
                                     }
@@ -12638,7 +12697,7 @@ const EmployeeModel = {
                                     font-size: 9px;
                                     line-height: 1.6;
                                     margin-bottom: 15px;
-                                    margin-top: 125px;
+                                    margin-top: 175px;
                                     margin-left: 0px;
                                     width: 165px;
                                     }
@@ -12812,7 +12871,7 @@ const EmployeeModel = {
                                     font-size: 9px;
                                     line-height: 1.6;
                                     margin-bottom: 15px;
-                                    margin-top: 125px;
+                                    margin-top: 170px;
                                     margin-left: 0px;
                                     width: 165px ;
                                     }
@@ -13018,7 +13077,7 @@ const EmployeeModel = {
                                         font-size: 9px;
                                         line-height: 1.6;
                                         margin-bottom: 15px;
-                                        margin-top: 120px;
+                                        margin-top: 175px;
                                         margin-left: 0px;
                                         width: 165px;
                                         }
@@ -13131,7 +13190,7 @@ const EmployeeModel = {
                                         margin-bottom: 15px;
                                         display: flex;
                                         color: white;
-                                        margin-left: 10px;
+                                        margin-left: 2px;
                                         margin-top: -10px;
                                         }
 
@@ -13197,7 +13256,7 @@ const EmployeeModel = {
                                         font-size: 9px;
                                         line-height: 1.6;
                                         margin-bottom: 15px;
-                                        margin-top: 135px;
+                                        margin-top: 185px;
                                         margin-left: 0px;
                                         width: 165px;
                                         }
@@ -13320,7 +13379,7 @@ const EmployeeModel = {
                                         margin-left: 10px;
                                         } */
                                         .header_text {
-                                        margin-top: -10px;
+                                        margin-top: -30px;
                                         margin-left: -20px;
                                         }
 
@@ -13363,20 +13422,17 @@ const EmployeeModel = {
                                         }
 
                                         .profile-image9 {
-                                 
-                                            height: 100px;
-                                            width: 86px;
+                                 float:left;
+                                            height: 105px;
+                                            width: 90px;
                                             border: 2px solid #ddd;
                                             border-radius: 45%;
                                             overflow: hidden;
                                             margin-right: 19px;
-                                            margin-left: 3px;
-                                            margin-top: -52px;
+                                            margin-left: 2px;
+                                            margin-top: 31px;
                                         }
 
-                                        .teacher_information {
-                                        margin-left: 20px;
-                                        }
 
                                         .profile-image9 img {
                                         width: 100%;
@@ -13387,6 +13443,8 @@ const EmployeeModel = {
 
                                         .details9 {
                                         flex-grow: 1;
+                                        margin-top:30px;
+                                
                                         }
 
                                         .details9 h3 {

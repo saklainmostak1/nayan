@@ -470,7 +470,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -561,7 +561,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logos" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logos" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -666,7 +666,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -777,7 +777,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -887,7 +887,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -996,7 +996,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -1103,7 +1103,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -1212,7 +1212,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -1324,7 +1324,7 @@ const EmployeIdCardList = () => {
                                                                                                 width: '35px',
                                                                                                 borderRadius: '50%', // Makes the image round
                                                                                                 objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                            }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                            }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                                 
@@ -1407,7 +1407,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -1519,7 +1519,7 @@ const EmployeIdCardList = () => {
                                                                                                 width: '35px',
                                                                                                 borderRadius: '50%', // Makes the image round
                                                                                                 objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                            }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                            }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                                 
@@ -1947,7 +1947,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -2046,7 +2046,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logos" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logos" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -2151,7 +2151,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -2270,7 +2270,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -2388,7 +2388,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -2505,7 +2505,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -2620,7 +2620,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -2737,7 +2737,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -2857,7 +2857,7 @@ const EmployeIdCardList = () => {
                                                                                                 width: '35px',
                                                                                                 borderRadius: '50%', // Makes the image round
                                                                                                 objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                            }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                            }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                                 
@@ -2948,7 +2948,7 @@ const EmployeIdCardList = () => {
                                                                                                     width: '25px',
                                                                                                     borderRadius: '50%', // Makes the image round
                                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             </div>
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -3068,7 +3068,7 @@ const EmployeIdCardList = () => {
                                                                                                 width: '35px',
                                                                                                 borderRadius: '50%', // Makes the image round
                                                                                                 objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                            }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                            }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                             <div>
                                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                                 
@@ -3186,7 +3186,7 @@ const EmployeIdCardList = () => {
                                                                                             width: '25px',
                                                                                             borderRadius: '50%', // Makes the image round
                                                                                             objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                        }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                        }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                     </div>
                                                                                     <div>
                                                                                         <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -3288,7 +3288,7 @@ const EmployeIdCardList = () => {
                                                                                             width: '25px',
                                                                                             borderRadius: '50%', // Makes the image round
                                                                                             objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                        }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                        }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                                     </div>
                                                                                     <div>
                                                                                         <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -3400,7 +3400,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logos" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logos" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -3494,7 +3494,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logos" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logos" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -3603,7 +3603,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -3696,7 +3696,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -3804,7 +3804,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -3917,7 +3917,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4046,7 +4046,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4159,7 +4159,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4288,7 +4288,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4400,7 +4400,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4523,7 +4523,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4635,7 +4635,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4762,7 +4762,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -4875,7 +4875,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5007,7 +5007,7 @@ const EmployeIdCardList = () => {
                                                                                 width: '35px',
                                                                                 borderRadius: '50%', // Makes the image round
                                                                                 objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                            }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                            }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
@@ -5120,7 +5120,7 @@ const EmployeIdCardList = () => {
                                                                                 width: '35px',
                                                                                 borderRadius: '50%', // Makes the image round
                                                                                 objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                            }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                            }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
@@ -5238,7 +5238,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5341,7 +5341,7 @@ const EmployeIdCardList = () => {
                                                                                     width: '25px',
                                                                                     borderRadius: '50%', // Makes the image round
                                                                                     objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                                }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
@@ -5464,7 +5464,7 @@ const EmployeIdCardList = () => {
                                                                                 width: '35px',
                                                                                 borderRadius: '50%', // Makes the image round
                                                                                 objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                            }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                            }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpgg" alt="School Logo" />
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
@@ -5574,7 +5574,7 @@ const EmployeIdCardList = () => {
                                                                                 width: '35px',
                                                                                 borderRadius: '50%', // Makes the image round
                                                                                 objectFit: 'cover'   // Ensures the image fits perfectly inside the circle
-                                                                            }} class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                            }} class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             <div>
                                                                                 <p style={{ fontWeight: 'bold' }}>Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
