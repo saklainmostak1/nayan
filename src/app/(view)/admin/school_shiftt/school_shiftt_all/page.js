@@ -64,7 +64,7 @@ const SchoolShiftAll = ({ searchParams }) => {
     })
 
     // console.log(moduleInfo.filter(moduleI => moduleI.controller_name === 'brand'))
-    const brandList = moduleInfo.filter(moduleI => moduleI.controller_name === 'school_shift')
+    const brandList = moduleInfo.filter(moduleI => moduleI.controller_name === 'shift')
 
     //   console.log(filteredModuleInfo);
 

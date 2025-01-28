@@ -13,6 +13,8 @@ const EmployeIdCardList = () => {
     const [activeTab, setActiveTab] = useState('font_side'); // Track active tab
     const [fromDate, setFromDate] = useState('');
     const [toDate, setToDate] = useState('');
+    const [fromDates, setFromDates] = useState('');
+    const [toDates, setToDates] = useState('');
     const [template, setTemplate] = useState('1');
     const [templateSide, setTemplateSide] = useState('0');
     const [loading, setLoading] = useState(false);
@@ -58,15 +60,23 @@ const EmployeIdCardList = () => {
 
     const handleDateChangeFrom = (event) => {
         const selectedDate = new Date(event.target.value);
+        console.log(selectedDate)
         const formattedDate = formatDate(selectedDate);
+        setFromDates(formattedDate)
         setFromDate(selectedDate);
     };
 
     const handleDateChangeTo = (event) => {
         const selectedDate = new Date(event.target.value);
         const formattedDate = formatDate(selectedDate);
+        setToDates(formattedDate)
         setToDate(selectedDate);
     };
+
+    console.log(toDates)
+    console.log(fromDates)
+    console.log(toDate)
+    console.log(fromDate)
 
     const handleTextInputClick = () => {
         document.getElementById('dateInputFrom').showPicker();
@@ -83,6 +93,8 @@ const EmployeIdCardList = () => {
 
         setFromDate(firstDayOfMonth);
         setToDate(lastDayOfMonth);
+        setFromDates(formatDate(firstDayOfMonth));
+        setToDates(formatDate(lastDayOfMonth));
     }, []);
 
 
@@ -308,7 +320,7 @@ const EmployeIdCardList = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    selectedPrintSize, orientation,  filteredSetting, filteredSettingss,   formData, searchResults, filteredSettings,template ,templateSide , employee_id_card_setting_back_list 
+                    selectedPrintSize, orientation,  filteredSetting, filteredSettingss,   formData, searchResults, filteredSettings,template ,templateSide , employee_id_card_setting_back_list , toDates, fromDates
                 }),
             });
 
@@ -349,7 +361,7 @@ const EmployeIdCardList = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    selectedPrintSize, orientation, searchResults, filteredSettings, filteredSettingss, filteredSetting, template, templateSide, employee_id_card_setting_back_list, formData 
+                    selectedPrintSize, orientation, searchResults, filteredSettings, filteredSettingss, filteredSetting, template, templateSide, employee_id_card_setting_back_list, formData ,toDates, fromDates
                 }),
             });
 
@@ -524,8 +536,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container">
                                                                                         <div class="id-card-content">
-                                                                                            <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+                                                                                            <p class="id-card-issue-date">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions">
                                                                                                 <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -618,8 +630,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-containers">
                                                                                         <div class="id-card-contents">
-                                                                                            <p class="id-card-issue-dates">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-dates">Expire Date: 2024-12-31</p>
+                                                                                            <p class="id-card-issue-dates">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-dates">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructionss">
                                                                                                 {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -681,7 +693,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '30px', marginLeft: '-20px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '12px' }} className='rotate-text1'>
-                                                                                                <small>Class:Three</small>
+                                                                                                <small>Designation:</small>
                                                                                             </p>
 
 
@@ -735,8 +747,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container1">
                                                                                         <div class="id-card-content1">
-                                                                                            <p class="id-card-issue-date1">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date1">Expire Date: 2024-12-31</p>
+                                                                                            <p class="id-card-issue-date1">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date1">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions1">
                                                                                                 {/* <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -792,7 +804,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '50px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                                <small> Class:Three</small>
+                                                                                                <small> Designation:</small>
                                                                                             </p>
 
 
@@ -846,8 +858,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container12">
                                                                                         <div class="id-card-content12">
-                                                                                            <p class="id-card-issue-date12">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date12">Expire Date: 2024-12-31</p>
+                                                                                            <p class="id-card-issue-date12">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date12">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions12">
                                                                                             <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -902,7 +914,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '70px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                                <small> Class:Three</small>
+                                                                                                <small> Designation:</small>
                                                                                             </p>
 
 
@@ -956,8 +968,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container5">
                                                                                         <div class="id-card-content5">
-                                                                                            <p class="id-card-issue-date5">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date5">Expire Date: 2024-5-31</p>
+                                                                                            <p class="id-card-issue-date5">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date5">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions5">
                                                                                             <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -1011,7 +1023,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-                                                                                                <small> Class:Three</small>
+                                                                                                <small> Designation:</small>
                                                                                             </p>
 
 
@@ -1065,8 +1077,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container6">
                                                                                         <div class="id-card-content6">
-                                                                                            <p class="id-card-issue-date6">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date6">Expire Date: 2024-5-31</p>
+                                                                                            <p class="id-card-issue-date6">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date6">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions6">
                                                                                             <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -1118,7 +1130,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-                                                                                                <small> Class:Three</small>
+                                                                                                <small> Designation:</small>
                                                                                             </p>
 
 
@@ -1172,8 +1184,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container7">
                                                                                         <div class="id-card-content7">
-                                                                                            <p class="id-card-issue-date7">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date7">Expire Date: 2024-5-31</p>
+                                                                                            <p class="id-card-issue-date7">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date7">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions7">
                                                                                             <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -1227,7 +1239,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '-50px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                                <small> Class:Three</small>
+                                                                                                <small> Designation:</small>
                                                                                             </p>
 
 
@@ -1281,8 +1293,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container8">
                                                                                         <div class="id-card-content8">
-                                                                                            <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
+                                                                                            <p class="id-card-issue-date8">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date8">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions8">
                                                                                             <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -1370,8 +1382,8 @@ const EmployeIdCardList = () => {
 
                                                                                 <div class="id-card-container9">
                                                                                     <div class="id-card-content9">
-                                                                                        <p class="id-card-issue-date9">Issue Date: 2024-01-01</p>
-                                                                                        <p class="id-card-expire-date9">Expire Date: 2024-9-31</p>
+                                                                                        <p class="id-card-issue-date9">Issue Date: {fromDates}</p>
+                                                                                        <p class="id-card-expire-date9">Expire Date: {toDates}</p>
                                                                                         <p class="id-card-instructions9">
                                                                                         <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -1422,7 +1434,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             {/* <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-                <small> Class:Three</small>
+                <small> Designation:</small>
             </p> */}
 
 
@@ -1476,8 +1488,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container10">
                                                                                         <div class="id-card-content10">
-                                                                                            <p class="id-card-issue-date10">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date10">Expire Date: 2024-5-31</p>
+                                                                                            <p class="id-card-issue-date10">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date10">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions10">
                                                                                             <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -1563,8 +1575,8 @@ const EmployeIdCardList = () => {
                                                                                 </div>
                                                                                 <div class="id-card-container11">
                                                                                     <div class="id-card-content11">
-                                                                                        <p class="id-card-issue-date11">Issue Date: 2024-01-01</p>
-                                                                                        <p class="id-card-expire-date11">Expire Date: 2024-9-31</p>
+                                                                                        <p class="id-card-issue-date11">Issue Date: {fromDates}</p>
+                                                                                        <p class="id-card-expire-date11">Expire Date: {toDates}</p>
                                                                                         <p class="id-card-instructions11">
                                                                                         <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -2001,8 +2013,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container">
                                                                                         <div class="id-card-content">
-                                                                                            <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+                                                                                            <p class="id-card-issue-date">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions">
                                                                                                 {
                                                                                                     employee_id_card_setting_back_list.map((employe_settings) =>
@@ -2103,8 +2115,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-containers">
                                                                                         <div class="id-card-contents">
-                                                                                            <p class="id-card-issue-dates">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-dates">Expire Date: 2024-12-31</p>
+                                                                                            <p class="id-card-issue-dates">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-dates">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructionss">
                                                                                                 {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -2166,7 +2178,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '30px', marginLeft: '-20px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '12px' }} className='rotate-text1'>
-                                                                                                <small>Class:Three</small>
+                                                                                                <small>Designation:</small>
                                                                                             </p>
 
 
@@ -2220,8 +2232,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container1">
                                                                                         <div class="id-card-content1">
-                                                                                            <p class="id-card-issue-date1">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date1">Expire Date: 2024-12-31</p>
+                                                                                            <p class="id-card-issue-date1">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date1">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions1">
                                                                                                 {/* <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -2285,7 +2297,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '50px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                                <small> Class:Three</small>
+                                                                                                <small> Designation:</small>
                                                                                             </p>
 
 
@@ -2339,8 +2351,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container12">
                                                                                         <div class="id-card-content12">
-                                                                                            <p class="id-card-issue-date12">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date12">Expire Date: 2024-12-31</p>
+                                                                                            <p class="id-card-issue-date12">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date12">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions12">
                                                                                             {
                                                                                                     employee_id_card_setting_back_list.map((employe_settings) =>
@@ -2403,7 +2415,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '70px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                                <small> Class:Three</small>
+                                                                                                <small> Designation:</small>
                                                                                             </p>
 
 
@@ -2457,8 +2469,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container5">
                                                                                         <div class="id-card-content5">
-                                                                                            <p class="id-card-issue-date5">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date5">Expire Date: 2024-5-31</p>
+                                                                                            <p class="id-card-issue-date5">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date5">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions5">
                                                                                             {
                                                                                                     employee_id_card_setting_back_list.map((employe_settings) =>
@@ -2520,7 +2532,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-                                                                                                <small> Class:Three</small>
+                                                                                                <small> Designation:</small>
                                                                                             </p>
 
 
@@ -2574,8 +2586,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container6">
                                                                                         <div class="id-card-content6">
-                                                                                            <p class="id-card-issue-date6">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date6">Expire Date: 2024-5-31</p>
+                                                                                            <p class="id-card-issue-date6">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date6">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions6">
                                                                                             {
                                                                                                     employee_id_card_setting_back_list.map((employe_settings) =>
@@ -2635,7 +2647,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-                                                                                                <small> Class:Three</small>
+                                                                                                <small> Designation:</small>
                                                                                             </p>
 
 
@@ -2689,8 +2701,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container7">
                                                                                         <div class="id-card-content7">
-                                                                                            <p class="id-card-issue-date7">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date7">Expire Date: 2024-5-31</p>
+                                                                                            <p class="id-card-issue-date7">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date7">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions7">
                                                                                             {
                                                                                                     employee_id_card_setting_back_list.map((employe_settings) =>
@@ -2752,7 +2764,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             <p style={{ marginTop: '-50px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                                <small> Class:Three</small>
+                                                                                                <small> Designation:</small>
                                                                                             </p>
 
 
@@ -2806,8 +2818,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container8">
                                                                                         <div class="id-card-content8">
-                                                                                            <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
+                                                                                            <p class="id-card-issue-date8">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date8">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions8">
                                                                                             {
                                                                                                     employee_id_card_setting_back_list.map((employe_settings) =>
@@ -2903,8 +2915,8 @@ const EmployeIdCardList = () => {
 
                                                                                 <div class="id-card-container9">
                                                                                     <div class="id-card-content9">
-                                                                                        <p class="id-card-issue-date9">Issue Date: 2024-01-01</p>
-                                                                                        <p class="id-card-expire-date9">Expire Date: 2024-9-31</p>
+                                                                                        <p class="id-card-issue-date9">Issue Date: {fromDates}</p>
+                                                                                        <p class="id-card-expire-date9">Expire Date: {toDates}</p>
                                                                                         <p class="id-card-instructions9">
                                                                                         {
                                                                                                     employee_id_card_setting_back_list.map((employe_settings) =>
@@ -2963,7 +2975,7 @@ const EmployeIdCardList = () => {
                                                                                         }}>
 
                                                                                             {/* <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-                <small> Class:Three</small>
+                <small> Designation:</small>
             </p> */}
 
 
@@ -3017,8 +3029,8 @@ const EmployeIdCardList = () => {
 
                                                                                     <div class="id-card-container10">
                                                                                         <div class="id-card-content10">
-                                                                                            <p class="id-card-issue-date10">Issue Date: 2024-01-01</p>
-                                                                                            <p class="id-card-expire-date10">Expire Date: 2024-5-31</p>
+                                                                                            <p class="id-card-issue-date10">Issue Date: {fromDates}</p>
+                                                                                            <p class="id-card-expire-date10">Expire Date: {toDates}</p>
                                                                                             <p class="id-card-instructions10">
                                                                                             {
                                                                                                     employee_id_card_setting_back_list.map((employe_settings) =>
@@ -3112,8 +3124,8 @@ const EmployeIdCardList = () => {
                                                                                 </div>
                                                                                 <div class="id-card-container11">
                                                                                     <div class="id-card-content11">
-                                                                                        <p class="id-card-issue-date11">Issue Date: 2024-01-01</p>
-                                                                                        <p class="id-card-expire-date11">Expire Date: 2024-9-31</p>
+                                                                                        <p class="id-card-issue-date11">Issue Date: {fromDates}</p>
+                                                                                        <p class="id-card-expire-date11">Expire Date: {toDates}</p>
                                                                                         <p class="id-card-instructions11">
                                                                                         {
                                                                                                     employee_id_card_setting_back_list.map((employe_settings) =>
@@ -3150,7 +3162,7 @@ const EmployeIdCardList = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body" >
+                            <div   className='card-body'>
                                         {loading ? <div className='text-center'>
                                             <div className='  text-center text-dark'
                                             >
@@ -3160,11 +3172,15 @@ const EmployeIdCardList = () => {
                                                 }} icon={faSpinner} spin />
                                             </div>
                                         </div> : searchResults?.length > 0 ? (
-                                            <div class="container" >
-                                            <div class="row" >
+                                            <div  class="container">
+                                                {/* style={{ height:'177mm !important', width:'210mm !important'	}} */}
+                                            <div  className=''> 
+                                            {/* style={{ height:'177mm ', width:'210mm '	}} */}
 
                                                 {searchResults.map((searchResult, i) => (
-                                                    <div key={i} className="col-6 mb-4">
+                                                    <div key={i}  className="col-4 mb-3"  style={{float:'left',  width:'56.88mm'}}>
+                                                        {/* style={{float:'left', height:'178mm', width:'56.88mm',overflow:'hidden'}} */}
+                                                        {/* className="col-6 mb-4" */}
                                                         {
                                                             template == 1 && <>
 
@@ -3175,7 +3191,7 @@ const EmployeIdCardList = () => {
 
 
                                                                         {/* id 1 start */}
-                                                                        <div className='d-flex'>
+                                                                        <div className=''>
 
 
                                                                             <div class="id-card">
@@ -3246,8 +3262,8 @@ const EmployeIdCardList = () => {
 
                                                                             <div class="id-card-container">
                                                                                 <div class="id-card-content">
-                                                                                    <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-                                                                                    <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+                                                                                    <p class="id-card-issue-date">Issue Date: {fromDates}</p>
+                                                                                    <p class="id-card-expire-date">Expire Date: {toDates}</p>
                                                                                     <p class="id-card-instructions">
                                                                                         {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -3350,8 +3366,8 @@ const EmployeIdCardList = () => {
 
 <div class="id-card-container">
                                                                                 <div class="id-card-content">
-                                                                                    <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-                                                                                    <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+                                                                                    <p class="id-card-issue-date">Issue Date: {fromDates}</p>
+                                                                                    <p class="id-card-expire-date">Expire Date: {toDates}</p>
                                                                                     <p class="id-card-instructions">
                                                                                         {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -3390,7 +3406,7 @@ const EmployeIdCardList = () => {
                                                         {
                                                             templateSide == 0 && <>
 
-                                                                <div className='d-flex'>
+                                                                <div className=''>
 
                                                                     <div class="id-cards">
                                                                         <div class="headers">
@@ -3455,8 +3471,8 @@ const EmployeIdCardList = () => {
 
                                                                     <div class="id-card-containers">
                                                                         <div class="id-card-contents">
-                                                                            <p class="id-card-issue-dates">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-dates">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-dates">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-dates">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructionss">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -3552,8 +3568,8 @@ const EmployeIdCardList = () => {
                                                             templateSide == 2 && <>
                                                                 <div class="id-card-containers">
                                                                         <div class="id-card-contents">
-                                                                            <p class="id-card-issue-dates">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-dates">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-dates">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-dates">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructionss">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -3593,7 +3609,7 @@ const EmployeIdCardList = () => {
                                                         {
                                                             templateSide == 0 && <>
 
-                                                                <div className='d-flex'>
+                                                                <div className=''>
 
                                                                     <div class="id-card1">
                                                                         <div class="header1">
@@ -3657,8 +3673,8 @@ const EmployeIdCardList = () => {
 
                                                                     <div class="id-card-container1">
                                                                         <div class="id-card-content1">
-                                                                            <p class="id-card-issue-date1">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date1">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date1">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date1">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions1">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -3753,8 +3769,8 @@ const EmployeIdCardList = () => {
                                                             templateSide == 2 && <>
                                                                  <div class="id-card-container1">
                                                                         <div class="id-card-content1">
-                                                                            <p class="id-card-issue-date1">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date1">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date1">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date1">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions1">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -3794,7 +3810,7 @@ const EmployeIdCardList = () => {
                                                             templateSide == 0 && <>
 
 
-                                                                <div className='d-flex'>
+                                                                <div className=''>
 
                                                                     <div class="id-card12">
                                                                         <div class="header12">
@@ -3819,7 +3835,7 @@ const EmployeIdCardList = () => {
                                                                         }}>
 
                                                                             <p style={{ marginTop: '50px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                <small> Class:Three</small>
+                                                                                <small> Designation:</small>
                                                                             </p>
 
 
@@ -3878,8 +3894,8 @@ const EmployeIdCardList = () => {
 
                                                                     <div class="id-card-container12">
                                                                         <div class="id-card-content12">
-                                                                            <p class="id-card-issue-date12">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date12">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date12">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date12">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions12">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -3932,7 +3948,7 @@ const EmployeIdCardList = () => {
                                                                         }}>
 
                                                                             <p style={{ marginTop: '50px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                <small> Class:Three</small>
+                                                                                <small> Designation:</small>
                                                                             </p>
 
 
@@ -3995,8 +4011,8 @@ const EmployeIdCardList = () => {
 
 <div class="id-card-container12">
                                                                         <div class="id-card-content12">
-                                                                            <p class="id-card-issue-date12">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date12">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date12">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date12">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions12">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -4036,7 +4052,7 @@ const EmployeIdCardList = () => {
                                                         {/* id 5 start */}
                                                         {
                                                             templateSide == 0 && <>
-                                                                <div className='d-flex'>
+                                                                <div className=''>
 
                                                                     <div class="id-card5">
                                                                         <div class="header5">
@@ -4061,7 +4077,7 @@ const EmployeIdCardList = () => {
                                                                         }}>
 
                                                                             <p style={{ marginTop: '70px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                <small> Class:Three</small>
+                                                                                <small> Designation:</small>
                                                                             </p>
 
 
@@ -4119,8 +4135,8 @@ const EmployeIdCardList = () => {
 
                                                                     <div class="id-card-container5">
                                                                         <div class="id-card-content5">
-                                                                            <p class="id-card-issue-date5">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date5">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date5">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date5">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions5">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -4174,7 +4190,7 @@ const EmployeIdCardList = () => {
                                                                         }}>
 
                                                                             <p style={{ marginTop: '70px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                <small> Class:Three</small>
+                                                                                <small> Designation:</small>
                                                                             </p>
 
 
@@ -4235,8 +4251,8 @@ const EmployeIdCardList = () => {
                                                             templateSide == 2 && <>
                                                                 <div class="id-card-container5">
                                                                         <div class="id-card-content5">
-                                                                            <p class="id-card-issue-date5">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date5">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date5">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date5">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions5">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -4278,7 +4294,7 @@ const EmployeIdCardList = () => {
 
                                                         {
                                                             templateSide == 0 && <>
-                                                                <div className='d-flex'>
+                                                                <div className=''>
 
                                                                     <div class="id-card6">
                                                                         <div class="header6">
@@ -4303,7 +4319,7 @@ const EmployeIdCardList = () => {
                                                                         }}>
 
                                                                             <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-                                                                                <small> Class:Three</small>
+                                                                                <small> Designation:</small>
                                                                             </p>
 
 
@@ -4361,8 +4377,8 @@ const EmployeIdCardList = () => {
 
                                                                     <div class="id-card-container6">
                                                                         <div class="id-card-content6">
-                                                                            <p class="id-card-issue-date6">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date6">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date6">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date6">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions6">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -4415,7 +4431,7 @@ const EmployeIdCardList = () => {
                                                                         }}>
 
                                                                             <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-                                                                                <small> Class:Three</small>
+                                                                                <small> Designation:</small>
                                                                             </p>
 
 
@@ -4476,8 +4492,8 @@ const EmployeIdCardList = () => {
                                                             templateSide == 2 && <>
                                                                  <div class="id-card-container6">
                                                                         <div class="id-card-content6">
-                                                                            <p class="id-card-issue-date6">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date6">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date6">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date6">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions6">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -4513,7 +4529,7 @@ const EmployeIdCardList = () => {
                                                         {/* id 7 start */}
                                                         {
                                                             templateSide == 0 && <>
-                                                                <div className='d-flex'>
+                                                                <div className=''>
 
                                                                     <div class="id-card7">
                                                                         <div class="header7">
@@ -4538,7 +4554,7 @@ const EmployeIdCardList = () => {
                                                                         }}>
 
                                                                             <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-                                                                                <small> Class:Three</small>
+                                                                                <small> Designation:</small>
                                                                             </p>
 
 
@@ -4596,8 +4612,8 @@ const EmployeIdCardList = () => {
 
                                                                     <div class="id-card-container7">
                                                                         <div class="id-card-content7">
-                                                                            <p class="id-card-issue-date7">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date7">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date7">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date7">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions7">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -4650,7 +4666,7 @@ const EmployeIdCardList = () => {
                                                                         }}>
 
                                                                             <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-                                                                                <small> Class:Three</small>
+                                                                                <small> Designation:</small>
                                                                             </p>
 
 
@@ -4711,8 +4727,8 @@ const EmployeIdCardList = () => {
                                                             templateSide == 2 && <>
                                                                 <div class="id-card-container7">
                                                                         <div class="id-card-content7">
-                                                                            <p class="id-card-issue-date7">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date7">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date7">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date7">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions7">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -4752,7 +4768,7 @@ const EmployeIdCardList = () => {
                                                         {/* id 8 start */}
                                                         {
                                                             templateSide == 0 && <>
-                                                                <div className='d-flex'>
+                                                                <div className=''>
 
                                                                     <div class="id-card8">
                                                                         <div class="header8">
@@ -4777,7 +4793,7 @@ const EmployeIdCardList = () => {
                                                                         }}>
 
                                                                             <p style={{ marginTop: '-50px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                <small> Class:Three</small>
+                                                                                <small> Designation:</small>
                                                                             </p>
 
 
@@ -4836,8 +4852,8 @@ const EmployeIdCardList = () => {
 
                                                                     <div class="id-card-container8">
                                                                         <div class="id-card-content8">
-                                                                            <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
+                                                                            <p class="id-card-issue-date8">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date8">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions8">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -4890,7 +4906,7 @@ const EmployeIdCardList = () => {
                                                                         }}>
 
                                                                             <p style={{ marginTop: '-50px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-                                                                                <small> Class:Three</small>
+                                                                                <small> Designation:</small>
                                                                             </p>
 
 
@@ -4952,8 +4968,8 @@ const EmployeIdCardList = () => {
                                                             templateSide == 2 && <>
                                                                 <div class="id-card-container8">
                                                                         <div class="id-card-content8">
-                                                                            <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
+                                                                            <p class="id-card-issue-date8">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date8">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions8">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -5076,8 +5092,8 @@ const EmployeIdCardList = () => {
 
                                                                 <div class="id-card-container9">
                                                                     <div class="id-card-content9">
-                                                                        <p class="id-card-issue-date9">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date9">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date9">Issue Date: {fromDates}</p>
+                                                                        <p class="id-card-expire-date9">Expire Date: {toDates}</p>
                                                                         <p class="id-card-instructions9">
                                                                         {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -5189,8 +5205,8 @@ const EmployeIdCardList = () => {
                                                             templateSide == 2 && <>
                                                                 <div class="id-card-container9">
                                                                     <div class="id-card-content9">
-                                                                        <p class="id-card-issue-date9">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date9">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date9">Issue Date: {fromDates}</p>
+                                                                        <p class="id-card-expire-date9">Expire Date: {toDates}</p>
                                                                         <p class="id-card-instructions9">
                                                                         {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -5228,7 +5244,7 @@ const EmployeIdCardList = () => {
                                                         {
                                                             templateSide == 0 && <>
 
-                                                                <div className='d-flex'>
+                                                                <div className=''>
 
                                                                     <div class="id-card10">
                                                                         <div class="header10">
@@ -5302,8 +5318,8 @@ const EmployeIdCardList = () => {
 
                                                                     <div class="id-card-container10">
                                                                         <div class="id-card-content10">
-                                                                            <p class="id-card-issue-date10">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date10">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date10">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date10">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions10">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -5409,8 +5425,8 @@ const EmployeIdCardList = () => {
                                                             templateSide == 2 && <>
                                                              <div class="id-card-container10">
                                                                         <div class="id-card-content10">
-                                                                            <p class="id-card-issue-date10">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date10">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date10">Issue Date: {fromDates}</p>
+                                                                            <p class="id-card-expire-date10">Expire Date: {toDates}</p>
                                                                             <p class="id-card-instructions10">
                                                                             {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -5530,8 +5546,8 @@ const EmployeIdCardList = () => {
                                                                 </div>
                                                                 <div class="id-card-container11">
                                                                     <div class="id-card-content11">
-                                                                        <p class="id-card-issue-date11">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date11">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date11">Issue Date: {fromDates}</p>
+                                                                        <p class="id-card-expire-date11">Expire Date: {toDates}</p>
                                                                         <p class="id-card-instructions11">
                                                                         {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -5634,8 +5650,8 @@ const EmployeIdCardList = () => {
 
                                                                 <div class="id-card-container11">
                                                                     <div class="id-card-content11">
-                                                                        <p class="id-card-issue-date11">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date11">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date11">Issue Date: {fromDates}</p>
+                                                                        <p class="id-card-expire-date11">Expire Date: {toDates}</p>
                                                                         <p class="id-card-instructions11">
                                                                         {
                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -6074,7 +6090,7 @@ export default EmployeIdCardList;
 //                                                                                         }}>
 
 //                                                                                             <p style={{ marginTop: '30px', marginLeft: '-20px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '12px' }} className='rotate-text'>
-//                                                                                                 <small>Class:Three</small>
+//                                                                                                 <small>Designation:</small>
 //                                                                                             </p>
 
 
@@ -6151,8 +6167,8 @@ export default EmployeIdCardList;
 
 //                                                                                     <div class="id-card-container">
 //                                                                                         <div class="id-card-content">
-//                                                                                             <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-//                                                                                             <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+//                                                                                             <p class="id-card-issue-date">Issue Date: {fromDates}</p>
+//                                                                                             <p class="id-card-expire-date">Expire Date: {toDates}</p>
 //                                                                                             <p class="id-card-instructions">
 //                                                                                                 {
 //                                                                                                     employee_id_card_setting_back_list.map((employe_settings) =>
@@ -6253,8 +6269,8 @@ export default EmployeIdCardList;
 
 //                                                                                     <div class="id-card-containers">
 //                                                                                         <div class="id-card-contents">
-//                                                                                             <p class="id-card-issue-dates">Issue Date: 2024-01-01</p>
-//                                                                                             <p class="id-card-expire-dates">Expire Date: 2024-12-31</p>
+//                                                                                             <p class="id-card-issue-dates">Issue Date: {fromDates}</p>
+//                                                                                             <p class="id-card-expire-dates">Expire Date: {toDates}</p>
 //                                                                                             <p class="id-card-instructionss">
 //                                                                                                 <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
 //                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -6308,7 +6324,7 @@ export default EmployeIdCardList;
 //                                                                                         }}>
 
 //                                                                                             <p style={{ marginTop: '30px', marginLeft: '-20px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '12px' }} className='rotate-text1'>
-//                                                                                                 <small>Class:Three</small>
+//                                                                                                 <small>Designation:</small>
 //                                                                                             </p>
 
 
@@ -6362,8 +6378,8 @@ export default EmployeIdCardList;
 
 //                                                                                     <div class="id-card-container1">
 //                                                                                         <div class="id-card-content1">
-//                                                                                             <p class="id-card-issue-date1">Issue Date: 2024-01-01</p>
-//                                                                                             <p class="id-card-expire-date1">Expire Date: 2024-12-31</p>
+//                                                                                             <p class="id-card-issue-date1">Issue Date: {fromDates}</p>
+//                                                                                             <p class="id-card-expire-date1">Expire Date: {toDates}</p>
 //                                                                                             <p class="id-card-instructions1">
 //                                                                                                 <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
 //                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -6416,7 +6432,7 @@ export default EmployeIdCardList;
 //                                                                                         }}>
 
 //                                                                                             <p style={{ marginTop: '50px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-//                                                                                                 <small> Class:Three</small>
+//                                                                                                 <small> Designation:</small>
 //                                                                                             </p>
 
 
@@ -6470,8 +6486,8 @@ export default EmployeIdCardList;
 
 //                                                                                     <div class="id-card-container12">
 //                                                                                         <div class="id-card-content12">
-//                                                                                             <p class="id-card-issue-date12">Issue Date: 2024-01-01</p>
-//                                                                                             <p class="id-card-expire-date12">Expire Date: 2024-12-31</p>
+//                                                                                             <p class="id-card-issue-date12">Issue Date: {fromDates}</p>
+//                                                                                             <p class="id-card-expire-date12">Expire Date: {toDates}</p>
 //                                                                                             <p class="id-card-instructions12">
 //                                                                                                 <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
 //                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -6526,7 +6542,7 @@ export default EmployeIdCardList;
 //                                                                                         }}>
 
 //                                                                                             <p style={{ marginTop: '70px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-//                                                                                                 <small> Class:Three</small>
+//                                                                                                 <small> Designation:</small>
 //                                                                                             </p>
 
 
@@ -6580,8 +6596,8 @@ export default EmployeIdCardList;
 
 //                                                                                     <div class="id-card-container5">
 //                                                                                         <div class="id-card-content5">
-//                                                                                             <p class="id-card-issue-date5">Issue Date: 2024-01-01</p>
-//                                                                                             <p class="id-card-expire-date5">Expire Date: 2024-5-31</p>
+//                                                                                             <p class="id-card-issue-date5">Issue Date: {fromDates}</p>
+//                                                                                             <p class="id-card-expire-date5">Expire Date: {toDates}</p>
 //                                                                                             <p class="id-card-instructions5">
 //                                                                                                 <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
 //                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -6635,7 +6651,7 @@ export default EmployeIdCardList;
 //                                                                                         }}>
 
 //                                                                                             <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-//                                                                                                 <small> Class:Three</small>
+//                                                                                                 <small> Designation:</small>
 //                                                                                             </p>
 
 
@@ -6689,8 +6705,8 @@ export default EmployeIdCardList;
 
 //                                                                                     <div class="id-card-container6">
 //                                                                                         <div class="id-card-content6">
-//                                                                                             <p class="id-card-issue-date6">Issue Date: 2024-01-01</p>
-//                                                                                             <p class="id-card-expire-date6">Expire Date: 2024-5-31</p>
+//                                                                                             <p class="id-card-issue-date6">Issue Date: {fromDates}</p>
+//                                                                                             <p class="id-card-expire-date6">Expire Date: {toDates}</p>
 //                                                                                             <p class="id-card-instructions6">
 //                                                                                                 <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
 //                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -6742,7 +6758,7 @@ export default EmployeIdCardList;
 //                                                                                         }}>
 
 //                                                                                             <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-//                                                                                                 <small> Class:Three</small>
+//                                                                                                 <small> Designation:</small>
 //                                                                                             </p>
 
 
@@ -6796,8 +6812,8 @@ export default EmployeIdCardList;
 
 //                                                                                     <div class="id-card-container7">
 //                                                                                         <div class="id-card-content7">
-//                                                                                             <p class="id-card-issue-date7">Issue Date: 2024-01-01</p>
-//                                                                                             <p class="id-card-expire-date7">Expire Date: 2024-5-31</p>
+//                                                                                             <p class="id-card-issue-date7">Issue Date: {fromDates}</p>
+//                                                                                             <p class="id-card-expire-date7">Expire Date: {toDates}</p>
 //                                                                                             <p class="id-card-instructions7">
 //                                                                                                 <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
 //                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -6851,7 +6867,7 @@ export default EmployeIdCardList;
 //                                                                                         }}>
 
 //                                                                                             <p style={{ marginTop: '-50px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className=''>
-//                                                                                                 <small> Class:Three</small>
+//                                                                                                 <small> Designation:</small>
 //                                                                                             </p>
 
 
@@ -6905,8 +6921,8 @@ export default EmployeIdCardList;
 
 //                                                                                     <div class="id-card-container8">
 //                                                                                         <div class="id-card-content8">
-//                                                                                             <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
-//                                                                                             <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
+//                                                                                             <p class="id-card-issue-date8">Issue Date: {fromDates}</p>
+//                                                                                             <p class="id-card-expire-date8">Expire Date: {toDates}</p>
 //                                                                                             <p class="id-card-instructions8">
 //                                                                                                 <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
 //                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -6994,8 +7010,8 @@ export default EmployeIdCardList;
 
 //                                                                                 <div class="id-card-container9">
 //                                                                                     <div class="id-card-content9">
-//                                                                                         <p class="id-card-issue-date9">Issue Date: 2024-01-01</p>
-//                                                                                         <p class="id-card-expire-date9">Expire Date: 2024-9-31</p>
+//                                                                                         <p class="id-card-issue-date9">Issue Date: {fromDates}</p>
+//                                                                                         <p class="id-card-expire-date9">Expire Date: {toDates}</p>
 //                                                                                         <p class="id-card-instructions9">
 //                                                                                             <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
 //                                                                                             <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -7046,7 +7062,7 @@ export default EmployeIdCardList;
 //                                                                                         }}>
 
 //                                                                                             {/* <p style={{ marginTop: '30px', marginLeft: '-15px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '8px' }} className='rotate-text6'>
-//                 <small> Class:Three</small>
+//                 <small> Designation:</small>
 //             </p> */}
 
 
@@ -7100,8 +7116,8 @@ export default EmployeIdCardList;
 
 //                                                                                     <div class="id-card-container10">
 //                                                                                         <div class="id-card-content10">
-//                                                                                             <p class="id-card-issue-date10">Issue Date: 2024-01-01</p>
-//                                                                                             <p class="id-card-expire-date10">Expire Date: 2024-5-31</p>
+//                                                                                             <p class="id-card-issue-date10">Issue Date: {fromDates}</p>
+//                                                                                             <p class="id-card-expire-date10">Expire Date: {toDates}</p>
 //                                                                                             <p class="id-card-instructions10">
 //                                                                                                 <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
 //                                                                                                 <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -7187,8 +7203,8 @@ export default EmployeIdCardList;
 //                                                                                 </div>
 //                                                                                 <div class="id-card-container11">
 //                                                                                     <div class="id-card-content11">
-//                                                                                         <p class="id-card-issue-date11">Issue Date: 2024-01-01</p>
-//                                                                                         <p class="id-card-expire-date11">Expire Date: 2024-9-31</p>
+//                                                                                         <p class="id-card-issue-date11">Issue Date: {fromDates}</p>
+//                                                                                         <p class="id-card-expire-date11">Expire Date: {toDates}</p>
 //                                                                                         <p class="id-card-instructions11">
 //                                                                                             <strong>হারিয়ে গেলে বা নষ্ট হলে কর্তৃপক্ষকে অবহিত করতে হবে</strong><br />
 //                                                                                             <small>পরিচয় পত্রটি পাওয়া গেলে নিচের ঠিকানার পৈতে<br />
@@ -7364,8 +7380,8 @@ export default EmployeIdCardList;
 
 //                                                                             <div class="id-card-container">
 //                                                                                 <div class="id-card-content">
-//                                                                                     <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-//                                                                                     <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+//                                                                                     <p class="id-card-issue-date">Issue Date: {fromDates}</p>
+//                                                                                     <p class="id-card-expire-date">Expire Date: {toDates}</p>
 //                                                                                     <p class="id-card-instructions">
 //                                                                                         {
 //                                                                                             employee_id_card_setting_back_list.map((employe_settings) =>
@@ -7466,8 +7482,8 @@ export default EmployeIdCardList;
 
 //                                                                         <div class="id-card-container">
 //                                                                             <div class="id-card-content">
-//                                                                                 <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-//                                                                                 <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+//                                                                                 <p class="id-card-issue-date">Issue Date: {fromDates}</p>
+//                                                                                 <p class="id-card-expire-date">Expire Date: {toDates}</p>
 //                                                                                 <p class="id-card-instructions">
 //                                                                                     {
 //                                                                                         employee_id_card_setting_back_list.map((employe_settings) =>
@@ -7616,8 +7632,8 @@ export default EmployeIdCardList;
 
 //                     <div class="id-card-container">
 //                         <div class="id-card-content">
-//                             <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-//                             <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+//                             <p class="id-card-issue-date">Issue Date: {fromDates}</p>
+//                             <p class="id-card-expire-date">Expire Date: {toDates}</p>
 //                             <p class="id-card-instructions">
 //                                 {
 //                                     employee_id_card_setting_back_list.map((employe_settings) =>
@@ -7673,7 +7689,7 @@ export default EmployeIdCardList;
 //                     }}>
 
 //                         <p style={{ marginTop: '30px', marginLeft: '-20px', background: '#192653', padding: '2px 5px', color: 'white', fontSize: '12px' }} className='rotate-text'>
-//                             <small>Class:Three</small>
+//                             <small>Designation:</small>
 //                         </p>
 
 
@@ -7731,8 +7747,8 @@ export default EmployeIdCardList;
 
 //                 <div class="id-card-container">
 //                     <div class="id-card-content">
-//                         <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-//                         <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+//                         <p class="id-card-issue-date">Issue Date: {fromDates}</p>
+//                         <p class="id-card-expire-date">Expire Date: {toDates}</p>
 //                         <p class="id-card-instructions">
 //                             {
 //                                 employee_id_card_setting_back_list.map((employe_settings) =>

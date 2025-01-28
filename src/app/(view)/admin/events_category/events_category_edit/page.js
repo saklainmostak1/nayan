@@ -356,7 +356,7 @@ const EditPhotoGalleryCategory = ({ id }) => {
     } catch (error) {
       console.error("Error updating religion:", error);
     }
-    router.push("/Admin/events_category/events_category_all");
+    router.push("/Admin/photo_gallery_category/photo_gallery_category_all");
   };
 
   return (

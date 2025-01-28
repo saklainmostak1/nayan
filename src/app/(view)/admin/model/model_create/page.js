@@ -488,7 +488,7 @@ const CreateModel = () => {
                                                     </div>
                                                     <div className='col-lg-2  border '>
 
-                                                        <label className='font-weight-bold'><strong>Model Name<small><sup><small><i class="text-danger fas fa-star"></i></small></sup></small></strong></label>
+                                                        <label className='font-weight-bold'>Model Name<small><sup><small><i class="text-danger fas fa-star"></i></small></sup></small></label>
                                                         <input
                                                             type="text"
                                                             required=""

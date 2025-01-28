@@ -384,9 +384,9 @@ const colorModel = {
             if (result[column]) {
               // Encode the image URL
               const encodedURL = encodeURIComponent(result[column]);
-              console.log(`http://192.168.0.194:5003/${result[column]}`, 'encodedURL welcome');
+              console.log(`http://192.168.0.114:5003/${result[column]}`, 'encodedURL welcome');
               // const encodedURL = encode(result[column]);
-              row += `<td><img src="http://192.168.0.194:5003/${result[column]}" alt="image" style="max-width: 100px; max-height: 100px;"></td>`;
+              row += `<td><img src="http://192.168.0.114:5003/${result[column]}" alt="image" style="max-width: 100px; max-height: 100px;"></td>`;
             } else {
               // No file path provided, show a placeholder message
               row += `<td></td>`;

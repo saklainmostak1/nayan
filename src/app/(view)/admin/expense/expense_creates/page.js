@@ -51,7 +51,9 @@ const CreateExpense = () => {
 
     console.log(supplierLastDue?.payable_amount)
 
-    const prev_due = supplierLastDue?.payable_amount - supplierLastDue?.paid_amount;
+    const prev_due =( (supplierLastDue?.total_amount) - (supplierLastDue?.paid_amount + supplierLastDue?.discount) ) || 0 ;
+
+    // const prev_due = supplierLastDue?.payable_amount - supplierLastDue?.paid_amount;
 
     const [numToAdd, setNumToAdd] = useState(1);
     const [fields, setFields] = useState([{ expense_category: '', item_name: '', amount: '', quantity: '', total_amount: '', voucher_id: '', file_path: '' }]);
@@ -575,6 +577,11 @@ const [selectedData, setSelectedData] = useState({ amount: 0 }); // Example data
             return response.json();
         })
         .then(data => {
+            if (data) {
+                sessionStorage.setItem("message", "Data saved successfully!");
+                router.push('/Admin/expense/expense_all')
+
+            }
             console.log('Update successful:', data);
         })
         .catch(error => {
@@ -738,17 +745,18 @@ const [selectedData, setSelectedData] = useState({ amount: 0 }); // Example data
                     console.log(Response)
                     if (Response.ok === true) {
                         sessionStorage.setItem("message", "Data saved successfully!");
-                        // router.push('/Admin/expense/expense_all')
+                        router.push('/Admin/expense/expense_all')
                     }
                 })
                 .then((data) => {
                     console.log(data)
+                
 
-                    // if (data.affectedRows > 0) {
-                    //     sessionStorage.setItem("message", "Data saved successfully!");
-                    //     router.push('/Admin/expense/expense_all')
+                    if (data) {
+                        sessionStorage.setItem("message", "Data saved successfully!");
+                        router.push('/Admin/expense/expense_all')
 
-                    // }
+                    }
                 })
                 .catch((error) => console.error(error));
         }

@@ -1067,6 +1067,7 @@
  //ismile;
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 const CreateLeaveApplication = () => {
@@ -1253,9 +1254,23 @@ const CreateLeaveApplication = () => {
             body: JSON.stringify(dataToSubmit),
         })
             .then((response) => response.json())
-            .then((data) => console.log(data.affectedRows))
+            .then((data) => {
+                
+                console.log(data)
+                if (data) {
+
+                    if(typeof window !=='undefined'){
+
+                        sessionStorage.setItem("message", "Data saved successfully!");
+                    }
+                    router.push('/Admin/leave_application/leave_application_all?page_group=hr_management');
+                }
+            
+            })
             .catch((error) => console.error(error));
     };
+
+    const router = useRouter()
 
     // Fetch the list of leave categories
     const { data: leaveCategory = [] } = useQuery({

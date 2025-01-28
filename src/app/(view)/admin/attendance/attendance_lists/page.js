@@ -168,11 +168,11 @@ const AttendanceLists = () => {
             setLoading(false);
             return
         }
-        // if ( month === ''  ) {
-        //     alert('select a  month')
-        //     setLoading(false);
-        //     return
-        // }
+        if ( month === ''  ) {
+            alert('select a  month')
+            setLoading(false);
+            return
+        }
         axios.post(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/attendance/attendance_list_search`, {
             searchQuery, itemName, employee, month, fromDate, toDate
         })
@@ -873,7 +873,7 @@ handleDateChanges
                                                                 <td>{attendances.full_name}</td>
                                                                 {/* <td>{searchResults.length}</td> */}
                                                                 <td>
-                                                                    <img src={`${process.env.NEXT_PUBLIC_API_URL}:5003/${attendances.photo}`} alt="No image found" className="img-fluid" />
+                                                                    <img src={`${process.env.NEXT_PUBLIC_API_URL}:5003/${attendances.photo}`} alt="No image found" className="w-25" />
                                                                 </td>
                                                                 <td>{attendances.designation_name}</td>
                                                                 {/* {

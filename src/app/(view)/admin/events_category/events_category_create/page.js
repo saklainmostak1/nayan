@@ -333,7 +333,7 @@ useEffect(() => {
         if (typeof window !== 'undefined') {
           sessionStorage.setItem("message", "Data saved successfully!");
       }
-        router.push("/Admin/events_category/events_category_all");
+        router.push("/Admin/photo_gallery_category/photo_gallery_category_all?page_group=dynamic_website");
       } else {
         console.error("Error creating gender:", data);
       }

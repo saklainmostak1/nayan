@@ -264,7 +264,8 @@ const YearlyHolidayCreates = () => {
 
     useEffect(() => {
         if (selectedWeekday && selectedYear) {
-            const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            // const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const daysOfWeek = ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
             const dayIndex = daysOfWeek.indexOf(selectedWeekday);
             const year = parseInt(selectedYear);
 

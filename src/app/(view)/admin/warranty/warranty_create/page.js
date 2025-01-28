@@ -333,7 +333,7 @@ const CreateWarranty = () => {
         if (fields.length === 1) {
             const newErrorSamewarrantyName = new Array(fields.length).fill('');
             const isValidsSamewarranty = fields.every((inputValue, index) => {
-                const isExistingwarranty = warrantys.find(item => normalizewarrantyName(item.warranty_name.toLowerCase()) === normalizewarrantyName(inputValue.warranty_name.toLowerCase()));
+                const isExistingwarranty = warrantys.find(item => normalizewarrantyName(item?.warranty_name?.toLowerCase()) === normalizewarrantyName(inputValue?.warranty_name?.toLowerCase()));
                 if (isExistingwarranty) {
                     newErrorSamewarrantyName[index] = 'warranty name already exists!';
                     return false;
@@ -351,7 +351,7 @@ const CreateWarranty = () => {
             let errorMessageSet = false;
 
             fields.forEach((inputValue, index) => {
-                const isExistingwarranty = warrantys.find(item => normalizewarrantyName(item.warranty_name.toLowerCase()) === normalizewarrantyName(inputValue.warranty_name.toLowerCase()));
+                const isExistingwarranty = warrantys.find(item => normalizewarrantyName(item?.warranty_name?.toLowerCase()) === normalizewarrantyName(inputValue?.warranty_name?.toLowerCase()));
                 if (isExistingwarranty && !errorMessageSet) {
                     newErrorSamewarrantyName[index] = 'warranty name already exists!';
                     errorMessageSet = true;
@@ -361,7 +361,7 @@ const CreateWarranty = () => {
             setSameWarrantyName(newErrorSamewarrantyName);
         }
 
-        const normalizedwarrantyNames = fields.map(inputValue => normalizewarrantyName(inputValue.warranty_name.toLowerCase()));
+        const normalizedwarrantyNames = fields.map(inputValue => normalizewarrantyName(inputValue?.warranty_name?.toLowerCase()));
         const uniquewarrantyNames = Array.from(new Set(normalizedwarrantyNames));
         const uniqueFields = uniquewarrantyNames.map(warrantyName => {
             const index = normalizedwarrantyNames.indexOf(warrantyName);

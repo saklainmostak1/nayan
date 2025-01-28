@@ -363,7 +363,7 @@ const PhotoGelleryCategoryList = ({ searchParams }) => {
 
   // console.log(moduleInfo.filter(moduleI => moduleI.controller_name === 'brand'))
   const brandList = moduleInfo.filter(
-    (moduleI) => moduleI.controller_name === "events_category"
+    (moduleI) => moduleI.controller_name === "photo_gallery_category"
   );
 
   //   console.log(filteredModuleInfo);
@@ -682,7 +682,7 @@ const PhotoGelleryCategoryList = ({ searchParams }) => {
                               <td>
                                 <div className="flex items-center ">
                                   <Link
-                                    href={`/Admin/events_category/events_category_edit/${noticeCategoryAll.id}?page_group=${page_group}`}
+                                    href={`/Admin/photo_gallery_category/photo_gallery_category_edit/${noticeCategoryAll.id}?page_group=${page_group}`}
                                   >
                                     {filteredBtnIconEdit?.map(
                                       (filteredBtnIconEdit) => (

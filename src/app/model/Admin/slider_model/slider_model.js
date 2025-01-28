@@ -834,6 +834,7 @@ const SliderModel = {
 
                 // Insert a record for `link2`
                 sliderLinkValues.push([
+                    type,
                     sliderId,
                     imageInsertIds[i],
                     title_sub,

@@ -209,15 +209,15 @@ const NewsList = ({ searchParams }) => {
   const handleTextInputClick = () => {
     document.getElementById('dateInput').showPicker();
   };
-  useEffect(() => {
-    const currentDate = new Date();
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Month is zero-based
-    const year = String(currentDate.getFullYear());
-    const formattedDate = `${day}-${month}-${year}`;
-    setShowToDate(formattedDate);
-    setShowFromDate(formattedDate);
-  }, []);
+  // useEffect(() => {
+  //   const currentDate = new Date();
+  //   const day = String(currentDate.getDate()).padStart(2, '0');
+  //   const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+  //   const year = String(currentDate.getFullYear());
+  //   const formattedDate = `${day}-${month}-${year}`;
+  //   setShowToDate(formattedDate);
+  //   setShowFromDate(formattedDate);
+  // }, []);
   const handleDateChangesss = (event) => {
     const selectedDate = new Date(event.target.value);
     const day = String(selectedDate.getDate()).padStart(2, '0');

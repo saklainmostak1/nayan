@@ -96,7 +96,7 @@ const supplierModel = {
             const supplier_id = req.params.supplier_id;
 
             // Query to retrieve the sum of due and paid amounts for the provided supplier_id
-            const sql = "SELECT supplier_id, SUM(payable_amount) AS payable_amount,  SUM(paid_amount) AS paid_amount FROM expense WHERE supplier_id = ?";
+            const sql = "SELECT supplier_id, SUM(payable_amount) AS payable_amount, SUM(sub_total) AS total_amount,  SUM(discount) AS discount, SUM(paid_amount) AS paid_amount FROM expense WHERE supplier_id = ?";
 
             connection.query(sql, [supplier_id], (err, result) => {
                 if (err) {

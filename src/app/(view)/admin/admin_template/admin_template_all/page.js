@@ -98,7 +98,7 @@ const AdminTemplateAll = () => {
                     console.log(data);
 
                     refetch();
-                    toast.success('Delete Successfully')
+                    // toast.success('Delete Successfully')
                     // if (data.affectedRows > 0) {
                     //     Swal.fire({
                     //         title: 'Delete!',
@@ -202,7 +202,7 @@ const AdminTemplateAll = () => {
                                                                         }
                                                                     </td>
                                                                     <td>{adminPanelSetting.created_by}</td>
-                                                                    <td>{adminPanelSetting.created_date}</td>
+                                                                    <td>{adminPanelSetting.created_date.slice(0,10)}</td>
 
                                                                     <td>
                                                                         {

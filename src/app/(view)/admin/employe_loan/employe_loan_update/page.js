@@ -427,6 +427,10 @@ const EmployeeLoadEdit = ({ id }) => {
                 return response.json();
             })
             .then(data => {
+            
+                if(data){
+                    router.push('/Admin/employe_loan_payment/employe_loan_payment_all?page_group=loan_management')
+                }
                 console.log('Update successful:', data);
             })
             .catch(error => {

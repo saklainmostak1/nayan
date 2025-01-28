@@ -105,7 +105,7 @@ const ModelList = ({searchParams}) => {
     const model_delete = id => {
 
         console.log(id)
-        const proceed = window.confirm(`Are You Sure delete${id}`)
+        const proceed = window.confirm(`Are You Sure delete`)
         if (proceed) {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/model/model_delete/${id}`, {
                 method: "POST",
@@ -842,7 +842,7 @@ const model_word_download = async () => {
 
 
     const model_delete_searching = id => {
-        const proceed = window.confirm(`Are you sure you want to delete ID ${id}?`);
+        const proceed = window.confirm(`Are you sure you want to delete?`);
         if (proceed) {
             axios.post(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/model/model_delete/${id}`)
                 .then(response => {

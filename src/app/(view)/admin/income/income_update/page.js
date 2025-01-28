@@ -878,7 +878,7 @@ const EditIncome = ({ id }) => {
                                         <div class="form-group row d-flex justify-content-end">
                                             <div class="offset-md-2  ">
 
-                                                <input onClick={loan_payment_create} type="submit" name="Print" class="btn btn-sm btn-success print_btn mr-2" value="Update" />
+                                                <input  type="submit" name="Print" class="btn btn-sm btn-success print_btn mr-2" value="Update" />
                                             </div>
                                         </div>
                                     </div>

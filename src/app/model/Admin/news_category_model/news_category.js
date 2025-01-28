@@ -30,7 +30,7 @@ const NewsCategoryModel = {
     try {
       const data = `SELECT ec.*, u.full_name AS author_name 
       FROM news_category ec
-      JOIN users u ON ec.created_by = u.id;`;
+     LEFT JOIN users u ON ec.created_by = u.id;`;
 
       connection.query(data, function (error, result) {
         console.log(result);

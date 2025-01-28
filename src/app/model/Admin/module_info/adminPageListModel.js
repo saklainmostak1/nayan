@@ -1681,7 +1681,7 @@ const AdminPageListModel = {
 
   admin_panel_settings_list: async (req, res) => {
     try {
-      const data = 'SELECT * FROM admin_template';
+      const data = 'SELECT admin_template.*, users.full_name AS created_by FROM admin_template LEFT JOIN users ON admin_template.created_by = users.id';
       connection.query(data, function (error, result) {
         console.log(result)
         if (!error) {

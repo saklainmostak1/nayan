@@ -1,5 +1,5 @@
-'use client' 
- //ismile
+'use client'
+//ismile
 
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -53,6 +53,9 @@ const IncomeList = ({ searchParams }) => {
         setSelectedColumns(selectedItems.map((item) => item.value));
         // category_search(); 
     };
+    useEffect(() => {
+        setSelectedColumns(columnListSelectedArray)
+    }, [])
     console.log(selectedColumns)
     const columnNames = incomeList && incomeList.length > 0 ? Object.keys(incomeList[0]) : [];
     const filteredColumns = columnNames.filter(column => column !== 'id');
@@ -818,7 +821,7 @@ const IncomeList = ({ searchParams }) => {
                                     </div>
                                 ) :
                                     <>
-                                        <table className="table table-bordered table-hover table-striped table-sm">
+                                        {/* <table className="table table-bordered table-hover table-striped table-sm">
                                             <thead>
                                                 <tr>
                                                     <th>
@@ -939,7 +942,104 @@ const IncomeList = ({ searchParams }) => {
                                                 }
                                             </tbody>
 
-                                        </table>
+                                        </table> */}
+                                        <div className='table-responsive'>
+
+                                            <table className="table table-bordered">
+                                                <thead className="bg-light">
+                                                    <tr>
+                                                        {selectedColumns?.map(column => (
+                                                            <th key={column}>{formatString(column)}</th>
+                                                        ))}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {pageUsers.length === 0 ? (
+                                                        <tr><td colSpan={selectedColumns?.length}>No data available</td></tr>
+                                                    ) : (
+                                                        pageUsers?.map((expense, index) => (
+                                                            <tr key={expense.id}>
+                                                                {selectedColumns?.map(column => (
+                                                                    <td key={column} style={['income_name', 'description'].includes(column) ? longTextStyle : {}}>
+                                                                        {column === 'serial' ?
+                                                                            ((currentPage - 1) * dataPerPage) + (index + 1)
+                                                                            :
+
+                                                                            column === 'file_path' ? (
+                                                                                // Special handling for the 'status' column
+                                                                                <>
+                                                                                    <img
+                                                                                        className=" img-thumbnail"
+                                                                                        style={{ width: '100px' }}
+                                                                                        src={`${process.env.NEXT_PUBLIC_API_URL}:5003/${expense.file_path}`}
+                                                                                        alt="No Image"
+                                                                                    />
+                                                                                </>
+                                                                            ) :
+                                                                                column === 'status_id' ? (
+                                                                                    expense[column] === 1 ? 'Active' : expense[column] === 2 ? 'Inactive' : expense[column] === 3 ? 'Pending' : 'Unknown'
+                                                                                ) :
+                                                                                    column === 'voucher_id' ? (
+                                                                                        // Rendering serial number if the column is 'serial'
+                                                                                        expense.voucher_id === 0 ? '' : expense.voucher_id
+                                                                                    )
+                                                                                        :
+                                                                                        column === 'action' ? (
+                                                                                            <div className="flex items-center ">
+                                                                                                <Link href={`/Admin/income/income_edit/${expense.id}?page_group=${page_group}`}>
+                                                                                                    {filteredBtnIconEdit?.map((filteredBtnIconEdit => (
+                                                                                                        <button
+                                                                                                            key={filteredBtnIconEdit.id}
+                                                                                                            title='Edit'
+                                                                                                            style={{ width: "35px ", height: '30px', marginLeft: '5px', marginTop: '5px' }}
+                                                                                                            className={filteredBtnIconEdit?.btn}
+                                                                                                        >
+                                                                                                            <a
+                                                                                                                dangerouslySetInnerHTML={{ __html: filteredBtnIconEdit?.icon }}
+                                                                                                            ></a>
+                                                                                                        </button>
+                                                                                                    )))}
+                                                                                                </Link>
+                                                                                                <Link href={`/Admin/income/income_copy/${expense.id}?page_group=${page_group}`}>
+                                                                                                    {filteredBtnIconCopy.map((filteredBtnIconEdit => (
+                                                                                                        <button
+                                                                                                            key={filteredBtnIconEdit.id}
+                                                                                                            title='Copy'
+                                                                                                            style={{ width: "35px ", height: '30px', marginLeft: '5px', marginTop: '5px' }}
+                                                                                                            className={filteredBtnIconEdit?.btn}
+                                                                                                        >
+                                                                                                            <a
+                                                                                                                dangerouslySetInnerHTML={{ __html: filteredBtnIconEdit?.icon }}
+                                                                                                            ></a>
+                                                                                                        </button>
+                                                                                                    )))}
+                                                                                                </Link>
+                                                                                                {filteredBtnIconDelete.map((filteredBtnIconDelete => (
+                                                                                                    <button
+                                                                                                        key={filteredBtnIconDelete.id}
+                                                                                                        title='Delete'
+                                                                                                        onClick={() => expense_delete(expense.id)}
+                                                                                                        style={{ width: "35px ", height: '30px', marginLeft: '5px', marginTop: '5px' }}
+                                                                                                        className={filteredBtnIconDelete?.btn}
+                                                                                                    >
+                                                                                                        <a
+                                                                                                            dangerouslySetInnerHTML={{ __html: filteredBtnIconDelete?.icon }}
+                                                                                                        ></a>
+                                                                                                    </button>
+                                                                                                )))}
+                                                                                            </div>
+                                                                                        ) :
+                                                                                            (
+                                                                                                expense[column]
+                                                                                            )}
+                                                                    </td>
+                                                                ))}
+                                                            </tr>
+                                                        ))
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                         <div className=" d-flex justify-content-between">
                                             <div>
                                                 Total Data: {totalData}

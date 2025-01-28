@@ -202,7 +202,7 @@ const expenceCategory = {
                  users_created.full_name AS created_by,
                  users_modified.full_name AS modified_by 
           FROM expense_category 
-          INNER JOIN users AS users_created ON expense_category.created_by = users_created.id 
+          LEFT JOIN users AS users_created ON expense_category.created_by = users_created.id 
           LEFT JOIN users AS users_modified ON expense_category.modified_by = users_modified.id 
            ORDER BY expense_category.id DESC
           LIMIT ?, ?

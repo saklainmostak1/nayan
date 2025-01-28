@@ -297,7 +297,7 @@ const CreatePeriod = () => {
                 console.log(data)
                 if (data[0]?.affectedRows > 0) {
                     sessionStorage.setItem("message", "Data saved successfully!");
-                    // router.push('/Admin/period/period_all');
+                    router.push('/Admin/period/period_all');
                 }
                 console.log(data)
 

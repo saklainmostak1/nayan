@@ -450,7 +450,7 @@ const ListsAbsents = () => {
                                                                 <td>{attendances.unique_id}</td>
                                                                 <td>{attendances.full_name}</td>
                                                                 <td>
-                                                                    <img src={`${process.env.NEXT_PUBLIC_API_URL}:5003/${attendances.photo}`} alt="No image found" className="img-fluid" />
+                                                                    <img src={`${process.env.NEXT_PUBLIC_API_URL}:5003/${attendances.photo}`} alt="No image found" className="w-25" />
                                                                 </td>
                                                                 <td>{attendances.designation_name}</td>
                                                                 {

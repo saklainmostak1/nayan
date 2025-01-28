@@ -3375,6 +3375,13 @@ const EmployeeEdit = ({ id }) => {
             .then(data => {
                 // data[0] contains response from apiUrl1
                 // data[1] contains response from apiUrl2
+                if (data) {
+                    if(typeof window !== 'undefined'){
+    
+                        sessionStorage.setItem("message", "Data Updated successfully!");
+                    }
+                    router.push('/Admin/employee/employee_all?page_group=hr_management');
+                }
                 console.log("Response from API 1:", data[0]);
                 console.log("Response from API 2:", data[1]);
                 // Handle the data here

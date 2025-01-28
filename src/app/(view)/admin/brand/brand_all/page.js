@@ -763,7 +763,7 @@ const BrandList = ({ searchParams }) => {
     const brand_delete = id => {
 
         console.log(id)
-        const proceed = window.confirm(`Are You Sure delete${id}`)
+        const proceed = window.confirm(`Are You Sure delete`)
         if (proceed) {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/admin/brand/brand_delete/${id}`, {
                 method: "POST",

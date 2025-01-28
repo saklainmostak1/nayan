@@ -102,7 +102,7 @@ const PeriodList = ({ searchParams }) => {
     const period_delete = id => {
 
         console.log(id)
-        const proceed = window.confirm(`Are You Sure delete${id}`)
+        const proceed = window.confirm(`Are You Sure delete`)
         if (proceed) {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/period/period_delete/${id}`, {
                 method: "POST",
@@ -843,7 +843,7 @@ const PeriodList = ({ searchParams }) => {
     }, [])
 
     const period_delete_searching = id => {
-        const proceed = window.confirm(`Are you sure you want to delete ID ${id}?`);
+        const proceed = window.confirm(`Are you sure you want to delete`);
         if (proceed) {
             axios.post(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/period/period_delete/${id}`)
                 .then(response => {
@@ -1375,7 +1375,16 @@ value={selectedOrder} onChange={(e) => setSelectedOrder(e.target.value)}
                                                                         />
                                                                     </>
                                                                 )
+                                                                :
+
+                                                                            column === 'period_name' ? (
+                                                                                // Special handling for the 'status' column
+                                                                                <>
+                                                                                    {period.period_name.slice(0,10)}
+                                                                                </>
+                                                                            ) 
                                                                     :
+                                                                    
                                                                     column === 'status_id' ? (
                                                                         // Special handling for the 'status' column
                                                                         <>
@@ -1518,7 +1527,17 @@ value={selectedOrder} onChange={(e) => setSelectedOrder(e.target.value)}
                                                                                         alt="No Image"
                                                                                     />
                                                                                 </>
-                                                                            ) :
+                                                                            )
+                                                                            
+                                                                            :
+
+                                                                            column === 'period_name' ? (
+                                                                                // Special handling for the 'status' column
+                                                                                <>
+                                                                                    {period.period_name.slice(0,10)}
+                                                                                </>
+                                                                            ) 
+                                                                             :
                                                                                 column === 'status_id' ? (
                                                                                     period[column] === 1 ? 'Active' : period[column] === 2 ? 'Inactive' : period[column] === 3 ? 'Pending' : 'Unknown'
                                                                                 )

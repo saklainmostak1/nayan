@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
@@ -1216,12 +1217,12 @@ const employee_create = (event) => {
         )
         .then((data) => {
             console.log(data[0])
-            if (data[0]?.affectedRows > 0) {
+            if (data) {
                 if(typeof window !== 'undefined'){
 
                     sessionStorage.setItem("message", "Data saved successfully!");
                 }
-                // router.push('/Admin/brand/brand_all');
+                router.push('/Admin/employee/employee_all?page_group=hr_management');
             }
             console.log(data)
 
@@ -1229,7 +1230,7 @@ const employee_create = (event) => {
         .catch((error) => console.error(error));
 }
 
-
+const  router = useRouter()
     return (
         <div className="container-fluid">
 

@@ -801,6 +801,9 @@ console.log(allData)
                 return response.json();
             })
             .then(data => {
+                if(data){
+                    router.push('/Admin/sales/sales_all?page_group=sales')
+                }
                 console.log('Update successful:', data);
             })
             .catch(error => {
@@ -864,7 +867,7 @@ console.log(allData)
     const unit_delete = id => {
 
         console.log(id)
-        const proceed = window.confirm(`Are You Sure delete${id}`)
+        const proceed = window.confirm(`Are You Sure delete`)
         if (proceed) {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/loan/sale_product_delete/${id}`, {
                 method: "POST",

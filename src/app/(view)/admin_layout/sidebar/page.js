@@ -677,7 +677,7 @@ foregroundColor="#ebebeb"
                               className="rounded-circle mt-2"
                               // src={img.src}
                               
-                              src={imgs ? `${process.env.NEXT_PUBLIC_API_URL}:5003/${imgs}` : img.src}
+                              src={imgs ? `${process.env.NEXT_PUBLIC_API_URL}:5003/${imgs}` : 'https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg'}
                               alt=""
                               width="50"
                               height="50"

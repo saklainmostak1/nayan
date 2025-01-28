@@ -1227,6 +1227,37 @@ app.post("/Admin/loan/sale_due_list_print_single", SalesModel.sale_due_list_prin
 );
 
 
+const QuotationModel = require('../app/model/Admin/quotation_model/quotation_model')
+app.post("/Admin/quotation/quotation_create", QuotationModel.quotation_create
+);
+app.get("/Admin/quotation/quotation_product_list", QuotationModel.quotation_product_list
+);
+app.get("/Admin/quotation/quotation_list", QuotationModel.quotation_list
+);
+app.get("/Admin/quotation/quotation_single/:id", QuotationModel.quotation_single
+);
+app.get("/Admin/quotation/quotation_list_paigination/:pageNo/:perPage", QuotationModel.quotation_list_paigination
+);
+app.post("/Admin/quotation/quotation_list_search", QuotationModel.quotation_list_search
+);
+app.post("/Admin/quotation/quotation_edit/:id", QuotationModel.quotation_edit
+);
+app.post("/Admin/quotation/quotation_product_delete/:id", QuotationModel.quotation_product_delete
+);
+app.post("/Admin/quotation/quotation_delete/:id", QuotationModel.quotation_delete
+);
+app.post("/Admin/quotation/quotation_list_print_single", QuotationModel.quotation_list_print_single
+);
+app.post("/Admin/quotation/quotation_list_pdf_single", QuotationModel.quotation_list_pdf_single
+);
+app.post("/Admin/quotation/quotation_list_pdf", QuotationModel.quotation_list_pdf
+);
+app.post("/Admin/quotation/quotation_list_print", QuotationModel.quotation_list_print
+);
+app.post("/Admin/quotation/quotation_list_print_all", QuotationModel.quotation_list_print_all
+);
+
+
 
 const FontServiceBoxModel = require('../app/model/Admin/front_service_box_model/front_service_box_model')
 
@@ -1515,19 +1546,19 @@ app.get('/account_report_combined', async (req, res) => {
 
   try {
     // Make the request for expense search
-    const expenseResponse = await axios.post(`http://192.168.0.109:5002/Admin/account_report/expense_search_account_reports`, {
+    const expenseResponse = await axios.post(`http://192.168.0.114:5002/Admin/account_report/expense_search_account_reports`, {
       fromDate,
       toDate
     });
 
     // Make the request for income search
-    const incomeResponse = await axios.post(`http://192.168.0.109:5002/Admin/account_report/account_report_income`, {
+    const incomeResponse = await axios.post(`http://192.168.0.114:5002/Admin/account_report/account_report_income`, {
       fromDate,
       toDate
     });
 
     // Fetch account head data
-    const accountHeadResponse = await axios.get(`http://192.168.0.109:5002/Admin/account_head/account_head_list`);
+    const accountHeadResponse = await axios.get(`http://192.168.0.114:5002/Admin/account_head/account_head_list`);
 
     // Combine results from both searches
     const combinedExpenseResults = expenseResponse.data.results || [];
@@ -1598,12 +1629,12 @@ app.get('/api/account_report', async (req, res) => {
   const toDate = req.query.toDate || new Date(today.getFullYear(), today.getMonth() + 1, 0).toISOString().split('T')[0];
   try {
     // Make the first request for expense search
-    const expenseResponse = await axios.post(`http://192.168.0.109:5002/Admin/account_report/expense_search_account_reports`, {
+    const expenseResponse = await axios.post(`http://192.168.0.114:5002/Admin/account_report/expense_search_account_reports`, {
       fromDate, toDate
     });
 
     // Make the second request for income search
-    const incomeResponse = await axios.post(`http://192.168.0.109:5002/Admin/account_report/account_report_income`, {
+    const incomeResponse = await axios.post(`http://192.168.0.114:5002/Admin/account_report/account_report_income`, {
       fromDate, toDate
     });
 

@@ -1,29 +1,43 @@
 const connection = require("../../../../connection/config/database");
 
 const CompanyTypeModel = {
+
   company_type_create: async (req, res) => {
     try {
       const { company_type_name, created_by } = req.body;
-
-      // Using parameterized query to prevent SQL injection
+  
+      // Validate input
+      if (!company_type_name || !created_by) {
+        return res.status(400).json({ message: "Invalid input data" });
+      }
+  
+      // SQL query
       const insertQuery =
         "INSERT INTO company_type (company_type_name, created_by) VALUES (?, ?)";
-      const result = await connection.query(insertQuery, [
-        company_type_name,
-        created_by,
-      ]);
-
-      // Sending only the necessary data from the result object
-      const { insertId, affectedRows } = result;
-
-      // Sending response with relevant data
-
-      res
-        .status(200)
-        .json({ insertId, affectedRows }, "Company type create successfully");
+  
+      // Execute query using connection.query
+      connection.query(insertQuery, [company_type_name, created_by], (error, result) => {
+        if (error) {
+          console.error("Database error:", error.message);
+          return res
+            .status(500)
+            .json({ message: "Error processing the request", error: error.message });
+        }
+  
+        // Check if the insertion was successful
+        if (result.affectedRows > 0) {
+          res
+            .status(200)
+            .json({ message: "Company type created successfully", id: result.insertId });
+        } else {
+          res
+            .status(500)
+            .json({ message: "Failed to create company type" });
+        }
+      });
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error processing the request" });
+      console.error("Unexpected error:", error.message);
+      res.status(500).json({ message: "Error processing the request", error: error.message });
     }
   },
 

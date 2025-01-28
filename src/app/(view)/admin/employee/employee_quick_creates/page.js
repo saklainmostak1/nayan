@@ -5,6 +5,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { FaDownload, FaUpload } from 'react-icons/fa';
 import * as XLSX from "xlsx";
@@ -568,13 +569,13 @@ const EmployeeExcelCreate = () => {
             )
             .then((data) => {
                 console.log(data)
-                if (data[0]?.affectedRows > 0) {
+                if (data) {
 
                     if(typeof window !=='undefined'){
 
                         sessionStorage.setItem("message", "Data saved successfully!");
                     }
-                    // router.push('/Admin/period/period_all');
+                    // router.push('/Admin/employee/employee_all?page_group=hr_management');
                 }
                 console.log(data)
 
@@ -582,7 +583,7 @@ const EmployeeExcelCreate = () => {
             .catch((error) => console.error(error));
     }
 
-
+const router = useRouter()
     return (
         <div class="container-fluid">
             <div class=" row ">

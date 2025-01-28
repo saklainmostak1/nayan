@@ -1125,7 +1125,7 @@ const SchoolShiftCreate = () => {
 					if (typeof window !== 'undefined') {
 						sessionStorage.setItem("message", "Data saved successfully!");
 					}
-					// router.push('/Admin/shift/shift_all');
+					router.push('/Admin/shift/shift_all');
 				}
 			})
 			.catch((error) => console.error(error));

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const SalaryCreate = () => {
 
@@ -511,7 +512,7 @@ const SalaryCreate = () => {
     const employeeAttendance = attendance_sms_campaign_categorys.find(attendance_sms_campaign_category => attendance_sms_campaign_category.id === 10)
 
 
-
+const router = useRouter()
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -598,8 +599,13 @@ const SalaryCreate = () => {
         console.log(updatedData);
 
         // Replace the empty string with your API URL ${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/salary/salary_create
-        axios.post(``, formToSubmit)
+        axios.post(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/salary/salary_create`, formToSubmit)
             .then(response => {
+                if (response) {
+                    sessionStorage.setItem("message", "Data saved successfully!");
+                    router.push('/Admin/salary/salary_all?page_group=account_management')
+                 
+                }
                 // alert('Data submitted successfully!');
             })
             .catch(error => {

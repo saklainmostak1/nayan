@@ -102,7 +102,7 @@ const MaterialList = ({ searchParams }) => {
     const material_delete = id => {
 
         console.log(id)
-        const proceed = window.confirm(`Are You Sure delete${id}`)
+        const proceed = window.confirm(`Are You Sure delete`)
         if (proceed) {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/material/material_delete/${id}`, {
                 method: "POST",
@@ -671,31 +671,7 @@ const MaterialList = ({ searchParams }) => {
         }
     };
 
-    const material_pdf_download = () => {
-        var doc = new jsPDF();
 
-        doc.autoTable({
-            html: '#mytable',
-            bodyStyles: { minCellHeight: 10 },
-            didDrawCell: function (data) {
-
-                let flag = selectedColumns.indexOf("file_path");
-
-
-                if (data.column.index === flag && data.cell.section === 'body') {
-                    var td = data.cell.raw;
-                    var img = td.getElementsByTagName('img')[0];
-                    var dim = data.cell.height - data.cell.padding('vertical');
-                    let image = img.src;  // Some path has no images so the the dynamic image shows error
-                    // let image = '${process.env.NEXT_PUBLIC_API_URL}:5003/images/2024/02/08/11/49/Screenshot%20(5).png';
-                    if (image.endsWith(".png") || image.endsWith(".PNG") || image.endsWith(".JPEG") || image.endsWith(".jpeg") || image.endsWith(".JPG") || image.endsWith(".jpg")) {
-                        doc.addImage(image, data.cell.x + 2, data.cell.y, dim + 7, dim + 2);
-                    }
-                }
-            }
-        });
-        doc.save("Brand List.pdf");
-    }
 
 
     const handleDateChange = date => {
@@ -713,7 +689,7 @@ const MaterialList = ({ searchParams }) => {
     }, [])
 
     const material_delete_searching = id => {
-        const proceed = window.confirm(`Are you sure you want to delete ID ${id}?`);
+        const proceed = window.confirm(`Are you sure you want to delete`);
         if (proceed) {
             axios.post(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/material/material_delete/${id}`)
                 .then(response => {

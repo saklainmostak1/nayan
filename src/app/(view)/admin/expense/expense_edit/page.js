@@ -2580,6 +2580,10 @@ console.log(supplierId)
 
     const [selectedEntryType, setSelectedEntryType] = useState('');
 
+    useEffect(() => {
+        setSelectedEntryType(expenseData.payment_type)
+    },[expenseData])
+
     const handleEntryTypeChange = (event) => {
         setSelectedEntryType(event.target.value);
     };
@@ -2600,7 +2604,7 @@ const [selectedData, setSelectedData] = useState({ amount: 0 }); // Example data
 
     useEffect(() => {
         if (selectedEntryType) {
-            const item = account_head.find(item => item.id === parseInt(selectedEntryType));
+            const item = account_head.find(item => item.id == parseInt(selectedEntryType));
             if (item) {
                 const updatedItem = {
                     ...item,
@@ -2654,14 +2658,14 @@ const [selectedData, setSelectedData] = useState({ amount: 0 }); // Example data
 
 
         
-        // Get form data
-        const formData = new FormData(event.target);
+        // // Get form data
+        // const formData = new FormData(event.target);
 
-        // Convert form data to JSON object
-        const expenseData = {};
-        formData.forEach((value, key) => {
-            expenseData[key] = value;
-        });
+        // // Convert form data to JSON object
+        // const expenseData = {};
+        // formData.forEach((value, key) => {
+        //     expenseData[key] = value;
+        // });
 
         if (!expenseData.supplier_id) {
             setSupplier('Supplier be filled')
@@ -2692,7 +2696,7 @@ const [selectedData, setSelectedData] = useState({ amount: 0 }); // Example data
             setpaid_amount('Paid Amount must be filled')
             return
         }
-
+console.log(expenseData)
         // Make a POST request to your API endpoint
         fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/expense/expense_update/${id}`, {
             method: 'POST',
@@ -2705,7 +2709,7 @@ const [selectedData, setSelectedData] = useState({ amount: 0 }); // Example data
                 if (response.ok) {
                     // Handle success
 
-                    if (response.ok === true) {
+                    if (response) {
                         sessionStorage.setItem("message", "Data saved successfully!");
                         router.push('/Admin/expense/expense_all')
                     }
@@ -2850,6 +2854,9 @@ const [selectedData, setSelectedData] = useState({ amount: 0 }); // Example data
 
 
     const [text, setText] = useState('');
+    useEffect(() =>{
+        setText(expenseSingle.short_note)
+    },[expenseSingle])
     const maxLength = 500;
 
     const handleChangeTextarea = (event) => {
@@ -3211,10 +3218,10 @@ const [selectedData, setSelectedData] = useState({ amount: 0 }); // Example data
 
                                                     <div className='col-lg-12 border'>
                                                         <label className='font-weight-bold'>Short Note:</label>
-                                                        <textarea
+                                                        {/* <textarea
                                                             rows={2}
-                                                            value={text}
-                                                            onChange={handleChangeTextarea}
+                                                            value={expenseData.short_note}
+                                                            onChange={expense_input_change}
                                                             onPaste={handlePaste}
                                                             className={`form-control form-control-sm mb-2 ${text.length > maxLength ? 'is-invalid' : ''}`}
                                                             placeholder="Enter Short Note"
@@ -3223,7 +3230,17 @@ const [selectedData, setSelectedData] = useState({ amount: 0 }); // Example data
                                                         <div>{text.length}/{maxLength}</div>
                                                         {text.length > maxLength && (
                                                             <div className="invalid-feedback">Exceeded character limit</div>
-                                                        )}
+                                                        )} */}
+                                                         <textarea
+                                                            rows={2}
+                                                            value={expenseData.short_note}
+                                                            onChange={expense_input_change}
+                                                            onPaste={handlePaste}
+                                                            // className={`form-control form-control-sm mb-2 ${text.length > maxLength ? 'is-invalid' : ''}`}
+                                                            className={`form-control form-control-sm mb-2 `}
+                                                            placeholder="Enter Short Note"
+                                                            name='short_note'
+                                                        ></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3465,7 +3482,7 @@ const [selectedData, setSelectedData] = useState({ amount: 0 }); // Example data
                                     <div class="form-group row d-flex justify-content-end">
                                              <div class="offset-md-2  ">
 
-                                                 <input onClick={loan_payment_create} type="submit" name="Print" class="btn btn-sm btn-success print_btn mr-2" value="Update" />
+                                                 <input  type="submit" name="Print" class="btn btn-sm btn-success print_btn mr-2" value="Update" />
                                              </div>
                                         </div>
                                 </div>

@@ -173,9 +173,7 @@ const YearlyHolidayList = ({searchParams}) => {
                                         <Link href={`/Admin/annual_holiday/annual_holiday_create?page_group`} className="btn btn-sm btn-info">Back annual Holiday Create</Link>
                                     </div>
                                 </div>
-                                <div className="alert alert-warning mb-0 mx-4 mt-4 text-danger font-weight-bold" role="alert">
-                                    (<small><sup><i className="text-danger fas fa-star"></i></sup></small>) field required
-                                </div>
+                              
                                 <div class="card-body">
                                     <div className='table-responsive'>
 
@@ -234,10 +232,10 @@ const YearlyHolidayList = ({searchParams}) => {
                                                                 {holiday_category?.created_by_name}
                                                             </td>
                                                             <td>
-                                                                {holiday_category?.created_date}
+                                                                {holiday_category?.created_date.slice(0,10)}
                                                             </td>
                                                             <td>
-                                                                {holiday_category?.start_date} to {holiday_category?.end_date}
+                                                                {holiday_category?.start_date.slice(0,10)} to {holiday_category?.end_date.slice(0,10)}
                                                             </td>
                                                            
                                                             <td>

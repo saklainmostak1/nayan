@@ -354,7 +354,8 @@ const UserRoleEdit = ({ id }) => {
                 if (Response.ok === true) {
                     localStorage.setItem('otp_expire', otp_expire)
                     sessionStorage.setItem("message", "Data Update successfully!");
-                    window.location.href = '/Admin/user_role/user_role_all';
+                    // window.location.href = '/Admin/user_role/user_role_all';
+                    router.push( '/Admin/user_role/user_role_all')
 
                 }
             }

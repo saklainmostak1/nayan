@@ -8,6 +8,7 @@ import Select from 'react-dropdown-select';
 import { FaTrash, FaUpload } from 'react-icons/fa';
 import "../slider_creates/jssor.slider.min.css"; // Ensure you have the appropriate CSS file for Jssor Slider
 import "../js/jssor.slider.min.js"; // Ensure this file exists and is correctly loaded
+import Link from 'next/link';
 
 
 const SliderUpdate = ({ id }) => {
@@ -916,7 +917,7 @@ console.log(columnListSelectedArray)
                 Response.json()
                 if (Response) {
                     sessionStorage.setItem("message", "Data saved successfully!");
-                    // router.push('/Admin/pop_up/pop_up_all?page_group=dynamic_website')
+                    router.push('/Admin/slider/slider_all?page_group=dynamic_website')
 
                 }
             })
@@ -925,7 +926,7 @@ console.log(columnListSelectedArray)
 
                 if (data) {
                     sessionStorage.setItem("message", "Data saved successfully!");
-                    // router.push('/Admin/pop_up/pop_up_all?page_group=dynamic_website')
+                    router.push('/Admin/slider/slider_all?page_group=dynamic_website')
 
                 }
             })
@@ -1218,12 +1219,12 @@ console.log(columnListSelectedArray)
             <div className="card shadow-sm border-0">
                 <div className="card-header bg-gradient-primary py-1 text-white d-flex justify-content-between align-items-center">
                     <h5 className="card-title mb-0">Create Slider</h5>
-                    <a
-                        href="https://usms.urbanitsolution.com/Admin/slider/slider_all?page_group=dynamic_website"
+                    <Link
+                        href="/Admin/slider/slider_all?page_group=dynamic_website"
                         className="btn btn-sm btn-info"
                     >
                         Back to Slider List
-                    </a>
+                    </Link>
                 </div>
                 <div className="alert alert-warning mx-4 mt-4 text-danger font-weight-bold">
                     (<small><sup><i className="text-danger fas fa-star"></i></sup></small>) fields required

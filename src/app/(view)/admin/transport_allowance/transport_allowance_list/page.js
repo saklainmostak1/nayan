@@ -128,7 +128,7 @@ const TransportAllowanceList = ({searchParams}) => {
     const transport_allowance_delete = id => {
 
         console.log(id)
-        const proceed = window.confirm(`Are You Sure delete${id}`)
+        const proceed = window.confirm(`Are You Sure delete`)
         if (proceed) {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/transport_allowance/transport_allowance_delete/${id}`, {
                 method: "POST",

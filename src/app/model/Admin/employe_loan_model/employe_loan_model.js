@@ -210,7 +210,7 @@ const EmployeeLoan = {
 
             if (employee) {
 
-                sql += ` AND employe_loan.employe_id LIKE '%${employee}%'`;
+                sql += ` AND users.id LIKE '%${employee}%'`;
             }
             if (payment_types) {
 

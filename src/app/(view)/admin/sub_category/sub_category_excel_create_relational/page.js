@@ -1005,7 +1005,7 @@ const CreateSubCategoryExcelRelational = () => {
                                                             value={field.category_id}
                                                             onChange={(e) => sub_category_change(index, e)}
                                                         >
-                                                            <option value="">Select Status</option>
+                                                            <option value="">Select Category</option>
                                                             {
                                                                 categories.map(category =>
                                                                     <>

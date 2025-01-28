@@ -843,14 +843,17 @@ const AdminTemplateCreate = () => {
 		})
 			.then((Response) => {
 				Response.json()
-				console.log(Response)
+				console.log(Response.ok)
 				if (Response.ok === true) {
 					sessionStorage.setItem("message", "Data saved successfully!");
-					// router.push('/Admin/admin_template/admin_template_all')
+					router.push('/Admin/admin_template/admin_template_all?page_group=admin_panel')
 				}
 			})
 			.then(data => {
-
+				if (data) {
+					sessionStorage.setItem("message", "Data saved successfully!");
+					router.push('/Admin/admin_template/admin_template_all?page_group=admin_panel')
+				}
 				console.log(data)
 
 			})

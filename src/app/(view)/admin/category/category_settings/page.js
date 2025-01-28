@@ -1,9 +1,10 @@
-'use client' 
- //ismile
+'use client'
+//ismile
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import Select from 'react-dropdown-select';
+import { useRouter } from 'next/navigation';
 
 const SettingsCategory = () => {
 
@@ -122,7 +123,7 @@ const SettingsCategory = () => {
     const filteredColumns = columnNames.filter(column => column !== 'id');
 
 
-
+    const router = useRouter()
     // Function to handle checkbox change
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -149,7 +150,9 @@ const SettingsCategory = () => {
         })
             .then((Response) => Response.json())
             .then((data) => {
-
+                if (data) {
+                    router.push('/Admin/category/category_all?page_group=inventory')
+                }
                 console.log(data);
                 console.log(addValue);
             })

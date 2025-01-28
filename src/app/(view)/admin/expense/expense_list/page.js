@@ -970,7 +970,7 @@ const ExpenseList = ({ searchParams }) => {
 
             // Construct table headers based on selected columns
             selectedColumns.forEach(column => {
-                if (column !== 'serial' && column !== 'action') { // Exclude serial column
+                if (column !== 'action') { // Exclude serial column
                     htmlContent += `<th>${formatString(column)}</th>`;
                 }
             });
@@ -983,15 +983,19 @@ const ExpenseList = ({ searchParams }) => {
         `;
 
             // Iterate over searchResults and print data for selected columns
-            searchResults.forEach(brand => {
+            searchResults.forEach((brand, index) => { // Use index from searchResults
                 htmlContent += '<tr>';
-                selectedColumns.forEach(column => {
-                    if (column !== 'serial' && column !== 'action') { // Exclude serial column
+                selectedColumns.forEach((column) => {
+                    if (column !== 'action') { // Exclude serial column
                         htmlContent += '<td>';
                         if (column === 'file_path') {
                             // Special handling for the 'File Path' column to display images
                             htmlContent += `<img src="${process.env.NEXT_PUBLIC_API_URL}:5003/${brand.file_path}" style="max-width: 100px;" alt="Image"/>`;
-                            console.log(`${process.env.NEXT_PUBLIC_API_URL}:5003/${brand.file_path}`);
+                     
+                        } 
+                       else if (column === 'serial') {
+                            // Correctly calculate serial number based on searchResults index
+                            htmlContent += `${index + 1}`;
                         } else {
                             htmlContent += brand[column]; // Default rendering for other columns
                         }
@@ -1000,6 +1004,7 @@ const ExpenseList = ({ searchParams }) => {
                 });
                 htmlContent += '</tr>';
             });
+            
 
             // Finish building HTML content
             htmlContent += `
@@ -1026,7 +1031,7 @@ const ExpenseList = ({ searchParams }) => {
     const expense_delete = id => {
 
         console.log(id)
-        const proceed = window.confirm(`Are You Sure delete${id}`)
+        const proceed = window.confirm(`Are You Sure delete`)
         if (proceed) {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/expense/expense_delete/${id}`, {
                 method: "POST",
@@ -1034,10 +1039,12 @@ const ExpenseList = ({ searchParams }) => {
             })
                 .then(Response => {
                     Response.json()
+                    caregory_list()
                     console.log(Response)
                 })
                 .then(data => {
                     console.log(data)
+                    caregory_list()
 
                 })
         }
@@ -1522,7 +1529,7 @@ const ExpenseList = ({ searchParams }) => {
                                                         value={showFromDate}
                                                         onClick={handleTextInputClick}
                                                         placeholder="dd-mm-yy"
-                                                        className="form-control"
+                                                        className="form-control form-control-sm"
                                                         style={{ display: 'inline-block', }}
                                                     />
                                                     <input
@@ -1545,7 +1552,7 @@ const ExpenseList = ({ searchParams }) => {
                                                         value={showToDate}
                                                         onClick={handleTextInputClicks}
                                                         placeholder="dd-mm-yy"
-                                                        className="form-control"
+                                                        className="form-control form-control-sm"
                                                         style={{ display: 'inline-block', }}
                                                     />
                                                     <input

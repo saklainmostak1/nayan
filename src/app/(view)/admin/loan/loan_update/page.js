@@ -374,7 +374,7 @@ const LoanUpdate = ({ id }) => {
             return setLoan_date("Enter Loan Date"); // Clear the error message
         }
 
-        if (assetInfo.loan_type === 'cash') {
+        if (assetInfo.loan_type == 'term') {
             if (!assetInfo.amount) {
                 return setAmount("Enter Amount"); // Clear the error message
             }
@@ -428,7 +428,7 @@ const LoanUpdate = ({ id }) => {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                if (data.affectedRows > 0) {
+                if (data) {
                     sessionStorage.setItem("message", "Data Update successfully!");
                     router.push(`/Admin/loan/loan_all?page_group=${page_group}`);
                 }

@@ -191,8 +191,9 @@ const EmployeeModel = {
             LEFT JOIN parmanent_address AS permanent ON emp_joining.user_id = permanent.user_id
             LEFT JOIN employe_info AS emp_info ON emp_joining.user_id = emp_info.user_id
             WHERE emp_joining.user_id = ?
-            AND (living.user_id IS NULL OR permanent.user_id IS NULL OR emp_info.user_id IS NULL)
+            
           `;
+        //   AND (living.user_id IS NULL OR permanent.user_id IS NULL OR emp_info.user_id IS NULL)
             connection.query(query, [req.params.id], (error, result) => {
                 if (!error && result.affectedRows > 0) {
                     console.log(result);
@@ -378,8 +379,7 @@ const EmployeeModel = {
                 user_parent up ON ej.user_id = up.user_id
             LEFT JOIN 
                 parent_contact pc ON ej.user_id = pc.user_id
-            WHERE
-                ei.user_id IN (SELECT DISTINCT user_id FROM employe_joining)
+           
             `;
 
             connection.query(employeeDataQuery, async (err, results) => {
@@ -438,17 +438,17 @@ const EmployeeModel = {
                 ss.name AS school_shift_name                -- Get school shift name
             FROM 
                 employe_joining ej 
-            JOIN 
+           LEFT JOIN 
                 employee_promotion ep ON ej.user_id = ep.user_id
-            JOIN 
+            LEFT JOIN 
                 users u ON ej.user_id = u.id
-            JOIN 
+            LEFT JOIN 
                 designation d ON ep.designation_id = d.id
-            JOIN 
+           LEFT JOIN 
                 branch_info b ON ep.branch_id = b.id         -- Join branch_info to get branch_name
-            JOIN 
+           LEFT JOIN 
                 payroll p ON ej.payroll_id = p.id            -- Join payroll to get payroll_name
-            JOIN 
+           LEFT JOIN 
                 school_shift ss ON ej.school_shift_id = ss.id -- Join school_shift to get school_shift_name
             WHERE
                 ej.user_id IN (SELECT DISTINCT user_id FROM employe_joining)
@@ -3355,7 +3355,7 @@ const EmployeeModel = {
             const isoToDate = parsedToDate.toISOString();
 
             // Make API request to fetch data based on selectedEmployeeId, fromDate, toDate
-            const response = await axios.get(`http://localhost/:5002/Admin/location/geo_location_all/${selectedEmployeeId}`, {
+            const response = await axios.get(`http://localhost:5002/Admin/location/geo_location_all/${selectedEmployeeId}`, {
                 params: {
                     fromDate: isoFromDate,
                     toDate: isoToDate
@@ -3835,6 +3835,7 @@ const EmployeeModel = {
             u.father_name,
             u.mother_name,
             u.dob,
+            u.id As user_id,
             u.gender,
             u.religion,
             u.mobile,
@@ -4050,21 +4051,21 @@ const EmployeeModel = {
                 ss.name AS school_shift_name               -- Get school shift name
             FROM 
                 employe_info ei
-             JOIN 
+           LEFT  JOIN 
                 employe_joining ej ON ei.user_id = ej.user_id
-             JOIN 
+            LEFT JOIN 
                 employee_promotion ep ON ei.user_id = ep.user_id
-             JOIN 
+           LEFT  JOIN 
                 users u ON ei.user_id = u.id
-             JOIN 
+           LEFT  JOIN 
                 designation d ON ep.designation_id = d.id
-             JOIN 
+           LEFT  JOIN 
                 user_parent up ON ep.user_id = up.user_id
-             JOIN 
+            LEFT JOIN 
                 branch_info b ON ep.branch_id = b.id         -- Join branch_info to get branch_name
-             JOIN 
+           LEFT  JOIN 
                 payroll p ON ep.payroll_id = p.id            -- Join payroll to get payroll_name
-             JOIN 
+            LEFT JOIN 
                 school_shift ss ON ep.school_shift_id = ss.id -- Join school_shift to get school_shift_name
             WHERE
                 ei.user_id IN (SELECT DISTINCT user_id FROM employe_joining)
@@ -4527,8 +4528,13 @@ const EmployeeModel = {
 
     employee__id_card_list_print: async (req, res) => {
         try {
-            const { selectedPrintSize, orientation, searchResults, filteredSettings, filteredSettingss, filteredSetting, template, templateSide, employee_id_card_setting_back_list, formData } = req.body;
-
+            const { selectedPrintSize, orientation, searchResults, filteredSettings, filteredSettingss, filteredSetting, template, templateSide, employee_id_card_setting_back_list, formData , toDates, fromDates} = req.body;
+            const formatDate = (date) => {
+                const day = String(date?.getDate()).padStart(2, '0');
+                const month = String(date?.getMonth() + 1).padStart(2, '0');
+                const year = String(date?.getFullYear());
+                return `${day}-${month}-${year}`;
+            };
             let tableRows = '';
 
             // Iterate through the search results and construct rows for each employee
@@ -4590,8 +4596,8 @@ const EmployeeModel = {
                                 </div>
                                 <div class="id-card-container">
                                     <div class="id-card-content">
-                                        <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-                                        <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+                                        <p class="id-card-issue-date">Issue Date: ${(fromDates)}</p>
+                                        <p class="id-card-expire-date">Expire Date: ${(toDates)}</p>
                                         <p class="id-card-instructions">
                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -4674,8 +4680,8 @@ const EmployeeModel = {
                         <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;' >
                             <div class="id-card-container">
                                     <div class="id-card-content">
-                                        <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-                                        <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+                                        <p class="id-card-issue-date">Issue Date: ${(fromDates)}</p>
+                                        <p class="id-card-expire-date">Expire Date: ${(toDates)}</p>
                                         <p class="id-card-instructions">
                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -4763,8 +4769,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-containers">
                                                                         <div class="id-card-contents">
-                                                                            <p class="id-card-issue-dates">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-dates">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-dates">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-dates">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructionss">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -4860,8 +4866,8 @@ const EmployeeModel = {
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                              <div class="id-card-containers">
                                                                         <div class="id-card-contents">
-                                                                            <p class="id-card-issue-dates">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-dates">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-dates">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-dates">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructionss">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -4973,8 +4979,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container1">
                                                                         <div class="id-card-content1">
-                                                                            <p class="id-card-issue-date1">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date1">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date1">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date1">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions1">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -5094,8 +5100,8 @@ const EmployeeModel = {
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                <div class="id-card-container1">
                                                                         <div class="id-card-content1">
-                                                                            <p class="id-card-issue-date1">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date1">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date1">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date1">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions1">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -5206,8 +5212,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container12">
                                                                         <div class="id-card-content12">
-                                                                            <p class="id-card-issue-date12">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date12">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date12">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date12">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions12">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -5328,8 +5334,8 @@ const EmployeeModel = {
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                  <div class="id-card-container12">
                                                                         <div class="id-card-content12">
-                                                                            <p class="id-card-issue-date12">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date12">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date12">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date12">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions12">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -5439,8 +5445,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container5">
                                                                         <div class="id-card-content5">
-                                                                            <p class="id-card-issue-date5">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date5">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date5">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date5">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions5">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -5560,8 +5566,8 @@ const EmployeeModel = {
                                
                                                              <div class="id-card-container5">
                                                                         <div class="id-card-content5">
-                                                                            <p class="id-card-issue-date5">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date5">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date5">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date5">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions5">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -5675,8 +5681,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container6">
                                                                         <div class="id-card-content6">
-                                                                            <p class="id-card-issue-date6">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date6">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date6">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date6">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions6">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -5797,8 +5803,8 @@ const EmployeeModel = {
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                               <div class="id-card-container6">
                                                                         <div class="id-card-content6">
-                                                                            <p class="id-card-issue-date6">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date6">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date6">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date6">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions6">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -5911,8 +5917,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container7">
                                                                         <div class="id-card-content7">
-                                                                            <p class="id-card-issue-date7">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date7">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date7">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date7">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions7">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -6032,8 +6038,8 @@ const EmployeeModel = {
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                              <div class="id-card-container7">
                                                                         <div class="id-card-content7">
-                                                                            <p class="id-card-issue-date7">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date7">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date7">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date7">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions7">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -6145,7 +6151,7 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container8">
                                                                         <div class="id-card-content8">
-                                                                            <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
+                                                                            <p class="id-card-issue-date8">Issue Date: ${(fromDates)}</p>
                                                                             <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
                                                                             <p class="id-card-instructions8">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
@@ -6265,7 +6271,7 @@ const EmployeeModel = {
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                              <div class="id-card-container8">
                                                                         <div class="id-card-content8">
-                                                                            <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
+                                                                            <p class="id-card-issue-date8">Issue Date: ${(fromDates)}</p>
                                                                             <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
                                                                             <p class="id-card-instructions8">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
@@ -6363,8 +6369,8 @@ const EmployeeModel = {
 
                                                                 <div class="id-card-container9">
                                                                     <div class="id-card-content9">
-                                                                        <p class="id-card-issue-date9">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date9">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date9">Issue Date: ${(fromDates)}</p>
+                                                                        <p class="id-card-expire-date9">Expire Date: ${(toDates)}</p>
                                                                         <p class="id-card-instructions9">
                                                                        ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -6467,8 +6473,8 @@ const EmployeeModel = {
                             <div class="d-flex">
                           <div class="id-card-container9">
                                                                     <div class="id-card-content9">
-                                                                        <p class="id-card-issue-date9">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date9">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date9">Issue Date: ${(fromDates)}</p>
+                                                                        <p class="id-card-expire-date9">Expire Date: ${(toDates)}</p>
                                                                         <p class="id-card-instructions9">
                                                                        ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -6552,8 +6558,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container10">
                                                                         <div class="id-card-content10">
-                                                                            <p class="id-card-issue-date10">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date10">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date10">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date10">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions10">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -6644,8 +6650,8 @@ const EmployeeModel = {
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                <div class="id-card-container10">
                                                                         <div class="id-card-content10">
-                                                                            <p class="id-card-issue-date10">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date10">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date10">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date10">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions10">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -6741,8 +6747,8 @@ const EmployeeModel = {
                                                                 </div>
                                                                 <div class="id-card-container11">
                                                                     <div class="id-card-content11">
-                                                                        <p class="id-card-issue-date11">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date11">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date11">Issue Date: ${(fromDates)}</p>
+                                                                        <p class="id-card-expire-date11">Expire Date: ${(toDates)}</p>
                                                                         <p class="id-card-instructions11">
                                                                        ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -6846,8 +6852,8 @@ const EmployeeModel = {
                            <div class="id-card-row" >
                             <div class="id-card-container11">
                                                                     <div class="id-card-content11">
-                                                                        <p class="id-card-issue-date11">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date11">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date11">Issue Date: ${(fromDates)}</p>
+                                                                        <p class="id-card-expire-date11">Expire Date: ${(toDates)}</p>
                                                                         <p class="id-card-instructions11">
                                                                        ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -9105,14 +9111,19 @@ const EmployeeModel = {
 
     employee_id_card_list_pdf: async (req, res) => {
         try {
-            const { selectedPrintSize, orientation, searchResults, filteredSettings, filteredSettingss, filteredSetting, template, templateSide, employee_id_card_setting_back_list, formData } = req.body;
-
+            const { selectedPrintSize, orientation, searchResults, filteredSettings, filteredSettingss, filteredSetting, template, templateSide, employee_id_card_setting_back_list, formData, toDates, fromDates } = req.body;
+            const formatDate = (date) => {
+                const day = String(date?.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = String(date.getFullYear());
+                return `${day}-${month}-${year}`;
+            };
             let tableRows = '';
 
             searchResults.forEach((searchResult, i) => {
                 // Template 1 logic (First template)
                 const photoSrc = searchResult?.photo && searchResult?.photo.trim() !== ""
-                    ? `https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg`
+                    ? `http://192.168.0.114:5003/${searchResult?.photo}`
                     : 'https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg';
 
                 if (template == 1) {
@@ -9123,7 +9134,7 @@ const EmployeeModel = {
                                 <div class="id-card-containerss" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/15/12/id-3-f.png'); background-size: cover; background-position: center;">
                                     <div class="header">
                                         <div style="float: left;">
-                                            <img style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                            <img style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                         </div>
                                         <div style="float: right;">
                                             <p style="font-weight: bold;">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -9176,8 +9187,8 @@ const EmployeeModel = {
                                 </div>
                                 <div class="id-card-container" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/15/17/Id-3-back.png'); background-size: cover; background-position: center;">
                                     <div class="id-card-content">
-                                        <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-                                        <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+                                        <p class="id-card-issue-date">Issue Date: ${(fromDates)}</p>
+                                        <p class="id-card-expire-date">Expire Date: ${(toDates)}</p>
                                         <p class="id-card-instructions">
                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -9208,7 +9219,7 @@ const EmployeeModel = {
                                 <div class="id-card-containerss" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/15/12/id-3-f.png'); background-size: cover; background-position: center;">
                                     <div class="header">
                                         <div style="float: left;">
-                                            <img style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                            <img style="height: 25px; width: 25px; border-radius: 50%; object-fit: cover;" class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                         </div>
                                         <div style="float: right;">
                                             <p style="font-weight: bold;">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -9269,8 +9280,8 @@ const EmployeeModel = {
                         <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;' >
                             <div class="id-card-container" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/15/17/Id-3-back.png'); background-size: cover; background-position: center;">
                                     <div class="id-card-content">
-                                        <p class="id-card-issue-date">Issue Date: 2024-01-01</p>
-                                        <p class="id-card-expire-date">Expire Date: 2024-12-31</p>
+                                        <p class="id-card-issue-date">Issue Date: ${(fromDates)}</p>
+                                        <p class="id-card-expire-date">Expire Date: ${(toDates)}</p>
                                         <p class="id-card-instructions">
                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -9310,7 +9321,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; 
                                                                                     object-fit: cover;   
-                                                                               " class="logos" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                               " class="logos" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div  style="float: right">
                                                                                 <p style="font-Weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -9357,8 +9368,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-containers" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/09/39/id-4-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-contents">
-                                                                            <p class="id-card-issue-dates">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-dates">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-dates">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-dates">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructionss">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -9399,7 +9410,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; 
                                                                                     object-fit: cover;   
-                                                                               " class="logos" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                               " class="logos" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div  style="float: right">
                                                                                 <p style="font-Weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -9454,8 +9465,8 @@ const EmployeeModel = {
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                              <div class="id-card-containers" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/09/39/id-4-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-contents">
-                                                                            <p class="id-card-issue-dates">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-dates">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-dates">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-dates">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructionss">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -9496,7 +9507,7 @@ const EmployeeModel = {
                                                                                     height: 25px;
                                                                                     width: 25px;
                                                                                     border-radius: 50%;
-                                                                                    object-fit: cover; " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                    object-fit: cover; " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div style="float:right;">
                                                                                 <p style="font-weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -9579,8 +9590,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container1" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/18/19/id-b-1.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content1">
-                                                                            <p class="id-card-issue-date1">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date1">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date1">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date1">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions1">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -9611,23 +9622,24 @@ const EmployeeModel = {
                     if (templateSide == 1) {
                         // ID Card Front Side (templateSide 1)
                         tableRows += `
-                            <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
+                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
 
-                                                            
-                                                                    <div class="id-card-containersa1">
+                                                                 
+
+                                                                    <div class="id-card-containersa1" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/18/18/id-1-f.png'); background-size: cover; background-position: center;">
                                                                         <div class="header1">
-                                                                            <div>
+                                                                            <div style="float:left;">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
-                                                                                    borderRadius: 50%;
-                                                                                    object-fit: cover; " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                    border-radius: 50%;
+                                                                                    object-fit: cover; " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right;">
                                                                                 <p style="font-weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style="text-align: left: margin-left: 14px; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
+                                                                                <h6 style="text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px;">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                                                         
@@ -9635,11 +9647,11 @@ const EmployeeModel = {
                                                                                     <img style="height: 90px;
     width: 90px;
     border-radius: 50px;
-    margin-top: -18px;
+    margin-top: 40px;
     margin-left: -20px;" src=${photoSrc} />
                                                                                 </div>
                                                                                 <div className='text'>
-                                                                                    <p style="     transform: rotate(270deg);
+                                                                                    <p style="
     color: #fff;
     padding: 3px 10px;
     background: #323990;
@@ -9650,8 +9662,14 @@ const EmployeeModel = {
     font-size: 12px;
     font-weight: bold;
     width: 55px;
-    text-align: center;" className='rotate-text-lefts1'><small>${searchResult?.designation_name || 'N/A'}</small></p>
-                                                                                    <p style="transform: rotate(270deg);
+    text-align: center;
+     -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
+    " className='rotate-text-lefts1'><small>${searchResult?.designation_name || 'N/A'}</small></p>
+                                                                                    <p style="
     color: #fff;
     padding: 3px 10px;
     background: #323990;
@@ -9662,7 +9680,13 @@ const EmployeeModel = {
     font-size: 12px;
     font-weight: bold;
     width: 55px;
-    text-align: center;" className='rotate-text-rights1'><small>${searchResult?.unique_id || 'ID: No. N/A'}</small></p>
+    text-align: center;
+     -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
+    " className='rotate-text-rights1'><small>${searchResult?.unique_id || 'ID: No. N/A'}</small></p>
                                                                                 </div>
                                                                        
                                                                         <div class="details1">
@@ -9698,10 +9722,10 @@ const EmployeeModel = {
                     if (templateSide == 2) {
                         tableRows += ` 
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
-                               <div class="id-card-container1">
+                                <div class="id-card-container1" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/16/18/19/id-b-1.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content1">
-                                                                            <p class="id-card-issue-date1">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date1">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date1">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date1">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions1">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -9740,7 +9764,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div style="float:right">
                                                                                 <p style="font-weight:bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -9812,8 +9836,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container12" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/09/45/Id-2-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content12">
-                                                                            <p class="id-card-issue-date12">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date12">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date12">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date12">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions12">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -9847,20 +9871,20 @@ const EmployeeModel = {
                         tableRows += `
                                 <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
-                                                                    <div class="id-card-container122">
+                                                                    <div class="id-card-container122" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/09/45/id-2-f.png'); background-size: cover; background-position: center;">
                                                                         <div class="header12">
-                                                                            <div>
+                                                                            <div style="float:left">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
-                                                                                <p style="fontWeight:bold">Abdul Malek Master Kindergarten<br />and High School</p>
+                                                                            <div style="float:right">
+                                                                                <p style="font-weight:bold">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style="textAlign: left; margin-left: 14px; font-size:10px; margin-top:5px">IDENTITY CARD</h6>
+                                                                                <h6 style="text-align: left; font-size:8px; margin-top:5px">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                                                         
@@ -9869,7 +9893,7 @@ const EmployeeModel = {
                                                                                     <img style="    height: 89px;
     width: 89px;
     border-radius: 50px;
-    margin-top: -24px;
+    margin-top: 35px;
     margin-left: -19px;" src=${photoSrc} />
                                                                                 </div>
                                                                                 <div style="    width: 205px;
@@ -9880,7 +9904,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 35px;
+    top: 90px;
     left: -16px;
     width:40px;
     font-size: 12px;
@@ -9891,7 +9915,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 35px;
+    top: 90px;
     right: 24px;
     width:40px;
     font-size: 12px;
@@ -9900,7 +9924,7 @@ const EmployeeModel = {
                                                                                 </div>
 
                                                                         <div class="details12">
-                                                                            <table class="details12">
+                                                                            <table class="details12" style="margin-top:30px;" >
                                                                             <tbody>
                                                                                             ${filteredSettings.map(setting => {
                             let value = searchResult?.[setting.column_name] ?? "N/A";
@@ -9924,6 +9948,7 @@ const EmployeeModel = {
                                                                             </div>
                                                                         </div>
                                                                     </div>
+
                                                                     </div>
                         `;
                     }
@@ -9932,10 +9957,10 @@ const EmployeeModel = {
                     if (templateSide == 2) {
                         tableRows += ` 
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
-                                 <div class="id-card-container12">
+                                   <div class="id-card-container12" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/09/45/Id-2-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content12">
-                                                                            <p class="id-card-issue-date12">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date12">Expire Date: 2024-12-31</p>
+                                                                            <p class="id-card-issue-date12">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date12">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions12">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -9955,6 +9980,7 @@ const EmployeeModel = {
                                                                            
                                                                         </div>
                                                                     </div>
+                                                
                                                                     </div>
                          `
                     }
@@ -9974,7 +10000,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div style="float:right">
                                                                                 <p style=" font-weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -10045,8 +10071,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container5" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/10/16/id-5-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content5">
-                                                                            <p class="id-card-issue-date5">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date5">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date5">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date5">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions5">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -10079,20 +10105,20 @@ const EmployeeModel = {
                         tableRows += `
                                 <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
-                                                                 <div class="id-card-container55">
+                                                                     <div class="id-card-container55" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/10/17/id-5-f.png'); background-size: cover; background-position: center;">
                                                                         <div class="header5">
-                                                                            <div>
+                                                                            <div style="float:left;">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right">
                                                                                 <p style=" font-weight: bold">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style=" text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px ">IDENTITY CARD</h6>
+                                                                                <h6 style=" text-align: left; margin-left: 2px; font-size: 10px; margin-top: 15px ">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                                                        
@@ -10100,8 +10126,8 @@ const EmployeeModel = {
                                                                                     <img style="    height: 95px;
     width: 95px;
     border-radius: 50%;
-    margin-top: -16px;
-    margin-left: 35px;" src=${photoSrc} />
+    margin-top: 36px;
+    margin-left: 36px;" src=${photoSrc} />
                                                                                 </div>
                                                                                 <div style="width: 205px;
     height: 326px;
@@ -10111,7 +10137,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 57px;
+    top: 112px;
     left: -16px;
     width:40px;
     font-size: 12px;
@@ -10122,7 +10148,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 57px;
+    top: 112px;
     right: 24px;
     width:40px;
     font-size: 12px;
@@ -10164,10 +10190,10 @@ const EmployeeModel = {
                         tableRows += `
                                 <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
-                                                             <div class="id-card-container5">
+                                                             <div class="id-card-container5" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/10/16/id-5-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content5">
-                                                                            <p class="id-card-issue-date5">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date5">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date5">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date5">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions5">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -10186,7 +10212,7 @@ const EmployeeModel = {
                                                                             </p>
                                                                            
                                                                         </div>
-                                                                    </div>   
+                                                                    </div>  
                                                                     </div>
                                                              
                          `
@@ -10207,7 +10233,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div style="float:right">
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -10290,8 +10316,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container6" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/10/55/id-b-6.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content6">
-                                                                            <p class="id-card-issue-date6">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date6">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date6">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date6">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions6">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -10323,20 +10349,20 @@ const EmployeeModel = {
                         tableRows += `
                              <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
- <div class="id-card-container66">
+<div class="id-card-container66" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/10/55/id-f-6.png'); background-size: cover; background-position: center;">
                                                                         <div class="header6">
-                                                                            <div>
+                                                                            <div style="float: left;">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right">
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style="text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
+                                                                                <h6 style="text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                                                         
@@ -10344,32 +10370,41 @@ const EmployeeModel = {
                                                                                     <img style="    height: 91px;
     width: 91px;
     border-radius: 50px;
-    margin-top: -18px;
-    margin-left: -18.5px;
+    margin-top: 41px;
+    margin-left: -19.5px;
 " src=${photoSrc} />
                                                                                 </div>
                                                                                 <div style="width: 205px;
     height: 326px;
     position: absolute;">
-                                                                                    <p style="transform: rotate(270deg);
+                                                                                    <p style="
+                                                                                     -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
     color: #fff;
     padding: 3px 10px;
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 40px;
+    top: 80px;
     left: -36px;
     font-size: 12px;
     font-weight: bold;
     width: 50px;
     text-align: center;"><small>${searchResult?.designation_name || 'N/A'}</small></p>
-                                                                                    <p style="    transform: rotate(270deg);
+                                                                                    <p style="     -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
     color: #fff;
     padding: 3px 10px;
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 40px;
+    top: 80px;
     right: 4px;
     font-size: 12px;
     font-weight: bold;
@@ -10410,10 +10445,10 @@ const EmployeeModel = {
                     if (templateSide == 2) {
                         tableRows += ` 
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
-                              <div class="id-card-container6">
+                              <div class="id-card-container6" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/10/55/id-b-6.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content6">
-                                                                            <p class="id-card-issue-date6">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date6">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date6">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date6">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions6">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -10453,7 +10488,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div style="float:right;">
                                                                                 <p style="font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -10534,8 +10569,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container7" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/11/47/id-7-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content7">
-                                                                            <p class="id-card-issue-date7">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date7">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date7">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date7">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions7">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -10567,20 +10602,20 @@ const EmployeeModel = {
                         tableRows += `
                              <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
-   <div class="id-card-container77">
+   <div class="id-card-container77" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/11/46/id-7-f.png'); background-size: cover; background-position: center;">
                                                                         <div class="header7">
-                                                                            <div>
+                                                                            <div style="float:left">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right;">
                                                                                 <p style="font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style=" text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px ">IDENTITY CARD</h6>
+                                                                                <h6 style=" text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px ">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                        
@@ -10588,31 +10623,39 @@ const EmployeeModel = {
                                                                                     <img style="height: 90px;
     width: 90px;
     border-radius: 50px;
-    margin-top: -8px;
+    margin-top: 51px;
     margin-left: -16px;" src=${photoSrc} />
                                                                                 </div>
                                                                                 <div style="    width: 205px;
     height: 326px;
     position: absolute;">
-                                                                                    <p style="transform: rotate(270deg);
+                                                                                    <p style=" -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
     color: #fff;
     padding: 3px 10px;
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 40px;
+    top: 80px;
     left: -36px;
     font-size: 12px;
     font-weight: bold;
     width: 45px;
     text-align: center;"><small>${searchResult?.designation_name || 'N/A'}</small></p>
-                                                                                    <p style="transform: rotate(270deg);
+                                                                                    <p style=" -webkit-transform: rotate(270deg) !important;
+
+                -ms-transform: rotate(270deg) !important;
+
+                transform: rotate(270deg) !important;
     color: #fff;
     padding: 3px 10px;
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: 40px;
+    top: 80px;
     right: 4px;
     font-size: 12px;
     font-weight: bold;
@@ -10645,6 +10688,7 @@ const EmployeeModel = {
                                                                             </div>
                                                                         </div>
                                                                     </div>
+
                                                                     </div>
                         `;
                     }
@@ -10653,10 +10697,10 @@ const EmployeeModel = {
                     if (templateSide == 2) {
                         tableRows += ` 
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
-                             <div class="id-card-container7">
+                             <div class="id-card-container7" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/11/47/id-7-back.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content7">
-                                                                            <p class="id-card-issue-date7">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date7">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date7">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date7">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions7">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -10694,7 +10738,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div style="float:right">
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -10780,7 +10824,7 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container8"  style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/12/05/id-8-b.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content8">
-                                                                            <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
+                                                                            <p class="id-card-issue-date8">Issue Date: ${(fromDates)}</p>
                                                                             <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
                                                                             <p class="id-card-instructions8">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
@@ -10811,30 +10855,42 @@ const EmployeeModel = {
                         // ID Card Front Side (templateSide 1)
                         tableRows += `
                              <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
-                                   <div class="id-card-container88">
+                                   <div class="id-card-container88"  style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/12/05/id-8.png'); background-size: cover; background-position: center;">
                                                                         <div class="header8">
-                                                                            <div>
+                                                                            <div style="float:left">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right">
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style=" text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
+                                                                                <h6 style=" text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
-                                                                       
- <div  class="imgs">
-                                                                                    <img style="height: 80px;
-    width: 80px;
-    margin-top: -3px;
-    margin-left: -14px;
-    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);" src=${photoSrc} />
-                                                                                </div>
+
+                                                                                 <div  class="imgs">
+                                                                                    <img
+        style="height: 66px;
+               width: 66px;
+               border-radius: 50%;
+               position: absolute;
+               top: 63px;
+               left: -8px;"
+        src="${photoSrc}" />
+
+    <!-- Second Image -->
+    <img
+        style="position: absolute;
+               top: 32px;
+               left: -33px;
+               width: 112px;
+               height: 112px;"
+        src="http://192.168.0.114:5003/asset_info/2025/01/21/15/00/Shape-2%20(1).png" />
+</div>
                                                                                 <div style="    width: 205px;
     height: 326px;
     position: absolute;">
@@ -10844,7 +10900,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: -22px;
+    top: 45px;
     left: -16px;
     font-size: 12px;
     font-weight: bold;
@@ -10856,7 +10912,7 @@ const EmployeeModel = {
     background: #323990;
     border-radius: 6px;
     position: absolute;
-    top: -22px;
+    top: 45px;
     right: 26px;
     font-size: 12px;
     font-weight: bold;
@@ -10890,6 +10946,7 @@ const EmployeeModel = {
                                                                             </div>
                                                                         </div>
                                                                     </div>
+
                                                                     </div>
                         `;
                     }
@@ -10898,9 +10955,10 @@ const EmployeeModel = {
                     if (templateSide == 2) {
                         tableRows += ` 
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
-                             <div class="id-card-container8">
+                            
+                                                                    <div class="id-card-container8"  style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/12/05/id-8-b.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content8">
-                                                                            <p class="id-card-issue-date8">Issue Date: 2024-01-01</p>
+                                                                            <p class="id-card-issue-date8">Issue Date: ${(fromDates)}</p>
                                                                             <p class="id-card-expire-date8">Expire Date: 2024-8-31</p>
                                                                             <p class="id-card-instructions8">
                                                                              ${employee_id_card_setting_back_list.map((employeeSettings) => {
@@ -10953,7 +11011,7 @@ const EmployeeModel = {
                                                                                 width: 35px;
                                                                                 border-radius: 50%; // Makes the image round
                                                                                 object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                            " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                            " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
 
                                                                         </div>
                                                                     </div>
@@ -10999,8 +11057,8 @@ const EmployeeModel = {
 
                                                                 <div class="id-card-container9">
                                                                     <div class="id-card-content9">
-                                                                        <p class="id-card-issue-date9">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date9">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date9">Issue Date: ${(fromDates)}</p>
+                                                                        <p class="id-card-expire-date9">Expire Date: ${(toDates)}</p>
                                                                         <p class="id-card-instructions9">
                                                                        ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -11029,38 +11087,39 @@ const EmployeeModel = {
                     if (templateSide == 1) {
                         // ID Card Front Side (templateSide 1)
                         tableRows += `
-                           <div class="d-flex">
-                              <div class="id-card-container99">
+                           <div class="id-card-row" >
+                                 <div class="id-card-container99">
 
                                                                     <div class="header9">
                                                                         <div>
                                                                             <h6 style="text-align: left;
     margin-left: 5px;
     font-size: 12px;
-    margin-top: 6px;
+    margin-top: 10px;
 ">IDENTITY CARD</h6>
 
                                                                         </div>
-                                                                        <div className='header_text' style="display: flex;margin-right: 17px;">
-                                                                            <img style="
+                                                                        <div className='header_text' style="display: flex;margin-right: 17px;margin-top: -35px;">
+                                                                            
+                                                                            <div style="float:right">
+                                                                                <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
+                                                                                
+                                                                            </div>
+                                                                            <img style=" float:right;
                                                                                 height: 35px;
                                                                                 width: 35px;
                                                                                 border-radius: 50%; // Makes the image round
                                                                                 object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                            " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
-                                                                            <div>
-                                                                                <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
-                                                                                
-                                                                            </div>
+                                                                            " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
 
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-section9">
                                                                         <div class="profile-image9" style="float:left;">
-                                                                            <img  src=${searchResult?.photo ? `http://192.168.0.114:5003/${searchResult?.photo}` : "https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg"} />
+                                                                            <img  src=${photoSrc} />
                                                                         </div>
-                                                                        <div class="details9" style="float:right;">
+                                                                        <div class="details9" style="float:left;">
                                                                             <div className='teacher_information'>
                                                                                 <h3>${searchResult?.full_name || 'N/A'}</h3>
                                                                                 <p>${searchResult?.designation_name || 'N/A'}</p>
@@ -11100,11 +11159,10 @@ const EmployeeModel = {
                     // Template 3 logic (Third template)
                     if (templateSide == 2) {
                         tableRows += ` 
-                            <div class="d-flex">
-                          <div class="id-card-container9">
+                              <div class="id-card-container9">
                                                                     <div class="id-card-content9">
-                                                                        <p class="id-card-issue-date9">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date9">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date9">Issue Date: ${(fromDates)}</p>
+                                                                        <p class="id-card-expire-date9">Expire Date: ${(toDates)}</p>
                                                                         <p class="id-card-instructions9">
                                                                        ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -11124,7 +11182,6 @@ const EmployeeModel = {
                                                                       
                                                                     </div>
                                                                 </div>
-                            </div>
                          `
                     }
                 }
@@ -11143,7 +11200,7 @@ const EmployeeModel = {
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
                                                                             <div style="float:right;">
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
@@ -11188,8 +11245,8 @@ const EmployeeModel = {
 
                                                                     <div class="id-card-container10" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/12/27/id-10-b.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content10">
-                                                                            <p class="id-card-issue-date10">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date10">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date10">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date10">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions10">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -11220,20 +11277,20 @@ const EmployeeModel = {
                         tableRows += `
                            <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
                                
-   <div class="id-card-container100">
+   <div class="id-card-container100" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/12/26/id-10.png'); background-size: cover; background-position: center;">
                                                                         <div class="header10">
-                                                                            <div>
+                                                                            <div style="float:left;">
                                                                                 <img style="
                                                                                     height: 25px;
                                                                                     width: 25px;
                                                                                     border-radius: 50%; // Makes the image round
                                                                                     object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                                " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                                " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
                                                                             </div>
-                                                                            <div>
+                                                                            <div style="float:right;">
                                                                                 <p style=" font-weight: bold ">Abdul Malek Master Kindergarten<br />and High School</p>
                                                                                 
-                                                                                <h6 style="text-align: left; margin-left: 14px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
+                                                                                <h6 style="text-align: left; margin-left: 4px; font-size: 10px; margin-top: 5px">IDENTITY CARD</h6>
                                                                             </div>
                                                                         </div>
                                                                   
@@ -11242,7 +11299,7 @@ const EmployeeModel = {
                                                                                     <img style="    height: 73px;
     width: 73px;
     border-radius: 50%;
-    margin-top: -9px;
+    margin-top: 50px;
     margin-left: -8px;" src=${photoSrc} />
                                                                                 </div>
                                                                         <div class="details10">
@@ -11278,10 +11335,10 @@ const EmployeeModel = {
                     if (templateSide == 2) {
                         tableRows += ` 
                          <div class="id-card-rows" style='float:left;height:178mm; width:56.88mm;overflow:hidden;'  >
-                               <div class="id-card-container10">
+                               <div class="id-card-container10" style="background-image: url('http://192.168.0.114:5003/asset_info/2025/01/19/12/27/id-10-b.png'); background-size: cover; background-position: center;">
                                                                         <div class="id-card-content10">
-                                                                            <p class="id-card-issue-date10">Issue Date: 2024-01-01</p>
-                                                                            <p class="id-card-expire-date10">Expire Date: 2024-5-31</p>
+                                                                            <p class="id-card-issue-date10">Issue Date: ${(fromDates)}</p>
+                                                                            <p class="id-card-expire-date10">Expire Date: ${(toDates)}</p>
                                                                             <p class="id-card-instructions10">
                                                                             ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -11331,7 +11388,7 @@ const EmployeeModel = {
                                                                                 width: 35px;
                                                                                 border-radius: 50%; // Makes the image round
                                                                                 object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                            " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                            " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
 
                                                                         </div>
                                                                     </div>
@@ -11374,8 +11431,8 @@ const EmployeeModel = {
                                                                 </div>
                                                                 <div class="id-card-container11">
                                                                     <div class="id-card-content11">
-                                                                        <p class="id-card-issue-date11">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date11">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date11">Issue Date: ${(fromDates)}</p>
+                                                                        <p class="id-card-expire-date11">Expire Date: ${(toDates)}</p>
                                                                         <p class="id-card-instructions11">
                                                                        ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -11404,7 +11461,7 @@ const EmployeeModel = {
                     if (templateSide == 1) {
                         // ID Card Front Side (templateSide 1)
                         tableRows += `
-                         <div class="id-card-row" >
+                       <div class="id-card-row" >
                                  <div class="id-card-container111">
 
                                                                     <div class="header11">
@@ -11425,7 +11482,7 @@ const EmployeeModel = {
                                                                                 width: 35px;
                                                                                 border-radius: 50%; // Makes the image round
                                                                                 object-fit: cover;   // Ensures the image fits perfectly inside the circle
-                                                                            " class="logo" src="https://as1.ftcdn.net/v2/jpg/02/09/95/42/500_F_209954204_mHCvAQBIXP7C2zRl5Fbs6MEWOEkaX3cA.jpg" alt="School Logo" />
+                                                                            " class="logo" src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="School Logo" />
 
                                                                         </div>
                                                                     </div>
@@ -11473,11 +11530,10 @@ const EmployeeModel = {
                     // Template 3 logic (Third template)
                     if (templateSide == 2) {
                         tableRows += ` 
-                            <div class="id-card-rows"  >
-                               <div class="id-card-container11">
+                              <div class="id-card-container11">
                                                                     <div class="id-card-content11">
-                                                                        <p class="id-card-issue-date11">Issue Date: 2024-01-01</p>
-                                                                        <p class="id-card-expire-date11">Expire Date: 2024-9-31</p>
+                                                                        <p class="id-card-issue-date11">Issue Date: ${(fromDates)}</p>
+                                                                        <p class="id-card-expire-date11">Expire Date: ${(toDates)}</p>
                                                                         <p class="id-card-instructions11">
                                                                        ${employee_id_card_setting_back_list.map((employeeSettings) => {
                             return `
@@ -11497,7 +11553,6 @@ const EmployeeModel = {
                                                                         
                                                                     </div>
                                                                 </div>
-                                                                    </div>
                          `
                     }
                 }

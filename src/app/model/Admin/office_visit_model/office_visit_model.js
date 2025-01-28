@@ -639,110 +639,142 @@ const OfficeVisitModel = {
     //         res.status(500).json({ message: "Error retrieving data." });
     //     }
     // },
+// original start 26-1-2025
+    // office_visit_list_paigination: async (req, res) => {
+    //     const pageNo = Number(req.params.pageNo);
+    //     const perPage = Number(req.params.perPage);
+    //     try {
+    //         connection.beginTransaction();
 
+    //         const skipRows = (pageNo - 1) * perPage;
+    //         const officeVisitQuery = `
+    //             SELECT DISTINCT
+    //                 ov.id AS id,
+    //                 ov.office_name,
+    //                 ov.office_address,
+    //                 ov.office_mobile,
+    //                 ov.office_email,
+    //                 ov.created_by,
+    //                 ov.add_office_date,
+    //                 ov.user_id,
+    //                 ovr.id AS remarks_id,
+    //                 ovr.remarks_date,
+    //                 ovr.remarks,
+    //                 ovr.created_by AS remarks_created_by,
+    //                 ovr.user_id AS remarks_user_id,
+    //                 ovp.id AS person_id,
+    //                 ovp.person_name,
+    //                 ovp.person_mobile,
+    //                 ovp.person_email,
+    //                 ovp.created_by AS person_created_by,
+    //                 ovp.add_person_date,
+    //                 ovp.user_id AS person_user_id
+    //             FROM 
+    //                 office_visit ov
+    //             LEFT JOIN 
+    //                 office_visit_remarks ovr ON ov.id = ovr.office_visit_id
+    //             LEFT JOIN 
+    //                 office_visit_person ovp ON ov.id = ovp.office_visit_id
+                   
+    //             LIMIT ? OFFSET ?`;
+
+    //         connection.query(officeVisitQuery, [perPage, skipRows], async (err, results) => {
+    //             if (err) {
+    //                 console.error(err);
+    //                 await connection.rollback();
+    //                 res.status(500).json({ message: 'Error retrieving office visit data' });
+    //                 return;
+    //             }
+
+    //             // Process results into the desired structure
+    //             const officeVisits = {};
+
+    //             results.forEach(row => {
+    //                 if (!officeVisits[row.id]) {
+    //                     officeVisits[row.id] = {
+    //                         id: row.id,
+    //                         office_name: row.office_name,
+    //                         office_address: row.office_address,
+    //                         office_mobile: row.office_mobile,
+    //                         office_email: row.office_email,
+    //                         created_by: row.created_by,
+    //                         add_office_date: row.add_office_date,
+    //                         user_id: row.user_id,
+    //                         remarks: [],
+    //                         persons: []
+    //                     };
+    //                 }
+
+    //                 // Check if remarks_id is already added
+    //                 const existingRemark = officeVisits[row.id].remarks.find(r => r.remarks_id === row.remarks_id);
+    //                 if (!existingRemark && row.remarks_id) {
+    //                     officeVisits[row.id].remarks.push({
+    //                         remarks_id: row.remarks_id,
+    //                         remarks_date: row.remarks_date,
+    //                         remarks: row.remarks,
+    //                         remarks_created_by: row.remarks_created_by,
+    //                         remarks_user_id: row.remarks_user_id
+    //                     });
+    //                 }
+
+    //                 // Check if person_id is already added
+    //                 const existingPerson = officeVisits[row.id].persons.find(p => p.person_id === row.person_id);
+    //                 if (!existingPerson && row.person_id) {
+    //                     officeVisits[row.id].persons.push({
+    //                         person_id: row.person_id,
+    //                         person_name: row.person_name,
+    //                         person_mobile: row.person_mobile,
+    //                         person_email: row.person_email,
+    //                         person_created_by: row.person_created_by,
+    //                         add_person_date: row.add_person_date,
+    //                         person_user_id: row.person_user_id
+    //                     });
+    //                 }
+    //             });
+
+    //             await connection.commit();
+
+    //             res.status(200).json(Object.values(officeVisits));
+    //         });
+    //     } catch (error) {
+    //         console.error("Error retrieving data:", error);
+    //         await connection.rollback();
+    //         res.status(500).json({ message: "Error retrieving data." });
+    //     }
+    // },
+    //  original end
     office_visit_list_paigination: async (req, res) => {
         const pageNo = Number(req.params.pageNo);
         const perPage = Number(req.params.perPage);
         try {
-            connection.beginTransaction();
-
-            const skipRows = (pageNo - 1) * perPage;
-            const officeVisitQuery = `
-                SELECT DISTINCT
-                    ov.id AS id,
-                    ov.office_name,
-                    ov.office_address,
-                    ov.office_mobile,
-                    ov.office_email,
-                    ov.created_by,
-                    ov.add_office_date,
-                    ov.user_id,
-                    ovr.id AS remarks_id,
-                    ovr.remarks_date,
-                    ovr.remarks,
-                    ovr.created_by AS remarks_created_by,
-                    ovr.user_id AS remarks_user_id,
-                    ovp.id AS person_id,
-                    ovp.person_name,
-                    ovp.person_mobile,
-                    ovp.person_email,
-                    ovp.created_by AS person_created_by,
-                    ovp.add_person_date,
-                    ovp.user_id AS person_user_id
-                FROM 
-                    office_visit ov
-                LEFT JOIN 
-                    office_visit_remarks ovr ON ov.id = ovr.office_visit_id
-                LEFT JOIN 
-                    office_visit_person ovp ON ov.id = ovp.office_visit_id
-                   
-                LIMIT ? OFFSET ?`;
-
-            connection.query(officeVisitQuery, [perPage, skipRows], async (err, results) => {
-                if (err) {
-                    console.error(err);
-                    await connection.rollback();
-                    res.status(500).json({ message: 'Error retrieving office visit data' });
-                    return;
-                }
-
-                // Process results into the desired structure
-                const officeVisits = {};
-
-                results.forEach(row => {
-                    if (!officeVisits[row.id]) {
-                        officeVisits[row.id] = {
-                            id: row.id,
-                            office_name: row.office_name,
-                            office_address: row.office_address,
-                            office_mobile: row.office_mobile,
-                            office_email: row.office_email,
-                            created_by: row.created_by,
-                            add_office_date: row.add_office_date,
-                            user_id: row.user_id,
-                            remarks: [],
-                            persons: []
-                        };
-                    }
-
-                    // Check if remarks_id is already added
-                    const existingRemark = officeVisits[row.id].remarks.find(r => r.remarks_id === row.remarks_id);
-                    if (!existingRemark && row.remarks_id) {
-                        officeVisits[row.id].remarks.push({
-                            remarks_id: row.remarks_id,
-                            remarks_date: row.remarks_date,
-                            remarks: row.remarks,
-                            remarks_created_by: row.remarks_created_by,
-                            remarks_user_id: row.remarks_user_id
-                        });
-                    }
-
-                    // Check if person_id is already added
-                    const existingPerson = officeVisits[row.id].persons.find(p => p.person_id === row.person_id);
-                    if (!existingPerson && row.person_id) {
-                        officeVisits[row.id].persons.push({
-                            person_id: row.person_id,
-                            person_name: row.person_name,
-                            person_mobile: row.person_mobile,
-                            person_email: row.person_email,
-                            person_created_by: row.person_created_by,
-                            add_person_date: row.add_person_date,
-                            person_user_id: row.person_user_id
-                        });
-                    }
-                });
-
-                await connection.commit();
-
-                res.status(200).json(Object.values(officeVisits));
-            });
-        } catch (error) {
-            console.error("Error retrieving data:", error);
-            await connection.rollback();
-            res.status(500).json({ message: "Error retrieving data." });
+          const skipRows = (pageNo - 1) * perPage;
+          let query = `
+          SELECT office_visit.*, 
+                 users_created.full_name AS created_by,
+                 users_modified.full_name AS modified_by 
+          FROM office_visit 
+          LEFT JOIN users AS users_created ON office_visit.created_by = users_created.id 
+          LEFT JOIN users AS users_modified ON office_visit.modified_by = users_modified.id 
+          ORDER BY office_visit.id DESC
+          LIMIT ?, ?
+        `;
+    
+          connection.query(query, [skipRows, perPage], (error, result) => {
+            console.log(result)
+            if (!error) {
+              res.send(result)
+            }
+    
+            else {
+              console.log(error)
+            }
+    
+          })
         }
-    },
-
+        catch (error) {
+          console.log(error)
+        }
+      },
     office_visit_remarks_single: async (req, res) => {
         try {
             const query = 'SELECT * FROM office_visit_remarks WHERE id = ?';

@@ -1,5 +1,5 @@
 // 'use client' 
- //ismile
+//ismile
 // import { useQuery } from '@tanstack/react-query';
 // import axios from 'axios';
 // import Link from 'next/link';
@@ -754,8 +754,8 @@
 // export default EmployeLoanPaymentUpdate;
 
 
-'use client' 
- //ismile
+'use client'
+//ismile
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Link from 'next/link';
@@ -1229,10 +1229,10 @@ const EmployeLoanPaymentUpdate = ({ id }) => {
             return setInterest("Enter Interest"); // Clear the error message
         }
 
-        if (!assetInfo.aviable_balance) {
+        // if (!assetInfo.aviable_balance) {
 
-            return setAviable_balance("Enter Aviable Balance"); // Clear the error message
-        }
+        //     return setAviable_balance("Enter Aviable Balance"); // Clear the error message
+        // }
 
         // if (!assetInfo.due) {
         //     return setDue("Enter "); // Clear the error message
@@ -1259,7 +1259,15 @@ const EmployeLoanPaymentUpdate = ({ id }) => {
             },
             body: JSON.stringify(assetInfo)
         })
-            .then(response => response.json())
+            .then(response => {
+
+                response.json()
+                console.log(response)
+                if (response) {
+                    sessionStorage.setItem("message", "Data Update successfully!");
+                    router.push(`/Admin/employe_loan_payment/employe_loan_payment_all?page_group=${page_group}`);
+                }
+            })
             .then(data => {
                 console.log(data);
                 if (data) {

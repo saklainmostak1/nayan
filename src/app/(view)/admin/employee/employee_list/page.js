@@ -98,7 +98,7 @@ const EmployeeAll = ({ searchParams }) => {
     const employee_delete = id => {
 
         console.log(id)
-        const proceed = window.confirm(`Are You Sure delete${id}`)
+        const proceed = window.confirm(`Are You Sure delete`)
         if (proceed) {
             fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/employee/employee_delete/${id}`, {
                 method: "POST",
@@ -108,6 +108,7 @@ const EmployeeAll = ({ searchParams }) => {
                 .then(data => {
                     refetch()
                     console.log(data)
+                    caregory_list()
                 })
         }
     }
@@ -1240,7 +1241,7 @@ const EmployeeAll = ({ searchParams }) => {
                                                                                     column === 'action' ? (
                                                                                         // Special handling for the 'status' column
                                                                                         <div className="flex items-center ">
-                                                                                            <Link href={`/Admin/employee/employee_edit/${employee.user_id}?page_group=${page_group}`}>
+                                                                                            <Link href={`/Admin/employee/employee_edit/${expense.user_id}?page_group=${page_group}`}>
                                                                                                 {filteredBtnIconEdit?.map((filteredBtnIconEdit => (
                                                                                                     <button
                                                                                                         key={filteredBtnIconEdit.id}
@@ -1255,7 +1256,7 @@ const EmployeeAll = ({ searchParams }) => {
                                                                                                 )))}
                                                                                             </Link>
 
-                                                                                            <Link href={`/Admin/employee/employee_promotion_create/${employee.user_id}?page_group=${page_group}`}>
+                                                                                            <Link href={`/Admin/employee/employee_promotion_create/${expense.user_id}?page_group=${page_group}`}>
                                                                                                 {filteredBtnPromotionCreate?.map((filteredBtnIconEdit => (
                                                                                                     <button
                                                                                                         key={filteredBtnIconEdit.id}
@@ -1274,7 +1275,7 @@ const EmployeeAll = ({ searchParams }) => {
                                                                                                 <button
                                                                                                     key={filteredBtnIconDelete.user_id}
                                                                                                     title='Delete'
-                                                                                                    onClick={() => employee_delete(employee.user_id)}
+                                                                                                    onClick={() => employee_delete(expense.user_id)}
                                                                                                     style={{ width: "35px ", height: '30px', marginLeft: '5px', marginTop: '5px' }}
                                                                                                     className={filteredBtnIconDelete?.btn}
                                                                                                 >
@@ -1402,7 +1403,7 @@ const EmployeeAll = ({ searchParams }) => {
 
 
                                                                                             <div className="flex items-center ">
-                                                                                                <Link href={`/Admin/employee/employee_edit/${employee.user_id}?page_group=${page_group}`}>
+                                                                                                <Link href={`/Admin/employee/employee_edit/${expense.user_id}?page_group=${page_group}`}>
                                                                                                     {filteredBtnIconEdit?.map((filteredBtnIconEdit => (
                                                                                                         <button
                                                                                                             key={filteredBtnIconEdit.id}
@@ -1417,7 +1418,7 @@ const EmployeeAll = ({ searchParams }) => {
                                                                                                     )))}
                                                                                                 </Link>
 
-                                                                                                <Link href={`/Admin/employee/employee_promotion_create/${employee.user_id}?page_group=${page_group}`}>
+                                                                                                <Link href={`/Admin/employee/employee_promotion_create/${expense.user_id}?page_group=${page_group}`}>
                                                                                                     {filteredBtnPromotionCreate?.map((filteredBtnIconEdit => (
                                                                                                         <button
                                                                                                             key={filteredBtnIconEdit.id}
@@ -1436,7 +1437,7 @@ const EmployeeAll = ({ searchParams }) => {
                                                                                                     <button
                                                                                                         key={filteredBtnIconDelete.user_id}
                                                                                                         title='Delete'
-                                                                                                        onClick={() => employee_delete(employee.user_id)}
+                                                                                                        onClick={() => employee_delete(expense.user_id)}
                                                                                                         style={{ width: "35px ", height: '30px', marginLeft: '5px', marginTop: '5px' }}
                                                                                                         className={filteredBtnIconDelete?.btn}
                                                                                                     >

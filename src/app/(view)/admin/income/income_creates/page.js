@@ -301,7 +301,7 @@ const CreateIncome = () => {
                     console.log(Response)
                     if (Response.ok === true) {
                         sessionStorage.setItem("message", "Data saved successfully!");
-                        // router.push('/Admin/income/income_all')
+                        router.push('/Admin/income/income_all')
                     }
                 })
                 .then((data) => {

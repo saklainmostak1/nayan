@@ -111,12 +111,28 @@ const OfficeVisitList = ({ searchParams }) => {
         pageNumber.push(index)
     }
     const [pageUserss, setPageUsers] = useState([]);
+    // const caregory_list = async () => {
+    //     const url = `${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/office_visit/office_visit_list/${currentPage}/${dataPerPage}`;
+    //     const response = await fetch(url);
+    //     const data = await response.json();
+    //     setPageUsers(data);
+    // };
     const caregory_list = async () => {
         const url = `${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/office_visit/office_visit_list/${currentPage}/${dataPerPage}`;
-        const response = await fetch(url);
-        const data = await response.json();
-        setPageUsers(data);
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+            let data = await response.json();
+            // Sort data by id in descending order
+            data = data.sort((a, b) => b.id - a.id);
+            setPageUsers(data);
+        } catch (error) {
+            console.error("Failed to fetch data:", error);
+        }
     };
+    
     useEffect(() => {
         caregory_list();
     }, [currentPage]);
@@ -176,9 +192,7 @@ const OfficeVisitList = ({ searchParams }) => {
                                         <Link href={`/Admin/office_visit/office_visit_create?page_group`} className="btn btn-sm btn-info">Back Office Visit Create</Link>
                                     </div>
                                 </div>
-                                <div className="alert alert-warning mb-0 mx-4 mt-4 text-danger font-weight-bold" role="alert">
-                                    (<small><sup><i className="text-danger fas fa-star"></i></sup></small>) field required
-                                </div>
+                                
                                 <div class="card-body">
                                     <div className='table-responsive'>
                                         <div className=" d-flex justify-content-between">
@@ -244,7 +258,7 @@ const OfficeVisitList = ({ searchParams }) => {
                                                     }}>
                                                         Email
                                                     </th>
-                                                    <th style={{
+                                                    {/* <th style={{
                                                         wordBreak: 'break-all',
                                                         wordWrap: 'break-word',
                                                         whiteSpace: 'normal',
@@ -257,7 +271,7 @@ const OfficeVisitList = ({ searchParams }) => {
                                                         whiteSpace: 'normal',
                                                     }}>
                                                         Person
-                                                    </th>
+                                                    </th> */}
 
 
                                                     <th>
@@ -301,7 +315,7 @@ const OfficeVisitList = ({ searchParams }) => {
                                                                 {office_visit.office_email}
                                                             </td>
 
-                                                            <td style={{
+                                                            {/* <td style={{
                                                                 wordBreak: 'break-all',
                                                                 wordWrap: 'break-word',
                                                                 whiteSpace: 'normal',
@@ -314,7 +328,7 @@ const OfficeVisitList = ({ searchParams }) => {
                                                                 whiteSpace: 'normal',
                                                             }}>
                                                                 {office_visit?.persons?.map(person => person.person_name)}
-                                                            </td>
+                                                            </td> */}
 
                                                             <td>
 
