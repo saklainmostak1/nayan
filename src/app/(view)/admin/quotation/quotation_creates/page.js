@@ -1027,7 +1027,6 @@ Room-114, 1st Floor Pani Bhaban, 72 Green Road, Dhaka</p>
 
     const generateQuotationHTML = () => {
 
-
         const numberToWord = (num) => {
             const ones = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
             const tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
