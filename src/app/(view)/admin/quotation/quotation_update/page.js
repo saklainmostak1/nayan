@@ -271,6 +271,7 @@ const UpdateQuotation = ({ id }) => {
         }
     });
     const [stockOut, setStockOut] = useState('')
+    
     const loan_search = (barcodes) => {
         setLoading(true);
 
@@ -310,7 +311,7 @@ const UpdateQuotation = ({ id }) => {
                             // Check if the product is not already in the previous results
                             const isAlreadyInResults = prevResults?.some(prevResult => prevResult.barcode === newResult.barcode);
 
-                            if (quantityDifference === 0) {
+                            if (quantityDifference == 0 || quantityDifference < 1) {
                                 // Set stock out message, but do not include the product in the results
                                 setStockOut('Out of stock');
                                 return

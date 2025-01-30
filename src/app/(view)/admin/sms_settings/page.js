@@ -1,7 +1,7 @@
 
 
 // 'use client' 
- //ismile
+//ismile
 
 // import React, { useEffect, useState } from 'react';
 
@@ -336,10 +336,11 @@
 
 
 
-'use client' 
- //ismile
+'use client'
+//ismile
 
 import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Select from 'react-dropdown-select';
 
@@ -386,6 +387,9 @@ const AdmissionSMS = () => {
 
   const [smsSettings, setSmsSettings] = useState([]);
 
+  const [isEsJoin22, setIsEsJoin22] = useState(false);
+  const [isEsJoin11, setIsEsJoin11] = useState(false);
+
   const [isEaJoin2, setIsEaJoin2] = useState(false);
   const [isTeJoin2, setIsTeJoin2] = useState(false);
   const [isEsJoin2, setIsEsJoin2] = useState(false);
@@ -406,6 +410,10 @@ const AdmissionSMS = () => {
     const response = await fetch(url);
     const data = await response.json();
     setSmsSettings(data);
+
+    setIsEsJoin22(data[0]?.is_quotation_sms === 1);
+    setIsEsJoin11(data[0]?.auto_quotation_sms === 1);
+
     setIsOeJoin1(data[0]?.auto_oe_join === 1);
     setIsOeJoin2(data[0]?.is_oe_join === 1);
     setIsEaJoin1(data[0]?.auto_e_attendance === 1);
@@ -416,7 +424,7 @@ const AdmissionSMS = () => {
     setIsEsJoin2(data[0]?.is_e_salary === 1);
     sette_absent_shift_enable(data[0]?.te_absent_shift_enable === 1);
   };
-
+  const router = useRouter()
   const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -425,6 +433,11 @@ const AdmissionSMS = () => {
     const e_attendance = form?.e_attendance?.value;
     const te_absence = form?.te_absence?.value;
     const e_salary = form?.e_salary?.value;
+    const quotation_short_code = form?.quotation_short_code?.value;
+    const quotation_invoice_sms = form?.quotation_invoice_sms?.value;
+
+    const auto_quotation_sms = isEsJoin11 ? 1 : 0;
+    const is_quotation_sms = isEsJoin22 ? 1 : 0;
 
     const auto_oe_join = isOeJoin1 ? 1 : 0;
     const is_oe_join = isOeJoin2 ? 1 : 0;
@@ -437,6 +450,10 @@ const AdmissionSMS = () => {
     const te_absent_shift_enables = te_absent_shift_enable ? 1 : 0;
 
     const updateValue = {
+      quotation_short_code,
+      quotation_invoice_sms,
+      auto_quotation_sms,
+      is_quotation_sms,
       oe_join,
       e_attendance,
       te_absence,
@@ -449,7 +466,7 @@ const AdmissionSMS = () => {
       is_te_absence,
       auto_e_salary,
       is_e_salary,
-      selectedMonths, 
+      selectedMonths,
       te_absent_shift_enables
     };
 
@@ -462,17 +479,44 @@ const AdmissionSMS = () => {
       },
       body: JSON.stringify(updateValue),
     })
-      .then((Response) => Response.json())
+      .then((Response) => {
+        Response.json()
+        if (Response) {
+          sessionStorage.setItem("message", "Data Updated successfully!");
+          router.push('/Admin/sms_settings/sms_settings_create?page_group=sms_management')
+        }
+      })
       .then((data) => {
+        if (data) {
+          sessionStorage.setItem("message", "Data Updated successfully!");
+          router.push('/Admin/sms_settings/sms_settings_create?page_group=sms_management')
+        }
         console.log(data);
       });
   };
 
+  const [message, setMessage] = useState();
+  useEffect(() => {
+  
+    if (typeof window !== 'undefined') {
 
+      if (sessionStorage.getItem("message")) {
+        setMessage(sessionStorage.getItem("message"));
+        sessionStorage.removeItem("message");
+      }
+    }
+  }, [])
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        {
+          message &&
+
+          <div className="alert alert-success font-weight-bold ml-3 mt-2">
+            {message}
+          </div>
+        }
         <div className="card bg-white m-3 shadow-sm">
           <div className="card-header py-2 bg-light">
             <div className="card-title mb-0 float-left font-weight-bold mt-1 text-dark">Joining SMS</div>
@@ -656,7 +700,7 @@ const AdmissionSMS = () => {
 
 
                     <Select
-                    style={{width:'400px'}}
+                      style={{ width: '400px' }}
                       multi
                       options={[
 
@@ -682,7 +726,7 @@ const AdmissionSMS = () => {
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
 
@@ -741,6 +785,70 @@ const AdmissionSMS = () => {
           </div>
         </div>
 
+        {/* Repeat similar blocks for quotation SMS */}
+        <div className="card bg-white m-3 shadow-sm">
+          <div className="card-header py-2 bg-light">
+            <div className="card-title mb-0 float-left font-weight-bold mt-1 text-dark">Quotation SMS</div>
+          </div>
+
+          <div className="card-body">
+            <div className="row no-gutters mb-3">
+              <div className="col-md-3">
+                <label className="font-weight-bold text-right text-dark"> Quotation </label>
+              </div>
+              <div className="col-md-9">
+                <div className="input-group">
+                  <div className="input-group-prepend input-group-text">
+                    <div>
+                      <div className="custom-control custom-switch text-left">
+                        <input
+                          type="checkbox"
+                          name="auto_quotation_sms"
+                          className="custom-control-input common_sms"
+                          checked={isEsJoin11}
+                          id="auto_quotation_sms"
+                          onChange={() => setIsEsJoin11((prevState) => !prevState)}
+                        />
+                        <label className="custom-control-label" htmlFor="auto_quotation_sms">Auto</label>
+                      </div>
+
+                      <div className="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          name="is_quotation_sms"
+                          className="custom-control-input common_sms"
+                          checked={isEsJoin22}
+                          id="is_quotation_sms"
+                          onChange={() => setIsEsJoin22((prevState) => !prevState)}
+                        />
+                        <label className="custom-control-label" htmlFor="is_quotation_sms">Manual</label>
+                      </div>
+                    </div>
+                  </div>
+                  <textarea
+                    className="form-control"
+                    name="quotation_invoice_sms"
+                    aria-label="With textarea"
+                    defaultValue={smsSettings[0]?.quotation_invoice_sms}
+                  />
+                  <small id="passwordHelpBlock" className="form-text text-info">
+                    [[full_name]], [[invoice_id]], ([[all_short_code]]), [[discount]], [[total_amount]], [[sms_time]] Keywords refer by  Name, Invoice, Quotation, Total Discount, Total Amount, Sms Time respectively.
+                  </small>
+                  <textarea
+                    className="form-control"
+                    name="quotation_short_code"
+                    aria-label="With textarea"
+                    defaultValue={smsSettings[0]?.quotation_short_code}
+                  />
+                  <small id="passwordHelpBlock" className="form-text text-info">
+                    [[short_code_name]], [[short_code_price]], [[short_code_quantity]], [[short_code_discount]] Keywords refer by Product Name, Product Price, Product Quantity, Product Discount respectively.
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="row no-gutters mb-2">
           <div className=" offset-md-3">
             <input type="submit" name="create" className="btn btn-sm btn-success" value="Submit" />
@@ -754,8 +862,8 @@ const AdmissionSMS = () => {
 export default AdmissionSMS;
 
 
-// 'use client' 
- //ismile
+// 'use client'
+//ismile
 // import React, { useState } from 'react';
 // import axios from 'axios';
 

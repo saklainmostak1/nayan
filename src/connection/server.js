@@ -12,7 +12,9 @@ app.use(bodyParser.json());
 const nodemailer = require('nodemailer');
 app.use(bodyParser.json({ limit: '10000mb' }));
 app.use(bodyParser.urlencoded({ limit: '10000mb', extended: true }));
-
+const fs = require("fs");
+const wkhtmltopdf = require("wkhtmltopdf");
+wkhtmltopdf.command = "C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe";
 
 
 const db = require('../connection/config/database');
@@ -31,6 +33,125 @@ const transporter = nodemailer.createTransport({
     rejectUnauthorized: false,
   },
 });
+
+
+app.post('/send-email/invoice', async (req, res) => {
+  try {
+    const { email, subject, msg, msg2, msg3, msg4 } = req.body;
+
+    // Define the PDF paths for each document
+    const pdfPath1 = `invoice_${Date.now()}.pdf`;
+    const pdfPath2 = `chalan_${Date.now()}.pdf`;
+    const pdfPath3 = `quotation_${Date.now()}.pdf`;
+    const pdfPath4 = `memo_${Date.now()}.pdf`;
+
+    // Generate the first PDF (invoice)
+    wkhtmltopdf(msg, { output: pdfPath1 }, async (err) => {
+      if (err) {
+        console.error("Error generating PDF:", err);
+        return res.status(500).json({ error: "Failed to generate PDF" });
+      }
+
+      console.log("Invoice PDF Generated:", pdfPath1);
+
+      // Generate the second PDF (chalan)
+      wkhtmltopdf(msg2, { output: pdfPath2 }, async (err) => {
+        if (err) {
+          console.error("Error generating PDF:", err);
+          return res.status(500).json({ error: "Failed to generate PDF" });
+        }
+
+        console.log("Chalan PDF Generated:", pdfPath2);
+
+        // Generate the third PDF (quotation)
+        wkhtmltopdf(msg3, { output: pdfPath3 }, async (err) => {
+          if (err) {
+            console.error("Error generating PDF:", err);
+            return res.status(500).json({ error: "Failed to generate PDF" });
+          }
+
+          console.log("Quotation PDF Generated:", pdfPath3);
+
+          // Generate the fourth PDF (memo)
+          wkhtmltopdf(msg4, { output: pdfPath4 }, async (err) => {
+            if (err) {
+              console.error("Error generating PDF:", err);
+              return res.status(500).json({ error: "Failed to generate PDF" });
+            }
+
+            console.log("Memo PDF Generated:", pdfPath4);
+
+            // Define the mail options with all four PDFs as attachments
+            const mailOptions = {
+              from: "saklain@urbanitsolution.com",
+              to: email,
+              subject: subject,
+              html: msg, // You can use any of the message content here depending on which one you want in the email body
+              attachments: [
+                { filename: "invoice.pdf", path: pdfPath1 },
+                { filename: "chalan.pdf", path: pdfPath2 },
+                { filename: "quotation.pdf", path: pdfPath3 },
+                { filename: "memo.pdf", path: pdfPath4 },
+              ],
+            };
+
+            // Send the email
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                console.error("Error sending email:", error.message);
+                return res.status(500).json({ error: "Failed to send email" });
+              }
+              console.log("Email sent:", info.response);
+
+              // Delete the generated PDFs after sending the email
+              fs.unlinkSync(pdfPath1);
+              fs.unlinkSync(pdfPath2);
+              fs.unlinkSync(pdfPath3);
+              fs.unlinkSync(pdfPath4);
+
+              res.status(200).json({ success: true, message: "Email sent successfully!" });
+            });
+          });
+        });
+      });
+    });
+  } catch (error) {
+    console.error("Internal Server Error:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+
+
+// app.post('/send-email/invoice', async (req, res) => {
+//   // try {
+//   //   const { email, subject, msg } = req.body;
+
+//   //   const mailOptions = {
+//   //     from: 'saklain@urbanitsolution.com',
+//   //     to: email,
+//   //     subject: subject,
+//   //     html: msg, // Use `html` instead of `text` to support HTML formatting
+//   //   };
+
+//   //   transporter.sendMail(mailOptions, (error, info) => {
+//   //     if (error) {
+//   //       console.error('Error sending email:', error.message);
+//   //       return res.status(500).json({ error: 'Failed to send email' });
+//   //     }
+//   //     console.log('Email sent:', info.response);
+//   //     res.status(200).json({ success: true, message: "Email sent successfully!" });
+//   //   });
+
+//   // } catch (error) {
+//   //   console.error('Internal Server Error:', error.message);
+//   //   res.status(500).json({ error: 'Internal Server Error' });
+//   // }
+
+// });
+
+
 
 app.post('/send-otp/email', async (req, res) => {
   try {
@@ -1255,6 +1376,8 @@ app.post("/Admin/quotation/quotation_list_pdf", QuotationModel.quotation_list_pd
 app.post("/Admin/quotation/quotation_list_print", QuotationModel.quotation_list_print
 );
 app.post("/Admin/quotation/quotation_list_print_all", QuotationModel.quotation_list_print_all
+);
+app.get("/Admin/quotation/quotation_current_date_count", QuotationModel.quotation_current_date_count
 );
 
 

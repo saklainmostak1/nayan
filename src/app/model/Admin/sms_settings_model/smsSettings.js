@@ -66,13 +66,17 @@ const smsSettings = {
     updateSmsSettings: async (req, res) => {
         try {
             const {
-                auto_oe_join, is_oe_join, auto_e_attendance, is_e_attendance, auto_te_absence, is_te_absence, auto_e_salary, is_e_salary, oe_join, e_attendance, te_absence, e_salary, selectedMonths, te_absent_shift_enables
+                quotation_short_code, quotation_invoice_sms, auto_quotation_sms, is_quotation_sms,  auto_oe_join, is_oe_join, auto_e_attendance, is_e_attendance, auto_te_absence, is_te_absence, auto_e_salary, is_e_salary, oe_join, e_attendance, te_absence, e_salary, selectedMonths, te_absent_shift_enables
             } = req.body;
             const id = 1
             console.log(selectedMonths)
             const query = `
                 UPDATE sms_settings
                 SET 
+                    quotation_short_code = ?,
+                    quotation_invoice_sms = ?,
+                    auto_quotation_sms = ?,
+                    is_quotation_sms = ?,
                     auto_oe_join = ?,
                     is_oe_join = ?,
                     auto_e_attendance = ?,
@@ -93,7 +97,7 @@ const smsSettings = {
             connection.query(
                 query,
                 [
-                    auto_oe_join, is_oe_join, auto_e_attendance, is_e_attendance, auto_te_absence, is_te_absence, auto_e_salary, is_e_salary, oe_join, e_attendance, te_absence, e_salary, selectedMonths, te_absent_shift_enables, id,
+                    quotation_short_code, quotation_invoice_sms, auto_quotation_sms, is_quotation_sms,  auto_oe_join, is_oe_join, auto_e_attendance, is_e_attendance, auto_te_absence, is_te_absence, auto_e_salary, is_e_salary, oe_join, e_attendance, te_absence, e_salary, selectedMonths, te_absent_shift_enables, id,
                 ],
                 (error, result) => {
                     if (!error && result.affectedRows > 0) {

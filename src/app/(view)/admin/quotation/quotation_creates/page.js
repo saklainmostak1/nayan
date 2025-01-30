@@ -281,12 +281,12 @@ const QuotationCreate = () => {
 
                             // Check if the product is out of stock
                             const quantityDifference = parseFloat(matchingProduct?.quantity) - parseFloat(totalQuantity);
-
+                            console.log(quantityDifference)
                             // Check if the product is not already in the previous results
                             const isAlreadyInResults = prevResults?.some(prevResult => prevResult.barcode === newResult.barcode);
                             // const isAlreadyInResults = prevResults?.some(prevResult => prevResult.barcode === newResult.barcode);
 
-                            if (quantityDifference == 0) {
+                            if (quantityDifference == 0 || quantityDifference < 1) {
                                 // Set stock out message, but do not include the product in the results
                                 setStockOut('Out of stock');
                                 return
@@ -402,7 +402,7 @@ const QuotationCreate = () => {
 
     const [date, setDate] = useState('');
 
-    const [fromDate, setFromDate] = useState(new Date());
+    const [fromDate, setFromDate] = useState();
 
     const formatDate = (date) => {
         const day = String(date.getDate()).padStart(2, '0');
@@ -413,6 +413,7 @@ const QuotationCreate = () => {
     const handleTextInputClick = () => {
         document.getElementById('dateInputFrom').showPicker();
     };
+    
     const handleDateChangeFrom = (event) => {
         const selectedDate = event.target.value ? new Date(event.target.value) : new Date(); // default to current date if no value is provided
         setFromDate(selectedDate);
@@ -522,12 +523,23 @@ const QuotationCreate = () => {
         }
     })
 
-    
+
     const { data: allUser = [],
     } = useQuery({
         queryKey: ['allUser'],
         queryFn: async () => {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/user/allUser`)
+
+            const data = await res.json()
+            return data
+        }
+    })
+
+    const { data: quotation_current_date_count = [],
+    } = useQuery({
+        queryKey: ['quotation_current_date_count'],
+        queryFn: async () => {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/quotation/quotation_current_date_count`)
 
             const data = await res.json()
             return data
@@ -547,9 +559,9 @@ const QuotationCreate = () => {
     };
     console.log(selectedOptionUsers)
 
-const userInfo = allUser.find(user => user.id == selectedOptionUsers)
+    const userInfo = allUser.find(user => user.id == selectedOptionUsers)
 
-console.log(userInfo)
+    console.log(userInfo)
 
     const handlePrint = () => {
         // Open a new window for printing
@@ -637,10 +649,10 @@ console.log(userInfo)
                  <p style="margin: 0; padding: 0;">Received By: ${userInfo ? userInfo.full_name : assetInfo.full_name}</p>
                <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
         <div style="text-align: right; font-size:7.5px;">
-            <h1>Total Amount: ${totalAmount.toFixed(2)}</h1>
-            <h1>Due Amount: ${assetInfo.due ? assetInfo.due : 0}</h1>
+            <h1>Sub Total: ${totalAmount.toFixed(2)}</h1>
+            <h1>Payable Amount: ${totalAmount.toFixed(2)}</h1>
             <h1>Discount Amount: ${assetInfo.discount ? assetInfo.discount : 0}</h1>
-            <h1><strong>Paid Amount: ${assetInfo.paid_amount}</strong></h1>
+            <h1><strong>Total Amount: ${assetInfo.paid_amount}</strong></h1>
         </div>
     </div>
             </body>
@@ -652,7 +664,668 @@ console.log(userInfo)
         printWindow.document.close();
         printWindow.print();
     };
+    const numberToWords = (num) => {
+        const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+        const teens = ["", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+        const tens = ["", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+        const levels = ["", "Thousand", "Lakh", "Crore"]; // Indian numbering system
 
+        if (num === 0) return "Zero";
+
+        const convertHundreds = (n) => {
+            let str = "";
+            if (n >= 100) {
+                str += ones[Math.floor(n / 100)] + " Hundred ";
+                n %= 100;
+            }
+            if (n >= 11 && n <= 19) {
+                str += teens[n - 10] + " ";
+            } else {
+                if (n >= 10) {
+                    str += tens[Math.floor(n / 10)] + " ";
+                    n %= 10;
+                }
+                if (n > 0) {
+                    str += ones[n] + " ";
+                }
+            }
+            return str.trim();
+        };
+
+        let words = "";
+        let parts = [];
+
+        if (num >= 10000000) { // Crore
+            parts.push([Math.floor(num / 10000000), "Crore"]);
+            num %= 10000000;
+        }
+        if (num >= 100000) { // Lakh
+            parts.push([Math.floor(num / 100000), "Lakh"]);
+            num %= 100000;
+        }
+        if (num >= 1000) { // Thousand
+            parts.push([Math.floor(num / 1000), "Thousand"]);
+            num %= 1000;
+        }
+        if (num > 0) { // Remaining Hundreds
+            parts.push([num, ""]);
+        }
+
+        parts.forEach(([value, label]) => {
+            if (value > 0) {
+                words += convertHundreds(value) + " " + label + " ";
+            }
+        });
+
+        return words.trim();
+    };
+
+    const generateInvoiceHTML = () => {
+
+
+        const numberToWord = (num) => {
+            const ones = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+            const tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+            const teens = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+
+            if (num < 10) return ones[num];
+            if (num >= 10 && num < 20) return teens[num - 10];
+            if (num >= 20) {
+                const tenPart = Math.floor(num / 10);
+                const onePart = num % 10;
+                return `${tens[tenPart]}${onePart ? `-${ones[onePart]}` : ""}`;
+            }
+        };
+
+
+        const userInfo = allUser.find(user => user.id == selectedOptionUsers);
+        const formatDate = (dateString) => {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', options); // Formats to: 14 January, 2025
+        };
+        const formatDates = () => {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Pad single digit month with zero
+            const day = String(date.getDate()).padStart(2, '0'); // Pad single digit day with zero
+
+            return `${year}${month}${day}`; // Returns in format: 20250130
+        };
+
+
+        let totalAmount = 0;
+        let tableRows = '';
+
+        searchResults.forEach((item, index) => {
+            const quantity = parseFloat(item.new_quantity) || 0;
+            const discount = parseFloat(item.new_discount) || 0;
+            const salePrices = parseFloat(item.sale_price) || 0;
+            const productName = products.find(product => product.id == item.product_id)?.product_name || "Unknown";
+
+            const salePrice = salePrices * quantity;
+            const totalPrice = salePrice - discount;
+            totalAmount += totalPrice;
+
+            tableRows += `
+                <tr>
+                    <td>${index + 1}</td>  <!-- SL (Serial Number) -->
+                    <td>${productName}</td>
+                    <td>${quantity} (${numberToWord(quantity)})</td>
+                    <td>${salePrice.toFixed(2)}/-</td>
+                    <td>${discount.toFixed(2)}/-</td>
+                    <td>${totalPrice.toFixed(2)}/-</td>
+                </tr>
+            `;
+        });
+
+        const totalAmountInWords = numberToWords(Math.floor(totalAmount - assetInfo.discount));
+
+        let htmlContent = `
+        <html>
+           <head>
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+        }
+        .invoice-header p {
+            margin: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 20px;
+        }
+    </style>
+    </head>
+            <body>
+    <div class="invoice-header">
+     <div>
+        <img src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="Invoice Logo" width="100" height="100"> 
+    </div>
+    <div>
+        <p><strong>Date:</strong>${formatDate(assetInfo.quotation_date)}</p>
+    </div>
+    <div >
+        <p style="float:right; margin-top:-20px;"><strong>Invoice No.:</strong> UIS/${formatDates() + quotation_current_date_count.count_today}</p>
+    </div>
+</div>
+<p><strong>To:</strong></p>
+<p>${userInfo ? userInfo.full_name : assetInfo.full_name}<br>
+Bhagyakul, Sreenagar, Munshiganj.<br>
+Room-114, 1st Floor Pani Bhaban, 72 Green Road, Dhaka</p>
+<br>
+<br>
+
+<p><strong>Description:</strong></p>
+
+    <table>
+        <tr>
+            <th>SL</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Discount</th>
+            <th>Total Price (TK)</th>
+        </tr>
+        ${tableRows}
+        <tr>
+            <td colspan="5" class="total">Sub Total</td>
+            <td class="total">${totalAmount.toFixed(2)}/-</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="total">Total Discount</td>
+            <td class="total">${assetInfo.discount}/-</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="total">Total amount</td>
+            <td class="total">${totalAmount - assetInfo.discount}/-</td>
+        </tr>
+    </table>
+    
+    <p><strong>(Taka ${totalAmountInWords} only) Including VAT & Tax</strong></p>
+    
+    <div class="footer">
+    
+        <p><strong>Best Regards,</strong></p>
+         <p>----------------</p>
+        <p>Md. Ismail Hossain<br>
+        CEO<br>
+        Cell: 0193021393</p>
+    </div>
+    </body>
+        </html>`;
+
+        return htmlContent;
+    };
+    const generateInvoiceChalan = () => {
+
+
+        const numberToWord = (num) => {
+            const ones = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+            const tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+            const teens = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+
+            if (num < 10) return ones[num];
+            if (num >= 10 && num < 20) return teens[num - 10];
+            if (num >= 20) {
+                const tenPart = Math.floor(num / 10);
+                const onePart = num % 10;
+                return `${tens[tenPart]}${onePart ? `-${ones[onePart]}` : ""}`;
+            }
+        };
+
+
+        const userInfo = allUser.find(user => user.id == selectedOptionUsers);
+        const formatDate = (dateString) => {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', options); // Formats to: 14 January, 2025
+        };
+        const formatDates = () => {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Pad single digit month with zero
+            const day = String(date.getDate()).padStart(2, '0'); // Pad single digit day with zero
+
+            return `${year}${month}${day}`; // Returns in format: 20250130
+        };
+
+
+        let totalAmount = 0;
+        let tableRows = '';
+
+        searchResults.forEach((item, index) => {
+            const quantity = parseFloat(item.new_quantity) || 0;
+            const discount = parseFloat(item.new_discount) || 0;
+            const salePrices = parseFloat(item.sale_price) || 0;
+            const productName = products.find(product => product.id == item.product_id)?.product_name || "Unknown";
+
+            const salePrice = salePrices * quantity;
+            const totalPrice = salePrice - discount;
+            totalAmount += totalPrice;
+
+            tableRows += `
+                <tr>
+                    <td>${index + 1}</td>  <!-- SL (Serial Number) -->
+                    <td>${productName}</td>
+                    <td>${quantity} (${numberToWord(quantity)})</td>
+                   
+                </tr>
+            `;
+        });
+
+        const totalAmountInWords = numberToWords(Math.floor(totalAmount - assetInfo.discount));
+
+        let htmlContent = `
+        <html>
+           <head>
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+        }
+        .invoice-header p {
+            margin: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 20px;
+        }
+    </style>
+    </head>
+            <body>
+    <div class="invoice-header">
+     <div>
+        <img src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="Invoice Logo" width="100" height="100"> 
+    </div>
+    <div>
+        <p><strong>Date:</strong>${formatDate(assetInfo.quotation_date)}</p>
+    </div>
+    <div >
+        <p style="float:right; margin-top:-20px;"><strong>Chalan No.:</strong> UIS/${formatDates() + quotation_current_date_count.count_today}</p>
+    </div>
+</div>
+<p><strong>To:</strong></p>
+<p>${userInfo ? userInfo.full_name : assetInfo.full_name}<br>
+Bhagyakul, Sreenagar, Munshiganj.<br>
+Room-114, 1st Floor Pani Bhaban, 72 Green Road, Dhaka</p>
+<br>
+<br>
+
+<p><strong>Description:</strong></p>
+
+    <table>
+        <tr>
+            <th>SL</th>
+            <th>Description</th>
+            <th>Quantity</th>
+           
+        </tr>
+        ${tableRows}
+       
+        
+      
+    </table>
+    
+    
+    
+    <div class="footer">
+    
+        <p><strong>Best Regards,</strong></p>
+         <p>----------------</p>
+        <p>Md. Ismail Hossain<br>
+        CEO<br>
+        Cell: 0193021393</p>
+    </div>
+    </body>
+        </html>`;
+
+        return htmlContent;
+    };
+
+    const generateQuotationHTML = () => {
+
+
+        const numberToWord = (num) => {
+            const ones = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+            const tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+            const teens = ["ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+
+            if (num < 10) return ones[num];
+            if (num >= 10 && num < 20) return teens[num - 10];
+            if (num >= 20) {
+                const tenPart = Math.floor(num / 10);
+                const onePart = num % 10;
+                return `${tens[tenPart]}${onePart ? `-${ones[onePart]}` : ""}`;
+            }
+        };
+
+
+        const userInfo = allUser.find(user => user.id == selectedOptionUsers);
+        const formatDate = (dateString) => {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', options); // Formats to: 14 January, 2025
+        };
+        const formatDates = () => {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Pad single digit month with zero
+            const day = String(date.getDate()).padStart(2, '0'); // Pad single digit day with zero
+
+            return `${year}${month}${day}`; // Returns in format: 20250130
+        };
+
+
+        let totalAmount = 0;
+        let tableRows = '';
+
+        searchResults.forEach((item, index) => {
+            const quantity = parseFloat(item.new_quantity) || 0;
+            const discount = parseFloat(item.new_discount) || 0;
+            const salePrices = parseFloat(item.sale_price) || 0;
+            const productName = products.find(product => product.id == item.product_id)?.product_name || "Unknown";
+
+            const salePrice = salePrices * quantity;
+            const totalPrice = salePrice - discount;
+            totalAmount += totalPrice;
+
+            tableRows += `
+                <tr>
+                    <td>${index + 1}</td>  <!-- SL (Serial Number) -->
+                    <td>${productName}</td>
+                    <td>${quantity} (${numberToWord(quantity)})</td>
+                    <td>${salePrice.toFixed(2)}/-</td>
+                    <td>${discount.toFixed(2)}/-</td>
+                    <td>${totalPrice.toFixed(2)}/-</td>
+                </tr>
+            `;
+        });
+
+        const totalAmountInWords = numberToWords(Math.floor(totalAmount - assetInfo.discount));
+
+        let htmlContent = `
+        <html>
+           <head>
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+        }
+        .invoice-header p {
+            margin: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 20px;
+        }
+    </style>
+    </head>
+            <body>
+    <div class="invoice-header">
+     <div>
+        <img src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="Invoice Logo" width="100" height="100"> 
+    </div>
+    <div>
+        <p><strong>Date:</strong>${formatDate(assetInfo.quotation_date)}</p>
+    </div>
+    <div >
+        <p style="float:right; margin-top:-20px;"><strong>Quotation No.:</strong> UIS/${formatDates() + quotation_current_date_count.count_today}</p>
+    </div>
+</div>
+<p><strong>To:</strong></p>
+<p>${userInfo ? userInfo.full_name : assetInfo.full_name}<br>
+Bhagyakul, Sreenagar, Munshiganj.<br>
+Room-114, 1st Floor Pani Bhaban, 72 Green Road, Dhaka</p>
+<br>
+<br>
+
+<p><strong>Description:</strong></p>
+
+    <table>
+        <tr>
+            <th>SL</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Discount</th>
+            <th>Total Price (TK)</th>
+        </tr>
+        ${tableRows}
+        <tr>
+            <td colspan="5" class="total">Sub Total</td>
+            <td class="total">${totalAmount.toFixed(2)}/-</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="total">Total Discount</td>
+            <td class="total">${assetInfo.discount}/-</td>
+        </tr>
+        <tr>
+            <td colspan="5" class="total">Total amount</td>
+            <td class="total">${totalAmount - assetInfo.discount}/-</td>
+        </tr>
+    </table>
+    
+    <p><strong>(Taka ${totalAmountInWords} only) Including VAT & Tax</strong></p>
+    
+    <div class="footer">
+    
+        <p><strong>Best Regards,</strong></p>
+         <p>----------------</p>
+        <p>Md. Ismail Hossain<br>
+        CEO<br>
+        Cell: 0193021393</p>
+    </div>
+    </body>
+        </html>`;
+
+        return htmlContent;
+    };
+
+    const generateMemoHTML = () => {
+
+
+
+
+        const userInfo = allUser.find(user => user.id == selectedOptionUsers);
+        const formatDate = (dateString) => {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', options); // Formats to: 14 January, 2025
+        };
+        const formatDates = () => {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Pad single digit month with zero
+            const day = String(date.getDate()).padStart(2, '0'); // Pad single digit day with zero
+
+            return `${year}${month}${day}`; // Returns in format: 20250130
+        };
+
+        let totalAmount = 0;
+
+
+        searchResults.forEach((item, index) => {
+            const quantity = parseFloat(item.new_quantity) || 0;
+            const discount = parseFloat(item.new_discount) || 0;
+            const salePrices = parseFloat(item.sale_price) || 0;
+        
+
+            const salePrice = salePrices * quantity;
+            const totalPrice = salePrice - discount;
+            totalAmount += totalPrice;
+
+          
+        });
+
+        const totalAmountInWords = numberToWords(Math.floor(totalAmount - assetInfo.discount));
+
+        let htmlContent = `
+        <html>
+           <head>
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+        }
+        .invoice-header p {
+            margin: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 20px;
+        }
+    </style>
+    </head>
+            <body>
+    <div class="invoice-header">
+     <div>
+        <img src="http://192.168.0.114:3000/_next/static/media/pathshala.ed8fa91a.jpg" alt="Invoice Logo" width="100" height="100"> 
+    </div>
+    <div>
+        <p><strong>Date:</strong>${formatDate(assetInfo.quotation_date)}</p>
+    </div>
+    <div >
+        <p style="float:right; margin-top:-20px;"><strong>Invoice No.:</strong> UIS/${formatDates() + quotation_current_date_count.count_today}</p>
+    </div>
+</div>
+<p><strong>To:</strong></p>
+<p>${userInfo ? userInfo.full_name : assetInfo.full_name}<br>
+Bhagyakul, Sreenagar, Munshiganj.<br>
+Room-114, 1st Floor Pani Bhaban, 72 Green Road, Dhaka</p>
+<br>
+<p>Subject:<strong> Money received of Invoice-3 against the input of Md Ismail Hossain for Development of
+Mobile Application of a Participatory Project Management Information System (PPMIS). </strong></p>
+
+  <br>
+    
+    <p>Received with thanks of Invoice-3 against the input of Md Ismail Hossain payment for Development of
+Mobile Application a Participatory Project Management Information System (PPMIS), <strong> Amount is ${totalAmount - assetInfo.discount} (BDT-${totalAmountInWords} only) taka</strong></p>
+    
+    <div class="footer">
+    
+        <p><strong>Best Regards,</strong></p>
+         <p>----------------</p>
+        <p>Md. Ismail Hossain<br>
+        CEO<br>
+        Cell: 0193021393</p>
+    </div>
+    </body>
+        </html>`;
+
+        return htmlContent;
+    };
+    
+    const sendEmail = () => {
+        const emailBody = generateInvoiceHTML();
+        const emailBody2 = generateInvoiceChalan();
+        const emailBody3 = generateQuotationHTML();
+        const emailBody4 = generateMemoHTML();
+
+        const emailData = {
+            email: userInfo ? userInfo.email : assetInfo.email,
+            subject: "Quotation Invoice",
+            msg: emailBody,
+            msg2: emailBody2,
+            msg3: emailBody3,
+            msg4: emailBody4,
+        };
+
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/send-email/invoice`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(emailData),
+        })
+            .then((res) => res.json())
+            .then((data) => console.log("Email Sent:", data))
+            .catch((error) => console.error("Error Sending Email:", error));
+    };
+
+    const [sendEmailChecked, setSendEmailChecked] = useState(false);
+    const [userError, setUserError] = useState('');
 
     const purchase_create = (event) => {
         event.preventDefault();
@@ -662,23 +1335,32 @@ console.log(userInfo)
             searchResults, assetInfo, selectedOptionUsers, created
         }
 
-        // if (!assetInfo.quotation_date) {
-        //     setDate('This is required')
-        //     return
-        // }
-        // if (!assetInfo.full_name) {
-        //     setFull_name('This is required')
-        //     return
-        // }
-        // if (!assetInfo.mobile) {
-        //     setMobile('This is required')
-        //     return
-        // }
+        if (!assetInfo.quotation_date) {
+            setDate('This is required')
+            return
+        }
+        if (selectedOption == 'new') {
+
+            if (!assetInfo.full_name) {
+                setFull_name('This is required')
+                return
+            }
+            if (!assetInfo.mobile) {
+                setMobile('This is required')
+                return
+            }
+        }
+        if (selectedOption == 'users') {
+            if (!selectedOptionUsers || selectedOptionUsers === '') {
+                setUserError('Must be Selected')
+                return
+            }
+        }
         if (searchResults.length === 0) {
             setSearchResultError('No data to submit')
             return
         }
-        
+
         console.log(assetInfo)
         console.log(allData)
 
@@ -696,8 +1378,12 @@ console.log(userInfo)
                 Response.json()
                 if (Response) {
                     sessionStorage.setItem("message", "Data saved successfully!");
-                    router.push('/Admin/quotation/quotation_all')
-                    handlePrint()
+                    // router.push('/Admin/quotation/quotation_all')
+                    // handlePrint()
+                    if (sendEmailChecked === true) {
+
+                        sendEmail()
+                    }
                 }
             })
             .then((data) => {
@@ -705,8 +1391,11 @@ console.log(userInfo)
 
                 if (data) {
                     sessionStorage.setItem("message", "Data saved successfully!");
-                    router.push('/Admin/quotation/quotation_all')
-                    handlePrint()
+                    // router.push('/Admin/quotation/quotation_all')
+                    // handlePrint()
+                    if (sendEmailChecked === true) {
+                        sendEmail()
+                    }
                 }
             })
             .catch((error) => console.error(error));
@@ -859,6 +1548,173 @@ console.log(userInfo)
     };
 
 
+    // sms 
+
+    const {
+        data: apiData = [],
+
+    } = useQuery({
+        queryKey: ["apiData"],
+        queryFn: async () => {
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/sms_api/sms_api_all`
+            );
+
+            const data = await res.json();
+            return data;
+        },
+    });
+
+
+    const [apiUrl, setApiUrl] = useState('');
+    const [apiResponse, setApiResponse] = useState(null);
+
+
+    useEffect(() => {
+        // Filter apiData for entries with status_url === '1'
+        const filteredApiData = apiData.filter(item => item.status_url === '1');
+
+        // Check if there are any valid entries after filtering
+        if (filteredApiData.length === 0 || !filteredApiData[0].sms_api_params || filteredApiData[0].sms_api_params.length === 0) {
+            return; // Exit if no valid data is available
+        }
+
+        // Use the first valid entry for further processing
+        const apiEntry = filteredApiData[0];
+
+        // Sort the sms_api_params based on the options field
+        const sortedParams = apiEntry.sms_api_params.sort((a, b) => a.options - b.options);
+
+        // Construct the query string from the sorted parameters
+        const queryParams = sortedParams.map(param => {
+            const key = param.options === 1 ? 'mobile' : (param.sms_key === 'number' ? 'mobile' : param.sms_key);
+            return `${key}=${encodeURIComponent(param.sms_value)}`;
+        }).join('&');
+
+        // Final URL for API call
+        const constructedUrl = `${apiEntry.main_url}${queryParams}`; // Add '?' before query params
+        setApiUrl(constructedUrl); // Store the constructed URL in the state
+
+        // Define a flag or condition to prevent automatic API call
+        const shouldFetch = false; // Change this based on your logic
+
+        if (shouldFetch) {
+            // Fetching the API data
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(constructedUrl);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`); // Check if response is ok
+                    }
+                    const result = await response.json();
+                    setApiResponse(result); // Set the API response in state
+                } catch (error) {
+                    console.error('Error fetching the API:', error);
+                }
+            };
+
+            // Trigger API call if the condition is met
+            fetchData();
+        }
+    }, [apiData]); // apiData as dependency
+
+    console.log(apiUrl);
+
+
+
+    const [formattedUrl, setFormattedUrl] = useState([])
+    const [baseUrl, paramString] = apiUrl.split('?');
+
+    // Check if paramString is defined before attempting to split
+    const firstParam = paramString ? paramString.split('&')[0] : null;
+    useEffect(() => {
+
+        if (firstParam) {
+            // Construct the formatted URL using the base URL and the first parameter
+            const formattedUrl = `${baseUrl}?${firstParam}`;
+            setFormattedUrl(formattedUrl);
+        } else {
+            console.log("No parameters found.");
+        }
+    }, [firstParam, baseUrl])
+
+    console.log(formattedUrl)
+
+    const { data: smsSettings = [], } = useQuery({
+        queryKey: ['smsSettings'],
+        queryFn: async () => {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/smsSettings`);
+            const data = await res.json();
+            return data;
+        }
+    });
+
+    console.log(smsSettings.find(sms => sms.sms_system === 1))
+    const attendanceSms = smsSettings.find(sms => sms.sms_system === 1)
+
+    const employeeAttendanceSmsTemplate = attendanceSms?.quotation_invoice_sms
+    const employeeAttendanceSmsTemplateShortCode = attendanceSms?.quotation_short_code
+    const employeeSalarySmsTemplate = attendanceSms?.auto_quotation_sms
+
+
+    const [sendSmsChecked, setSendSmsChecked] = useState(false);
+
+    console.log(sendSmsChecked)
+    const sendOtpToAllEmployees = (event) => {
+        event.preventDefault();
+        if (!sendSmsChecked) {
+            console.log('SMS sending is disabled');
+            return;
+        }
+
+        if (employeeSalarySmsTemplate !== 1) {
+            console.log('Auto is not active');
+            return;
+        }
+        const currentDate = new Date();
+
+        const smsTime = currentDate.toLocaleTimeString();
+
+        let sms = []
+        searchResults.forEach((employee) => {
+
+            // Replace placeholders with actual data
+            let msgs = employeeAttendanceSmsTemplateShortCode
+                .replace('[[short_code_name]]', employee.product_name)
+                .replace('[[short_code_price]]', employee.new_sale_price)
+                .replace('[[short_code_discount]]', employee.new_discount)
+                .replace('[[short_code_quantity]]', employee.new_quantity)
+
+
+            sms.push(msgs);
+        }
+        );
+
+        // Replace placeholders with actual data
+        let msg = employeeAttendanceSmsTemplate
+            .replace('[[full_name]]', userInfo ? userInfo.full_name : assetInfo.full_name)
+            .replace('[[all_short_code]]', sms)
+            .replace('[[total_amount]]', assetInfo.paid_amount)
+            .replace('[[invoice_id]]', assetInfo.invoice_id)
+            .replace('[[discount]]', assetInfo.discount)
+            .replace('[[sms_time]]', smsTime);
+
+        axios.post(`${process.env.NEXT_PUBLIC_API_URL}:5002/Admin/attendance/attendance_otp`, {
+            // quick_api: quickApi,
+            formattedUrl,
+            mobile: userInfo ? userInfo.mobile : assetInfo.mobile,
+            msg: msg,
+        })
+            .then(response => {
+                console.log(`OTP sent to Nayan :`, response.data);
+            })
+            .catch(error => {
+                console.error(`Failed to send OTP to Nayan :`, error);
+            });
+
+
+
+    };
 
     return (
         <div class="container-fluid">
@@ -879,7 +1735,7 @@ console.log(userInfo)
                             <>
                                 <form className="form-horizontal" method="post" autoComplete="off"
 
-                                    onSubmit={purchase_create}
+                                    onSubmit={(e) => { purchase_create(e); sendOtpToAllEmployees(e); }}
 
                                 // onSubmit={purchase_create}
 
@@ -1137,6 +1993,9 @@ console.log(userInfo)
                                                                 )
                                                             }
                                                         </select>
+                                                        {
+                                                            userError && <p className='text-danger'>{userError}</p>
+                                                        }
                                                     </div>
 
                                                 </div>
@@ -1428,8 +2287,35 @@ console.log(userInfo)
                                                         </tbody>
                                                     </table>
                                                 </div>
-
-                                                <div className="form-group row">
+                                                <div className="text-right">
+                                                    <div className="form-check form-check-inline  mr-5" style={{ fontWeight: '650', fontSize: '12px' }}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={sendSmsChecked}
+                                                            onChange={(e) => setSendSmsChecked(e.target.checked)}
+                                                            name="check_box_otps"
+                                                            value="1"
+                                                            className="form-check-input"
+                                                        />
+                                                        <label style={{ marginTop: '7px', fontSize: '18px' }} className="px-2">
+                                                            Send Sms
+                                                        </label>
+                                                    </div>
+                                                    <div className="form-check form-check-inline  mr-5" style={{ fontWeight: '650', fontSize: '12px' }}>
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={sendEmailChecked}
+                                                            onChange={(e) => setSendEmailChecked(e.target.checked)}
+                                                            name="check_box_otp"
+                                                            value="1"
+                                                            className="form-check-input"
+                                                        />
+                                                        <label style={{ marginTop: '7px', fontSize: '18px' }} className="px-2">
+                                                            Send Email
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div className="form-group row mt-3">
                                                     <div className="offset-md-3 col-sm-6">
 
                                                     </div>
@@ -1454,3 +2340,85 @@ console.log(userInfo)
 };
 
 export default QuotationCreate;
+
+
+
+
+
+
+
+
+
+
+// const generateInvoiceHTML = () => {
+//     const userInfo = allUser.find(user => user.id == selectedOptionUsers)
+//     let htmlContent = `
+//     <html>
+//         <head>
+//             <title>Pathshala School & College Purchase Invoice</title>
+//             <style>
+//                 table { width: 100%; border-collapse: collapse; }
+//                 th, td { border: 1px solid black; padding: 8px; text-align: left; }
+//                 thead { background-color: gray; }
+//                 body { text-align: center; font-family: Arial, sans-serif; }
+//             </style>
+//         </head>
+//         <body>
+//             <h2>Pathshala School & College Purchase Invoice</h2>
+//             <p>GA-75/A, Middle Badda, Dhaka-1212</p>
+//             <p>Phone: 01977379479 | Email: pathshala@urbanitsolution.com</p>
+//             <h3>Purchase Invoice</h3>
+//             <div style="display: flex; justify-content: space-between;">
+//                 <p>Receipt No: 829</p>
+//                 <p>Collected By: পাঠশালা স্কুল এন্ড কলেজ</p>
+//                <p>Date: ${assetInfo?.quotation_date ? assetInfo.quotation_date : new Date().toISOString().split('T')[0]}</p>
+
+//             </div>
+//             <table>
+//                 <thead>
+//                     <tr>
+//                         <th>Product Name</th>
+//                         <th>Quantity</th>
+//                         <th>Discount</th>
+//                         <th>Total Amount</th>
+//                     </tr>
+//                 </thead>
+//                 <tbody>
+//     `;
+
+//     let totalAmount = 0;
+
+//     searchResults.forEach((item) => {
+//         const quantity = item.new_quantity;
+//         const discount = item.new_discount;
+//         const salePrice = item.new_sale_price;
+//         const productName = products.find(product => product.id == item.product_id)?.product_name || "Unknown";
+
+//         htmlContent += `
+//             <tr>
+//                 <td>${productName}</td>
+//                 <td>${quantity}</td>
+//                 <td>${discount}</td>
+//                 <td>${salePrice}</td>
+//             </tr>
+//         `;
+
+//         totalAmount += parseFloat(salePrice);
+//     });
+
+//     htmlContent += `
+//                 </tbody>
+//             </table>
+//             <p>Received By: ${userInfo ? userInfo.full_name : assetInfo.full_name}</p>
+//             <div style="text-align: right; margin-top: 20px;">
+//                 <h3>Sub Total: ${totalAmount.toFixed(2)}</h3>
+//                 <h3>Payable Amount: ${totalAmount.toFixed(2)}</h3>
+//                 <h3>Discount Amount: ${assetInfo.discount ? assetInfo.discount : 0}</h3>
+//                 <h3><strong>Total Amount: ${assetInfo.paid_amount}</strong></h3>
+//             </div>
+//         </body>
+//     </html>`;
+
+//     return htmlContent;
+// };
+

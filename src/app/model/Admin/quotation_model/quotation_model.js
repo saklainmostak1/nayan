@@ -7,7 +7,73 @@ wkhtmltopdf.command = "C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe";
 const QuotationModel = {
 
 
-
+    quotation_current_date_count: async (req, res) => {
+        // try {
+        //     const data = "SELECT COUNT(*) AS count FROM quotation WHERE DATE(created_date) = CURDATE()";
+    
+        //     connection.query(data, function (error, result) {
+        //         if (error) {
+        //             console.log(error);
+        //             res.status(500).send({ message: 'An error occurred' });
+        //         } else {
+        //             console.log(result);
+        //             res.send(result);
+        //         }
+        //     });
+        // } catch (error) {
+        //     console.log(error);
+        //     res.status(500).send({ message: 'An unexpected error occurred' });
+        // }
+        // try {
+        //     const data = `
+        //     SELECT 
+        //         (COUNT(CASE WHEN DATE(created_date) = CURDATE() THEN 1 END) + 1) AS count_today,
+        //         (COUNT(CASE WHEN DATE(created_date) = CURDATE() + INTERVAL 1 DAY THEN 1 END) + 1) AS count_tomorrow
+        //     FROM quotation
+        // `;
+    
+        //     connection.query(data, function (error, result) {
+        //         if (error) {
+        //             console.log(error);
+        //             res.status(500).send({ message: 'An error occurred' });
+        //         } else {
+        //             console.log(result);
+        //             res.send(result);
+        //         }
+        //     });
+        // } catch (error) {
+        //     console.log(error);
+        //     res.status(500).send({ message: 'An unexpected error occurred' });
+        // }
+        try {
+            const data = `
+                SELECT 
+                    (COUNT(CASE WHEN DATE(created_date) = CURDATE() THEN 1 END) + 1) AS count_today,
+                    (COUNT(CASE WHEN DATE(created_date) = CURDATE() + INTERVAL 1 DAY THEN 1 END) + 1) AS count_tomorrow
+                FROM quotation
+            `;
+    
+            connection.query(data, function (error, result) {
+                if (error) {
+                    console.log(error);
+                    res.status(500).send({ message: 'An error occurred' });
+                } else {
+                    // Format counts as two-digit numbers
+                    const formattedResult = {
+                        count_today: result[0].count_today.toString().padStart(2, '0'),
+                        count_tomorrow: result[0].count_tomorrow.toString().padStart(2, '0')
+                    };
+    
+                    console.log(formattedResult);
+                    res.send(formattedResult);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).send({ message: 'An unexpected error occurred' });
+        }
+    },
+    
     purchase_product_list: async (req, res) => {
         try {
             const data = "select * from  purchase_product";
