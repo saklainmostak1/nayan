@@ -714,6 +714,7 @@ const QuotationCreate = () => {
         parts.forEach(([value, label]) => {
             if (value > 0) {
                 words += convertHundreds(value) + " " + label + " ";
+                
             }
         });
 
@@ -1298,10 +1299,10 @@ Mobile Application a Participatory Project Management Information System (PPMIS)
     };
     
     const sendEmail = () => {
-        const emailBody = generateInvoiceHTML();
-        const emailBody2 = generateInvoiceChalan();
-        const emailBody3 = generateQuotationHTML();
-        const emailBody4 = generateMemoHTML();
+        const emailBody = 'generateInvoiceHTML()';
+        const emailBody2 = 'generateInvoiceChalan()';
+        const emailBody3 = 'generateQuotationHTML()';
+        const emailBody4 = 'generateMemoHTML()';
 
         const emailData = {
             email: userInfo ? userInfo.email : assetInfo.email,
