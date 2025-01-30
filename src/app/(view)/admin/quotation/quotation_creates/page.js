@@ -1299,10 +1299,10 @@ Mobile Application a Participatory Project Management Information System (PPMIS)
     };
     
     const sendEmail = () => {
-        const emailBody = 'generateInvoiceHTML()';
-        const emailBody2 = 'generateInvoiceChalan()';
-        const emailBody3 = 'generateQuotationHTML()';
-        const emailBody4 = 'generateMemoHTML()';
+        const emailBody = generateInvoiceHTML();
+        const emailBody2 = generateInvoiceChalan();
+        const emailBody3 = generateQuotationHTML();
+        const emailBody4 = generateMemoHTML();
 
         const emailData = {
             email: userInfo ? userInfo.email : assetInfo.email,
@@ -1312,8 +1312,9 @@ Mobile Application a Participatory Project Management Information System (PPMIS)
             msg3: emailBody3,
             msg4: emailBody4,
         };
+        // ${process.env.NEXT_PUBLIC_API_URL}:5002/send-email/invoice
 
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}:5002/send-email/invoice`, {
+        fetch(``, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
